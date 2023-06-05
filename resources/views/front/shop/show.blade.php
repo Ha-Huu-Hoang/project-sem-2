@@ -8,8 +8,8 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="product__details__breadcrumb">
-                            <a href="./index.html">Home</a>
-                            <a href="./shop.html">Shop</a>
+                            <a href="{{url("/")}}">Home</a>
+                            <a href="{{url("/shop")}}">Shop</a>
                             <span>Product Details</span>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                             @foreach($product->productImages as $key => $productImages)
                             <li class="nav-item">
                                 <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="tab" href="#tabs-{{$productImages->id}}" role="tab">
-                                    <div class="product__thumb__pic set-bg" data-setbg="front/img/product/{{$productImages->path}}">
+                                    <div class="product__thumb__pic set-bg" data-setbg="{{$productImages->path}}">
                                     </div>
                                 </a>
                             </li>
@@ -30,9 +30,9 @@
                     <div class="col-lg-6 col-md-9">
                         <div class="tab-content">
                             @foreach($product->productImages as $key => $productImages)
-                            <div class="tab-pane {{ $loop->first ? 'active' : '' }}" id="tabs-{{$productImages->id}}" role="tabpanel">
+                            <div class="tab-pane {{ $loop->first ? 'active' : '' }}" id="tabs-{{$productImages->id}}" role="tabpanel" style="width: 555px; height: 555px; overflow: hidden">
                                 <div class="product__details__pic__item">
-                                    <img src="front/img/product/{{$productImages->path}}" alt="">
+                                    <img src="{{$productImages->path}}" alt="" style="width: 555px; height: 555px; object-fit: cover;">
                                 </div>
                             </div>
                             @endforeach

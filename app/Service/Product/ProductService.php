@@ -12,6 +12,11 @@ class ProductService extends BaseService implements ProductServiceInterface
     {
        $this->repository = $productRepository;
     }
+    public function all()
+    {
+        return $this->repository->all();
+    }
+
 
     public function find($id)
     {
@@ -19,7 +24,7 @@ class ProductService extends BaseService implements ProductServiceInterface
 
         $sumRating = 0;
         $countRating = 0;
-        if ($product->productComments !== null) {
+        if ($product->productComments !=null) {
             foreach ($product->productComments as $comment) {
                 $sumRating += $comment->rating;
                 $countRating++;

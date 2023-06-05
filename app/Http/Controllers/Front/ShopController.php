@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Service\Product\ProductServiceInterface;
 use App\Service\ProductComment\ProductCommentServiceInterface;
 use Illuminate\Http\Request;
@@ -31,9 +32,15 @@ class ShopController extends Controller
     }
 
 
+
+
     public function index()
     {
-        return view('front.shop.index');
+        $product = $this->productService->all();
+
+        return view('front.shop.index', [
+            'product'=>$product
+        ]);
     }
 
 

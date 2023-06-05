@@ -9,4 +9,6 @@ class WebController extends Controller
     public function home() {
         return view("layouts.layout");
     }
+
+
 }
