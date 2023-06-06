@@ -37,7 +37,12 @@ Route::post('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::cla
 Route::get('shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
 
 //trang shop cart
-Route::get('cart',[\App\Http\Controllers\Front\CartController::class,'index']);
+Route::prefix('cart',)->group(function (){
+    Route::get('/',[\App\Http\Controllers\Front\CartController::class,'index']);
+    Route::get('add/{id}',[\App\Http\Controllers\Front\CartController::class,'add']);
+
+});
+
 
 //trang blog
 Route::get('blog',[\App\Http\Controllers\Front\BlogController::class,'index']);
