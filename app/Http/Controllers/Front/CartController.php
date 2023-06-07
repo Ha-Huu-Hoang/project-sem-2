@@ -23,6 +23,7 @@ class CartController extends Controller
 
         return view('front.shop.cart',compact('carts','total','subtotal'));
     }
+
     public function add($id){
 
             $product = $this->productService->find($id);
@@ -37,11 +38,12 @@ class CartController extends Controller
                 ],
             ]);
 
-
-
-
         return back();
     }
 
+    public function delete($id){
+        Cart::remove($id);
+        return back();
+    }
 
 }

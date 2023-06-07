@@ -36,7 +36,7 @@
                                     <input type="text" name="name" placeholder="Name">
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="email" name="name" placeholder="Email">
+                                    <input type="email" name="email" placeholder="Email">
                                 </div>
                                 <div class="col-lg-12">
                                     <textarea placeholder="Message" name="message"></textarea>

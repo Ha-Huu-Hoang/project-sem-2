@@ -40,12 +40,12 @@ Route::get('shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
 Route::prefix('cart',)->group(function (){
     Route::get('/',[\App\Http\Controllers\Front\CartController::class,'index']);
     Route::get('add/{id}',[\App\Http\Controllers\Front\CartController::class,'add']);
-
+    Route::get('delete/{id}',[\App\Http\Controllers\Front\CartController::class,'delete']);
 });
-
 
 //trang blog
 Route::get('blog',[\App\Http\Controllers\Front\BlogController::class,'index']);
 
 //trang contacts
 Route::get('contact',[\App\Http\Controllers\Front\ContactsController::class,'index']);
+

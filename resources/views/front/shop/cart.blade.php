@@ -2,6 +2,7 @@
 @section('title','Cart')
 @section('body')
 
+    @if(Cart::count()>0)
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
         <div class="container">
@@ -56,7 +57,7 @@
                                         </div>
                                     </td>
                                     <td class="cart__price">${{number_format($cart->price ,2)}}</td>
-                                    <td class="cart__close"><i class="fa fa-close"></i></td>
+                                    <td class="cart__close"><a href="cart/remove/{{$cart->rowId}}"><i class="fa fa-close"></i></a></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -97,5 +98,13 @@
     </section>
     <!-- Shopping Cart Section End -->
 
-    <!-- Footer Section Begin -->
+    @else
+        <section class="shoping-cart spad">
+            <div class="container">
+                <div class="row">
+                    <p>There are no products in the cart</p>
+                </div>
+            </div>
+        </section>
+    @endif
 @endsection
