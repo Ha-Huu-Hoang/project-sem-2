@@ -42,7 +42,10 @@
                                 <tr >
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
-                                            <img src="front/img/shopping-cart/cart-1.jpg" alt=""style="width: 90px;height: 90px; object-fit: cover">
+                                            @if(isset($cart->options['images']) && count($cart->options['images']) > 0)
+                                                <img src="{{$cart->options['images'][0]->path}}" alt="" style="width: 90px;height: 90px; object-fit: cover">
+                                            @endif
+
                                         </div>
                                         <div class="product__cart__item__text">
                                             <h6>{{$cart->name}}</h6>
