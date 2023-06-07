@@ -60,7 +60,7 @@
                                         </div>
                                     </td>
                                     <td class="cart__price">${{number_format($cart->price ,2)}}</td>
-                                    <td class="cart__close"><a href="cart/remove/{{$cart->rowId}}"><i class="fa fa-close"></i></a></td>
+                                    <td class="cart__close"><a href="cart/delete/{{$cart->rowId}}"><i class="fa fa-close"></i></a></td>
                                 </tr>
                             @endforeach
                             </tbody>
