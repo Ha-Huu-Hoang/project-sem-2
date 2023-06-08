@@ -18,10 +18,12 @@ class CartController extends Controller
 
     public function index(){
         $carts = Cart::content();
-        $total = Cart::total();
         $subtotal = Cart::subtotal();
+        $vatRate = 0.1;
+        $vatAmount = $subtotal * $vatRate;
+        $total = $subtotal + $vatAmount;
 
-        return view('front.shop.cart',compact('carts','total','subtotal'));
+        return view('front.shop.cart', compact('carts', 'total', 'subtotal', 'vatAmount'));
     }
 
     public function add($id){

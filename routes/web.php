@@ -37,11 +37,15 @@ Route::post('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::cla
 Route::get('shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
 
 //trang shop cart
-Route::prefix('cart',)->group(function (){
+Route::prefix('/cart')->group(function (){
     Route::get('/',[\App\Http\Controllers\Front\CartController::class,'index']);
-    Route::get('add/{id}',[\App\Http\Controllers\Front\CartController::class,'add']);
-    Route::get('delete/{id}',[\App\Http\Controllers\Front\CartController::class,'delete']);
-    Route::get('checkout',[\App\Http\Controllers\Front\CartController::class,'checkout']);
+    Route::get('/add/{id}',[\App\Http\Controllers\Front\CartController::class,'add']);
+    Route::get('/delete/{id}',[\App\Http\Controllers\Front\CartController::class,'delete']);
+});
+
+//trang checkout
+Route::prefix('/checkout')->group(function (){
+    Route::get('/',[\App\Http\Controllers\Front\CheckoutController::class,'index']);
 });
 
 //trang blog

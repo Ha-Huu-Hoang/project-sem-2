@@ -120,7 +120,7 @@
                     <a href="#" class="search-switch"><img src="front/img/icon/search.png" alt=""></a>
                     <a href="#"><img src="front/img/icon/heart.png" alt=""></a>
                     <a href="{{url("/cart")}}" style="" class="count"><img src="front/img/icon/cart.png" alt=""> <span>{{Cart::count()}}</span></a>
-                    <div class="price">${{Cart::total()}}</div>
+                    <div class="price">${{Cart::subtotal()}}</div>
                 </div>
             </div>
         </div>
