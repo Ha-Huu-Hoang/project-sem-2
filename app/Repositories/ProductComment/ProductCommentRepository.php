@@ -11,6 +11,6 @@ class ProductCommentRepository extends BaseRepositories implements ProductCommen
 
     public function getModel()
     {
-       return ProductComment::class;
+        return ProductComment::class;
     }
 }

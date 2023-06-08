@@ -20,4 +20,11 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
             ->limit($limit)
             ->get();
     }
+    public function getFeaturedProductsByCategory($categoryId ,$limit=8)
+    {
+        return $this->model->where('featured',true)
+            ->where('product_category_id',$categoryId)
+            ->limit($limit)
+            ->get();
+    }
 }
