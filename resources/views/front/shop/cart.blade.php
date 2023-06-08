@@ -90,10 +90,11 @@
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>${{$total}}</span></li>
-                            <li>Total <span>${{$subtotal}}</span></li>
+                            <li>Subtotal <span>${{$subtotal}}</span></li>
+                            <li>VAT 10%<span>${{$vatAmount}}</span></li>
+                            <li>Total <span>${{$total}}</span></li>
                         </ul>
-                        <a href="#" class="primary-btn">Proceed to checkout</a>
+                        <a href="{{url("/checkout")}}" class="primary-btn">Proceed to checkout</a>
                     </div>
                 </div>
             </div>
