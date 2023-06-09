@@ -292,7 +292,7 @@
                @foreach($pro as $product)
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="front/img/product/{{$product->productImages[0]->path}}">
+                        <div class="product__item__pic set-bg" data-setbg="{{$product->productImages[0]->path}}">
                             @if($product->discount !=0)
                             <span class="label">Sale</span>
                             @endif
