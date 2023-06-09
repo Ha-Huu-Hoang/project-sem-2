@@ -36,7 +36,7 @@ class ShopController extends Controller
 
     public function index()
     {
-        $product = $this->productService->all();
+        $product = $this->productService->getProductOnIndex();
 
         return view('front.shop.index', [
             'product'=>$product

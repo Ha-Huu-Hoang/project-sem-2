@@ -28,9 +28,7 @@ use Illuminate\Support\Facades\Route;
 Route::get('/',[\App\Http\Controllers\Front\HomeController::class,'index']);
 
 //sản phẩm chi tiết
-Route::get('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'show']);
-
-//đăng comment
+  //đăng comment
 Route::post('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
 
 //trang sản phẩm

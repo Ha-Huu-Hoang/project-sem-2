@@ -27,4 +27,9 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
             ->limit($limit)
             ->get();
     }
+    public function getProductOnIndex()
+    {
+        $product = $this->model->paginate(3);
+        return $product;
+    }
 }
