@@ -244,7 +244,7 @@
                     </div>
                     <div class="row">
                         <div class="col-lg-12">
-                          {{ $product->links() }}
+                            {!! $product->appends(app("request")->input())->links("pagination::bootstrap-4") !!}
                         </div>
                     </div>
                 </div>
