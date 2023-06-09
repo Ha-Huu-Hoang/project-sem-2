@@ -65,34 +65,18 @@
                             @endif
                             <p>{{$product->content}}</p>
                             <div class="product__details__option">
+                                @if($product->size !=null)
                                 <div class="product__details__option__size">
                                     <span>Size:</span>
                                     @foreach(array_unique(array_column($product->productDetails->toArray(),'size')) as $productSize)
-
                                     <label class="" for="{{$productSize}}">{{$productSize}}
                                         <input type="radio" id="{{$productSize}}">
                                     </label>
 
                                     @endforeach
                                 </div>
-                                <div class="product__details__option__color">
-                                    <span>Color:</span>
-                                    <label class="c-1" for="sp-1">
-                                        <input type="radio" id="sp-1">
-                                    </label>
-                                    <label class="c-2" for="sp-2">
-                                        <input type="radio" id="sp-2">
-                                    </label>
-                                    <label class="c-3" for="sp-3">
-                                        <input type="radio" id="sp-3">
-                                    </label>
-                                    <label class="c-4" for="sp-4">
-                                        <input type="radio" id="sp-4">
-                                    </label>
-                                    <label class="c-9" for="sp-9">
-                                        <input type="radio" id="sp-9">
-                                    </label>
-                                </div>
+                                @endif
+
                             </div>
                             <div class="product__details__cart__option">
                                 <div class="quantity">
