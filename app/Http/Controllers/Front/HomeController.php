@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Service\Blog\BlogServiceInterface;
 use App\Service\Product\ProductServiceInterface;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class HomeController extends Controller
@@ -19,11 +20,18 @@ class HomeController extends Controller
     }
 
     public function index(){
+
         $featuredProducts=$this->productService->getFeaturedProducts();
         $blogs =$this->blogService->getLatestBlogs();
+
+        //Add To Card
+        $carts = Cart::content();
+        $subtotal = Cart::subtotal();
+
         return view('front.index',[
             'featuredProducts'=>$featuredProducts,
-            'blogs'=> $blogs
+            'blogs'=> $blogs,
+            compact('carts', 'subtotal')
         ]);
     }
 
