@@ -17,10 +17,10 @@
                                 commitment to exceptional quality.</p>
                                 <a href="{{url("/shop")}}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
                                 <div class="hero__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="#!"><i class="fa fa-facebook"></i></a>
+                                    <a href="#!"><i class="fa fa-twitter"></i></a>
+                                    <a href="#!"><i class="fa fa-pinterest"></i></a>
+                                    <a href="#!"><i class="fa fa-instagram"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -38,10 +38,10 @@
                                 commitment to exceptional quality.</p>
                                 <a href="{{url("/shop")}}" class="primary-btn">Shop now <span class="arrow_right"></span></a>
                                 <div class="hero__social">
-                                    <a href="#"><i class="fa fa-facebook"></i></a>
-                                    <a href="#"><i class="fa fa-twitter"></i></a>
-                                    <a href="#"><i class="fa fa-pinterest"></i></a>
-                                    <a href="#"><i class="fa fa-instagram"></i></a>
+                                    <a href="#!"><i class="fa fa-facebook"></i></a>
+                                    <a href="#!"><i class="fa fa-twitter"></i></a>
+                                    <a href="#!"><i class="fa fa-pinterest"></i></a>
+                                    <a href="#!"><i class="fa fa-instagram"></i></a>
                                 </div>
                             </div>
                         </div>

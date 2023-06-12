@@ -34,7 +34,7 @@ class ShopController extends Controller
 
 
 
-    public function index()
+    public function index(Request $request)
     {
         $product = $this->productService->getProductOnIndex();
 

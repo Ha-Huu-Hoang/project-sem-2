@@ -7,11 +7,10 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>@yield('title') | Male-Fashion</title>
+    <title>@yield('title') | Shop Runner</title>
 
     <!-- Google Font -->
-    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
 
     <!-- Css Styles -->
     <link rel="stylesheet" href="front/css/bootstrap.min.css" type="text/css">
@@ -150,10 +149,10 @@
                 <div class="footer__widget">
                     <h6>Shopping</h6>
                     <ul>
-                        <li><a href="#">Clothing Store</a></li>
-                        <li><a href="#">Trending Shoes</a></li>
-                        <li><a href="#">Accessories</a></li>
-                        <li><a href="#">Sale</a></li>
+                        <li><a href="#!">Clothing Store</a></li>
+                        <li><a href="#!">Trending Shoes</a></li>
+                        <li><a href="#!">Accessories</a></li>
+                        <li><a href="#!">Sale</a></li>
                     </ul>
                 </div>
             </div>
@@ -161,10 +160,10 @@
                 <div class="footer__widget">
                     <h6>Shopping</h6>
                     <ul>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">Payment Methods</a></li>
-                        <li><a href="#">Delivary</a></li>
-                        <li><a href="#">Return & Exchanges</a></li>
+                        <li><a href="#!">Contact Us</a></li>
+                        <li><a href="#!">Payment Methods</a></li>
+                        <li><a href="#!">Delivary</a></li>
+                        <li><a href="#!">Return & Exchanges</a></li>
                     </ul>
                 </div>
             </div>
@@ -174,7 +173,7 @@
                     <div class="footer__newslatter">
                         <p>Be the first to know about new arrivals, look books, sales & promos!</p>
                         <form action="#">
-                            <input type="text" placeholder="Your email">
+                            <input type="text" placeholder="Your email" required>
                             <button type="submit"><span class="icon_mail_alt"></span></button>
                         </form>
                     </div>
@@ -184,15 +183,10 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <div class="footer__copyright__text">
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                    <p>Copyright ©
-                        <script>
-                            document.write(new Date().getFullYear());
-                        </script>2020
-                        All rights reserved | This template is made with <i class="fa fa-heart-o"
-                                                                            aria-hidden="true"></i> by <a href="https://colorlib.com" target="_blank">Colorlib</a>
+                    <p>
+                        Copyright © 2023 All rights reserved | This template is made with
+                        <i class="fa fa-heart-o" aria-hidden="true"></i> by <a href="#" target="_blank">Code One Min</a>
                     </p>
-                    <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
                 </div>
             </div>
         </div>
