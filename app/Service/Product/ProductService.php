@@ -47,6 +47,9 @@ class ProductService extends BaseService implements ProductServiceInterface
         return $this->repository->getProductOnIndex();
     }
 
-
+    public function searchProducts($keyword)
+    {
+        return $this->repository->searchProducts($keyword);
+    }
 
 }

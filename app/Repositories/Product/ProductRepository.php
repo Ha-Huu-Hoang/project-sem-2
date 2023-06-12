@@ -29,7 +29,14 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
     }
     public function getProductOnIndex()
     {
-        $product = $this->model->paginate(3);
+        $product = $this->model->paginate(9);
         return $product;
     }
+
+    public function searchProducts($keyword)
+    {
+        $product = $this->model->where('name', 'like', '%' . $keyword . '%')->paginate(9);
+        return $product;
+    }
+
 }

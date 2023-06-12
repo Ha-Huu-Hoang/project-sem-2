@@ -1,5 +1,5 @@
 @extends('front.layout.master')
-@section('title','Product')
+@section('title', $title )
 @section('body')
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
@@ -26,8 +26,8 @@
                 <div class="col-lg-3">
                     <div class="shop__sidebar">
                         <div class="shop__sidebar__search">
-                            <form action="#">
-                                <input type="text" placeholder="Search...">
+                            <form action="{{ route('front.shop.index') }}" method="get">
+                                <input type="text" name="q" value="{{request("q")}}" placeholder="Search...">
                                 <button type="submit"><span class="icon_search"></span></button>
                             </form>
                         </div>

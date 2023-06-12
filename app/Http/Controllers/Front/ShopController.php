@@ -34,15 +34,22 @@ class ShopController extends Controller
 
 
 
-    public function index(Request $request)
+    public function index()
     {
         $product = $this->productService->getProductOnIndex();
+        $title = 'Shop';
 
-        return view('front.shop.index', [
-            'product'=>$product
-        ]);
+        return view('front.shop.index', compact('product', 'title'));
     }
 
+    public function search(Request $request)
+    {
+        $keyword = $request->input('q');
+        $product = $this->productService->searchProducts($keyword);
 
+        $title = $keyword ? 'Search: ' . $keyword : 'Shop';
+
+        return view('front.shop.index', compact('product', 'title'));
+    }
 
 }

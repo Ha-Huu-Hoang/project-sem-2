@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\Front\ShopController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -35,6 +35,8 @@ Route::post('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::cla
 
 //trang sản phẩm
 Route::get('shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
+
+Route::get('search', [ShopController::class, 'search'])->name('front.shop.index');
 
 //trang shop cart
 Route::prefix('/cart')->group(function (){
