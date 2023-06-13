@@ -8,8 +8,8 @@ use App\Service\BaseService;
 class OrderDetailService extends BaseService implements OrderDetailServiceInterface
 {
     public $repository;
-    public function __construct(OrderDetailRepositoryInterface $OrderDetailRepository)
+    public function __construct(OrderDetailRepositoryInterface $orderDetailRepository)
     {
-       $this->repository = $OrderDetailRepository;
+       $this->repository = $orderDetailRepository;
     }
 }

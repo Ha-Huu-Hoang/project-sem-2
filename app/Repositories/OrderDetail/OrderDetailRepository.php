@@ -2,7 +2,7 @@
 
 namespace App\Repositories\OrderDetail;
 
-use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Repositories\BaseRepositories;
 
 class OrderDetailRepository extends BaseRepositories implements OrderDetailRepositoryInterface

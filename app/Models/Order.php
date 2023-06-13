@@ -12,6 +12,21 @@ class Order extends Model
     protected $primaryKey = 'id';
     protected $guarded = [];
 
+    protected $fillable = [
+        'first_name',
+        'last_name',
+        'country',
+        'street_address',
+        'town_city',
+        'postcode_zip',
+        'phone',
+        'email',
+        'total',
+        'payment_method',
+        "is_paid",
+        "status",
+    ];
+
     public function orderDetails()
     {
         return $this->hasMany(OrderDetail::class,'order_id','id');

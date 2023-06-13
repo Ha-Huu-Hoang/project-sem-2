@@ -16,6 +16,7 @@ use App\Service\Blog\BlogService;
 use App\Service\Blog\BlogServiceInterface;
 use App\Service\Order\OrderService;
 use App\Service\Order\OrderServiceInterface;
+use App\Service\OrderDetail\OrderDetailService;
 use App\Service\OrderDetail\OrderDetailServiceInterface;
 use App\Service\Product\ProductService;
 use App\Service\Product\ProductServiceInterface;

@@ -36,8 +36,8 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Fist Name<span>*</span></p>
-                                        <input type="text" name="fist_name">
-                                        @error("fist_name")
+                                        <input type="text" name="first_name">
+                                        @error("first_name")
                                         <p class="text-danger"><i>{{$message}}</i></p>
                                         @enderror
                                     </div>
