@@ -48,6 +48,7 @@ Route::prefix('/cart')->group(function (){
 //trang checkout
 Route::prefix('/checkout')->group(function (){
     Route::get('/',[\App\Http\Controllers\Front\CheckoutController::class,'index']);
+    Route::post("/",[\App\Http\Controllers\Front\CheckoutController::class,"placeOrder"]);
 });
 
 //trang blog
