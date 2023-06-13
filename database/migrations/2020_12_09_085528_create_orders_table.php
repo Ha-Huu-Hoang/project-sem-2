@@ -23,8 +23,13 @@ class CreateOrdersTable extends Migration
             $table->string('street_address');
             $table->string('postcode_zip');
             $table->string('town_city');
-            $table->string('email');
-            $table->string('phone');
+            $table->string('email')->nullable();
+            $table->string('phone', 20)->nullable();
+
+            $table->decimal("total",14,2);
+            $table->string("payment_method",20);
+            $table->boolean("is_paid")->default(false);
+            $table->tinyInteger("status")->default(0);
 
             $table->timestamps();
         });

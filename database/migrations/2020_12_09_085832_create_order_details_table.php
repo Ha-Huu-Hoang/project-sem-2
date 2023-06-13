@@ -20,7 +20,7 @@ class CreateOrderDetailsTable extends Migration
             $table->integer('product_id')->unsigned();
             $table->integer('qty');
             $table->double('amount');
-            $table->double('total');
+            $table->decimal('total');
 
             $table->timestamps();
         });

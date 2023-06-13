@@ -21,7 +21,7 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('content')->nullable();
-            $table->double('price');
+            $table->decimal('price');
             $table->integer('qty');
             $table->double('discount')->nullable();
             $table->double('weight')->nullable();
