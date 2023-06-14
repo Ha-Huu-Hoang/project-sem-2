@@ -27,9 +27,35 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
             ->limit($limit)
             ->get();
     }
-    public function getProductOnIndex()
+    public function getProductOnIndex($request)
     {
-        $product = $this->model->paginate(9);
+        $perPage=$request->show ?? 3;
+        $sortBy =$request->sort_by ?? 'latest';
+        switch ($sortBy){
+            case 'latest':
+                $product =$this->model->orderBy('id');
+                break;
+            case 'oldest':
+                $product =$this->model->orderByDesc('id');
+                break;
+            case 'name-ascending':
+                $product =$this->model->orderBy('name');
+                break;
+            case 'name-descending':
+                $product =$this->model->orderByDesc('name');
+                break;
+            case 'price-ascending':
+                $product =$this->model->orderBy('price');
+                break;
+            case 'price-descending':
+                $product =$this->model->orderByDesc('price');
+                break;
+            default:
+                $product =$this->model->orderBy('id');
+        }
+
+        $product = $product->paginate($perPage);
+        $product->appends(['sort_by'=>$sortBy,'show'=>$perPage]);
         return $product;
     }
 

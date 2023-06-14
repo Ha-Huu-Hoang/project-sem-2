@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use App\Service\Product\ProductServiceInterface;
+use App\Service\ProductCategory\ProductCategoryServiceInterface;
 use App\Service\ProductComment\ProductCommentServiceInterface;
 use Illuminate\Http\Request;
 
@@ -13,10 +14,15 @@ class ShopController extends Controller
     //
     private $productService;
     private $productCommentService;
-    public function __construct(ProductServiceInterface $productService, ProductCommentServiceInterface $productCommentService )
+    private $productCategoryService;
+    public function __construct(ProductServiceInterface $productService,
+                                ProductCommentServiceInterface $productCommentService,
+                                ProductCategoryServiceInterface $productCategoryService
+    )
     {
         $this->productService =$productService;
         $this->productCommentService =$productCommentService;
+        $this->productCategoryService =$productCategoryService;
     }
 
     public function show($id)
@@ -34,12 +40,13 @@ class ShopController extends Controller
 
 
 
-    public function index()
+    public function index( Request $request)
     {
-        $product = $this->productService->getProductOnIndex();
+        $category = $this->productCategoryService->all();
+        $product = $this->productService->getProductOnIndex($request);
         $title = 'Shop';
 
-        return view('front.shop.index', compact('product', 'title'));
+        return view('front.shop.index', compact('category','product', 'title'));
     }
 
     public function search(Request $request)

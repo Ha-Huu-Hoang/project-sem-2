@@ -10,6 +10,8 @@ use App\Repositories\OrderDetail\OrderDetailRepository;
 use App\Repositories\OrderDetail\OrderDetailRepositoryInterface;
 use App\Repositories\Product\ProductRepository;
 use App\Repositories\Product\ProductRepositoryInterface;
+use App\Repositories\ProductCategory\ProductCategoryRepository;
+use App\Repositories\ProductCategory\ProductCategoryRepositoryInterface;
 use App\Repositories\ProductComment\ProductCommentRepository;
 use App\Repositories\ProductComment\ProductCommentRepositoryInterface;
 use App\Service\Blog\BlogService;
@@ -19,6 +21,8 @@ use App\Service\Order\OrderServiceInterface;
 use App\Service\OrderDetail\OrderDetailServiceInterface;
 use App\Service\Product\ProductService;
 use App\Service\Product\ProductServiceInterface;
+use App\Service\ProductCategory\ProductCategoryService;
+use App\Service\ProductCategory\ProductCategoryServiceInterface;
 use App\Service\ProductComment\ProductCommentService;
 use App\Service\ProductComment\ProductCommentServiceInterface;
 use Illuminate\Support\ServiceProvider;
@@ -77,7 +81,14 @@ class AppServiceProvider extends ServiceProvider
             OrderDetailServiceInterface::class,
             OrderDetailService::class
         );
-
+        $this->app->singleton(
+            ProductCategoryRepositoryInterface::class,
+            ProductCategoryRepository::class
+        );
+        $this->app->singleton(
+            ProductCategoryServiceInterface::class,
+            ProductCategoryService::class
+        );
 
     }
 
