@@ -66,10 +66,12 @@ class CheckoutController extends Controller
             "phone" => $request->input("phone"),
             "email" => $request->input("email"),
             "total" => $total,
-            "payment_method" => "COD",
+            "payment_method" => $request->get("payment_method"),
 //            "is_paid"=>false,
 //            "status"=>0,
         ]);
+
+
 
         // Create order details
         foreach ($carts as $cart) {
@@ -87,13 +89,55 @@ class CheckoutController extends Controller
         // Clear the cart
         Cart::destroy();
 
-        // Send notification or perform other actions
+        if ($order->payment_method == "PayPal") {
+            //Payment Method PayPal
+            $provider = new PayPalClient;
+            $provider->setApiCredentials(config('paypal'));
+            $paypalToken = $provider->getAccessToken();
 
-        return "Success!";
+            $response = $provider->createOrder([
+                "intent" => "CAPTURE",
+                "application_context" => [
+                    "return_url" => route('successTransaction', ["order" => $order->id]),
+                    "cancel_url" => route('cancelTransaction', ["order" => $order->id]),
+                ],
+                "purchase_units" => [
+                    0 => [
+                        "amount" => [
+                            "currency_code" => "USD",
+                            "value" => number_format($total, 2, "", "")
+                        ]
+                    ]
+                ]
+            ]);
+
+            if (isset($response['id']) && $response['id'] != null) {
+                // redirect to approve href
+                foreach ($response['links'] as $links) {
+                    if ($links['rel'] == 'approve') {
+                        return redirect()->away($links['href']);
+                    }
+                }
+
+            }
+
+        }
+
+        // Redirect to thank you page
+        return redirect("/checkout/thank-you");
+    }
+
+    public function successTransaction(Order $order,Request $request){
+        $order->update(["is_paid"=>true,"status"=>1]);// đã thanh toán, trạng thái về xác nhận
+        return redirect()->to("/checkout/thank-you/".$order->id);
+    }
+
+    public function cancelTransaction(Order $order,Request $request){
+        return redirect()->to("/checkout/thank-you/".$order->id);
     }
 
     public function result() {
-        return view("front.checkout.result");
+        return view("front.checkout.thank-you");
     }
 
 }

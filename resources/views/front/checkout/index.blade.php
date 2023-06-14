@@ -124,14 +124,14 @@
                                 <div class="checkout__input__checkbox">
                                     <label for="payment">
                                         COD
-                                        <input name="payment_method" type="radio" id="payment" value="COD">
+                                        <input name="payment_method" type="radio" id="payment" value="COD" checked>
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
                                 <div class="checkout__input__checkbox">
                                     <label for="paypal">
                                         Paypal
-                                        <input name="payment_method" type="radio" id="paypal" value="Paypal">
+                                        <input name="payment_method" type="radio" id="paypal" value="PayPal">
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>

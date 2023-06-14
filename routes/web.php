@@ -49,8 +49,8 @@ Route::prefix('/cart')->group(function (){
 Route::prefix('/checkout')->group(function (){
     Route::get('/',[\App\Http\Controllers\Front\CheckoutController::class,'index']);
     Route::post("/",[\App\Http\Controllers\Front\CheckoutController::class,"placeOrder"]);
-    Route::get("/result",[\App\Http\Controllers\Front\CheckoutController::class,"result"]);
-    Route::get('/success-transaction,{order}', [\App\Http\Controllers\Front\CheckoutController::class, 'successTransaction'])->name('successTransaction');
+    Route::get("/thank-you/{order}",[\App\Http\Controllers\Front\CheckoutController::class,"result"]);
+    Route::get('/success-transaction/{order}', [\App\Http\Controllers\Front\CheckoutController::class, 'successTransaction'])->name('successTransaction');
     Route::get('/cancel-transaction/{order}', [\App\Http\Controllers\Front\CheckoutController::class, 'cancelTransaction'])->name('cancelTransaction');
 });
 
