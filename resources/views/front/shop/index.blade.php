@@ -26,8 +26,8 @@
                 <div class="col-lg-3">
                     <div class="shop__sidebar">
                         <div class="shop__sidebar__search">
-                            <form action="{{ route('front.shop.index') }}" method="get">
-                                <input type="text" name="q" value="{{request("q")}}" placeholder="Search...">
+                            <form action="shop">
+                                <input type="text" name="search" value="{{request("search")}}" placeholder="Search...">
                                 <button type="submit"><span class="icon_search"></span></button>
                             </form>
                         </div>

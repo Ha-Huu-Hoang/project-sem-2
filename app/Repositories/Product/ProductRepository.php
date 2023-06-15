@@ -3,7 +3,9 @@
 namespace App\Repositories\Product;
 
 use App\Models\Product;
+use App\Models\ProductCategory;
 use App\Repositories\BaseRepositories;
+use Illuminate\Http\Request;
 
 class ProductRepository extends BaseRepositories implements ProductRepositoryInterface
 {
@@ -29,39 +31,54 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
     }
     public function getProductOnIndex($request)
     {
+
+
+        $search =$request->search ?? '';
+
+        $product =$this->model->where('name','like','%'. $search .'%');
+
+        $product =$this->sortAndPagination($product,$request);
+
+        return $product;
+    }
+
+
+    public function getProductByCategory($categoryName,$request)
+    {
+        $product = ProductCategory::where('name', $categoryName)->first()->products->toQuery();
+        $product = $this->sortAndPagination($product,$request);
+        return $product;
+    }
+    private function sortAndPagination($product , Request $request)
+    {
         $perPage=$request->show ?? 3;
         $sortBy =$request->sort_by ?? 'latest';
+
         switch ($sortBy){
             case 'latest':
-                $product =$this->model->orderBy('id');
+                $product =  $product->orderBy('id');
                 break;
             case 'oldest':
-                $product =$this->model->orderByDesc('id');
+                $product =  $product->orderByDesc('id');
                 break;
             case 'name-ascending':
-                $product =$this->model->orderBy('name');
+                $product =  $product->orderBy('name');
                 break;
             case 'name-descending':
-                $product =$this->model->orderByDesc('name');
+                $product =  $product->orderByDesc('name');
                 break;
             case 'price-ascending':
-                $product =$this->model->orderBy('price');
+                $product =  $product->orderBy('price');
                 break;
             case 'price-descending':
-                $product =$this->model->orderByDesc('price');
+                $product =  $product->orderByDesc('price');
                 break;
             default:
-                $product =$this->model->orderBy('id');
+                $product =  $product->orderBy('id');
         }
 
         $product = $product->paginate($perPage);
         $product->appends(['sort_by'=>$sortBy,'show'=>$perPage]);
-        return $product;
-    }
-
-    public function searchProducts($keyword)
-    {
-        $product = $this->model->where('name', 'like', '%' . $keyword . '%')->paginate(9);
         return $product;
     }
 
