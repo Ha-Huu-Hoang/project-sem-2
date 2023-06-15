@@ -18,7 +18,7 @@ class CartController extends Controller
 
     public function index(){
         $carts = Cart::content();
-        $subtotal = Cart::subtotal();
+        $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
         $total = $subtotal + $vatAmount;
