@@ -37,9 +37,6 @@ class ShopController extends Controller
         return redirect()->back();
     }
 
-
-
-
     public function index( Request $request)
     {
         $category = $this->productCategoryService->all();
@@ -49,14 +46,13 @@ class ShopController extends Controller
         return view('front.shop.index', compact('category','product', 'title'));
     }
 
-    public function search(Request $request)
+
+    public function category($categoryName,Request $request)
     {
-        $keyword = $request->input('q');
-        $product = $this->productService->searchProducts($keyword);
-
-        $title = $keyword ? 'Search: ' . $keyword : 'Shop';
-
-        return view('front.shop.index', compact('product', 'title'));
+        $category = $this->productCategoryService->all();
+        $product = $this->productService->getProductByCategory($categoryName,$request);
+        $title = 'Shop';
+        return view('front.shop.index', compact('category','product', 'title'));
     }
 
 }

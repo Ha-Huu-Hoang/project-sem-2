@@ -35,7 +35,7 @@ Route::post('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::cla
 
 //trang sản phẩm
 Route::get('shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
-
+Route::get('shop/category/{categoryName}',[\App\Http\Controllers\Front\ShopController::class,'category']);
 Route::get('search', [ShopController::class, 'search'])->name('front.shop.index');
 
 //trang shop cart
