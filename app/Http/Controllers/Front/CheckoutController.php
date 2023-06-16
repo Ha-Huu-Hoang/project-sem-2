@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderDetail;
+use App\Models\Product;
 use App\Service\Order\OrderServiceInterface;
 use App\Service\OrderDetail\OrderDetailServiceInterface;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -15,6 +17,8 @@ class CheckoutController extends Controller
 {
     private $orderService;
     private $orderDetailService;
+    private $apSer;
+
     public function __construct(OrderServiceInterface $orderService, OrderDetailServiceInterface $orderDetailService)
     {
         $this->orderService = $orderService;
@@ -24,12 +28,33 @@ class CheckoutController extends Controller
     public function index()
     {
         $carts = Cart::content();
-        $subtotal = Cart::subtotal();
+        $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
         $total = $subtotal + $vatAmount;
 
         return view('front.checkout.index', compact('carts', 'total', 'subtotal', 'vatAmount'));
+    }
+
+
+    //Helper MoMo
+    function execPostRequest($url, $data)
+    {
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "POST");
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HTTPHEADER, array(
+                'Content-Type: application/json',
+                'Content-Length: ' . strlen($data))
+        );
+        curl_setopt($ch, CURLOPT_TIMEOUT, 5);
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 5);
+        //execute post
+        $result = curl_exec($ch);
+        //close connection
+        curl_close($ch);
+        return $result;
     }
 
     public function placeOrder(Request $request)
@@ -50,7 +75,7 @@ class CheckoutController extends Controller
 
         // Get cart items
         $carts = Cart::content();
-        $subtotal = Cart::subtotal();
+        $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
         $total = $subtotal + $vatAmount;
@@ -105,7 +130,7 @@ class CheckoutController extends Controller
                     0 => [
                         "amount" => [
                             "currency_code" => "USD",
-                            "value" => number_format($total, 2, "", "")
+                            "value" => number_format($total, 2, ".", "")
                         ]
                     ]
                 ]
@@ -120,15 +145,60 @@ class CheckoutController extends Controller
                 }
 
             }
+        } else if ($order->payment_method == "MoMo"){
+            //Payment Method MoMo
+            $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 
+            $partnerCode = 'MOMOBKUN20180529';
+            $accessKey = 'klm05TvNBzhg7h7j';
+            $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
+            $orderInfo = "Thanh toán qua ATM MoMo";
+            $amount = $total* 23000;
+            $orderId = time() ."";
+            $redirectUrl = "http://127.0.0.1:8000/checkout/thank-you/".$order->id;
+            $ipnUrl = "http://127.0.0.1:8000/checkout/thank-you/".$order->id;
+            $extraData = "";
+
+            $requestId = time() . "";
+            $requestType = "payWithATM";
+//            $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
+            //before sign HMAC SHA256 signature
+            $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
+            $signature = hash_hmac("sha256", $rawHash, $secretKey);
+//            dd($signature);
+
+            $data = array('partnerCode' => $partnerCode,
+                'partnerName' => "Test",
+                "storeId" => "MomoTestStore",
+                'requestId' => $requestId,
+                'amount' => $amount,
+                'orderId' => $orderId,
+                'orderInfo' => $orderInfo,
+                'redirectUrl' => $redirectUrl,
+                'ipnUrl' => $ipnUrl,
+                'lang' => 'vi',
+                'extraData' => $extraData,
+                'requestType' => $requestType,
+                'signature' => $signature);
+            $result = $this->execPostRequest($endpoint, json_encode($data));
+//            dd($result);
+
+            $jsonResult = json_decode($result, true);  // decode json
+
+
+            // Update the order status and payment status
+            $order->update(["is_paid" => true, "status" => 1]); // Mark order as paid and change status to confirmed
+
+            //Just a example, please check more in there
+            return redirect()->to($jsonResult['payUrl']);
         }
 
         // Redirect to thank you page
-        return redirect("/checkout/thank-you");
+        return redirect("/checkout/thank-you/".$order->id);
     }
 
     public function successTransaction(Order $order,Request $request){
-        $order->update(["is_paid"=>true,"status"=>1]);// đã thanh toán, trạng thái về xác nhận
+        $order->update(["is_paid"=>true,"status"=>1]);// Paid, status changed to confirmed
         return redirect()->to("/checkout/thank-you/".$order->id);
     }
 
@@ -139,6 +209,9 @@ class CheckoutController extends Controller
     public function result() {
         return view("front.checkout.thank-you");
     }
+
+
+
 
 }
 

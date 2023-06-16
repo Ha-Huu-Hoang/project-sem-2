@@ -21,6 +21,10 @@
     <link rel="stylesheet" href="front/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/slicknav.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/style.css" type="text/css">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="front/img/favicon.ico">
+
 </head>
 
 <body>

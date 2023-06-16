@@ -31,8 +31,6 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
     }
     public function getProductOnIndex($request)
     {
-
-
         $search =$request->search ?? '';
 
         $product =$this->model->where('name','like','%'. $search .'%');
