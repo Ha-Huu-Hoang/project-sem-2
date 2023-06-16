@@ -29,15 +29,11 @@ Route::get('/',[\App\Http\Controllers\Front\HomeController::class,'index']);
 
 //sản phẩm chi tiết
 Route::get('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'show']);
-
-  //đăng comment
+//đăng comment
 Route::post('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
-
 //trang sản phẩm
 Route::get('shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
 Route::get('shop/category/{categoryName}',[\App\Http\Controllers\Front\ShopController::class,'category']);
-Route::get('search', [ShopController::class, 'search'])->name('front.shop.index');
-
 //trang shop cart
 Route::prefix('/cart')->group(function (){
     Route::get('/',[\App\Http\Controllers\Front\CartController::class,'index']);
