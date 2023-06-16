@@ -111,15 +111,15 @@
                                     @foreach($carts as $item)
                                         <li>
                                             {{ $item->name }} x{{ $item->qty }}
-                                            <span>$ {{ $item->price * $item->qty }}</span>
+                                            <span>${{number_format($item->price * $item->qty, 2, '.', '')}}</span>
                                         </li>
                                     @endforeach
 
                                 </ul>
                                 <ul class="checkout__total__all">
                                     <li>Subtotal <span>${{$subtotal}}</span></li>
-                                    <li>VAT 10% <span>${{ number_format($vatAmount, 2, '.', '') }}</span></li>
-                                    <li>Total <span>${{ number_format($total, 2, '.', '') }}</span></li>
+                                    <li>VAT 10% <span>${{number_format($vatAmount, 2, '.', '') }}</span></li>
+                                    <li>Total<span>${{number_format($total, 2, '.', '') }}</span></li>
                                 </ul>
                                 <div class="checkout__input__checkbox">
                                     <label for="payment">
