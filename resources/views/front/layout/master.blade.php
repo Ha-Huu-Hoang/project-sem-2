@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="front/css/nice-select.css" type="text/css">
     <link rel="stylesheet" href="front/css/owl.carousel.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/slicknav.min.css" type="text/css">
+    <link rel="stylesheet" href="front/css/jquery-ui.min.css" type="text/css">
     <link rel="stylesheet" href="front/css/style.css" type="text/css">
 
     <!-- Favicon -->
@@ -213,6 +214,7 @@
 <script src="front/js/jquery-3.3.1.min.js"></script>
 <script src="front/js/bootstrap.min.js"></script>
 <script src="front/js/jquery.nice-select.min.js"></script>
+<script src="front/js/jquery-ui.min.js"></script>
 <script src="front/js/jquery.nicescroll.min.js"></script>
 <script src="front/js/jquery.magnific-popup.min.js"></script>
 <script src="front/js/jquery.countdown.min.js"></script>

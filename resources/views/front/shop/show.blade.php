@@ -65,7 +65,6 @@
                             @endif
                             <p>{{$product->content}}</p>
                             <div class="product__details__option">
-                                @if($product->size !=null)
                                 <div class="product__details__option__size">
                                     <span>Size:</span>
                                     @foreach(array_unique(array_column($product->productDetails->toArray(),'size')) as $productSize)
@@ -75,7 +74,7 @@
 
                                     @endforeach
                                 </div>
-                                @endif
+
 
                             </div>
                             <div class="product__details__cart__option">

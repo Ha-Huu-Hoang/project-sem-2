@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Models\Product;
+use App\Service\Brand\BrandServiceInterface;
 use App\Service\Product\ProductServiceInterface;
 use App\Service\ProductCategory\ProductCategoryServiceInterface;
 use App\Service\ProductComment\ProductCommentServiceInterface;
@@ -15,14 +16,17 @@ class ShopController extends Controller
     private $productService;
     private $productCommentService;
     private $productCategoryService;
+    private  $brandService;
     public function __construct(ProductServiceInterface $productService,
                                 ProductCommentServiceInterface $productCommentService,
-                                ProductCategoryServiceInterface $productCategoryService
+                                ProductCategoryServiceInterface $productCategoryService,
+                                BrandServiceInterface  $brandService
     )
     {
         $this->productService =$productService;
         $this->productCommentService =$productCommentService;
         $this->productCategoryService =$productCategoryService;
+        $this->brandService =$brandService;
     }
 
     public function show($id)
@@ -40,19 +44,21 @@ class ShopController extends Controller
     public function index( Request $request)
     {
         $category = $this->productCategoryService->all();
+        $brands = $this->brandService->all();
         $product = $this->productService->getProductOnIndex($request);
         $title = 'Shop';
 
-        return view('front.shop.index', compact('category','product', 'title'));
+        return view('front.shop.index', compact('category','product','brands', 'title'));
     }
 
 
     public function category($categoryName,Request $request)
     {
         $category = $this->productCategoryService->all();
+        $brands = $this->brandService->all();
         $product = $this->productService->getProductByCategory($categoryName,$request);
         $title = 'Shop';
-        return view('front.shop.index', compact('category','product', 'title'));
+        return view('front.shop.index', compact('category','product','brands', 'title'));
     }
 
 }

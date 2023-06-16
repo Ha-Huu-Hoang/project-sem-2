@@ -49,40 +49,57 @@
                                         </div>
                                     </div>
                                 </div>
+                                <form action="shop">
                                 <div class="card">
+
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseTwo">Branding</a>
                                     </div>
                                     <div id="collapseTwo" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__brand">
-                                                <ul>
-                                                    <li><a href="#">Louis Vuitton</a></li>
-                                                    <li><a href="#">Chanel</a></li>
-                                                    <li><a href="#">Hermes</a></li>
-                                                    <li><a href="#">Gucci</a></li>
-                                                </ul>
+                                                @foreach($brands as $brand)
+                                                <div class="bc-item">
+                                                    <label for="bc-{{$brand->id}}">
+                                                        {{$brand->name}}
+                                                        <input type="checkbox"
+                                                               {{(request("brand")[$brand->id] ?? '') == 'on' ? 'checked' : ''}}
+                                                               id="bc-{{$brand->id}}" name="brand[{{$brand->id}}]"
+                                                        onchange="this.form.submit();">
+
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                @endforeach
+
                                             </div>
                                         </div>
                                     </div>
+
                                 </div>
                                 <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseThree">Filter Price</a>
                                     </div>
-                                    <div id="collapseThree" class="collapse show" data-parent="#accordionExample">
-                                        <div class="card-body">
-                                            <div class="shop__sidebar__price">
-                                                <ul>
-                                                    <li><a href="#">$0.00 - $50.00</a></li>
-                                                    <li><a href="#">$50.00 - $100.00</a></li>
-                                                    <li><a href="#">$100.00 - $150.00</a></li>
-                                                    <li><a href="#">$150.00 - $200.00</a></li>
-                                                    <li><a href="#">$200.00 - $250.00</a></li>
-                                                    <li><a href="#">250.00+</a></li>
-                                                </ul>
+                                    <div id="collapseThree" class="filter-widget collapse show" data-parent="#accordionExample">
+                                    <div class="filter-range-wrap">
+                                        <div class="range-slider">
+                                            <div class="price-input">
+                                                <input type="text" id="minamount" name="price_min">
+                                                <input type="text" id="maxamount" name="price_max">
                                             </div>
                                         </div>
+                                        <div
+                                           class="price-range ui-slider ui-corner-all ui-slider-horizontal ui-widget ui-widget-content"
+                                            data-min="10" data-max="999"
+                                                data-min-value="{{str_replace('$','',request('price_min'))}}"
+                                                data-max-value="{{str_replace('$','',request('price_max'))}}">
+                                            <div class="ui-slider-range ui-corner-all ui-widget-header"></div>
+                                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                                            <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
+                                        </div>
+                                    </div>
+                                        <button type="submit" class="filter-btn">Filter</button>
                                     </div>
                                 </div>
                                 <div class="card">
@@ -92,30 +109,31 @@
                                     <div id="collapseFour" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
                                             <div class="shop__sidebar__size">
-                                                <label for="xs">xs
-                                                    <input type="radio" id="xs">
+                                                <label for="xs" class="{{request('size') == 'xs' ? 'active' : ''}}">xs
+                                                    <input type="radio" id="xs" name="size" value="xs" onchange="this.form.submit();"
+                                                    {{request('size') == 'xs' ? 'checked' : ''}}>
                                                 </label>
-                                                <label for="sm">s
-                                                    <input type="radio" id="sm">
+                                                <label for="sm" class="{{request('size') == 's' ? 'active' : ''}}">s
+                                                    <input type="radio" id="sm" name="size" value="s" onchange="this.form.submit();"
+                                                        {{request('size') == 's' ? 'checked' : ''}}>
                                                 </label>
-                                                <label for="md">m
-                                                    <input type="radio" id="md">
+                                                <label for="md" class="{{request('size') == 'm' ? 'active' : ''}}">m
+                                                    <input type="radio" id="md" name="size" value="m" onchange="this.form.submit();"
+                                                        {{request('size') == 'm' ? 'checked' : ''}}>
                                                 </label>
-                                                <label for="xl">xl
-                                                    <input type="radio" id="xl">
+                                                <label for="xl" class="{{request('size') == 'xl' ? 'active' : ''}}">xl
+                                                    <input type="radio" id="xl" name="size" value="xl" onchange="this.form.submit();"
+                                                        {{request('size') == 'xl' ? 'checked' : ''}}>
                                                 </label>
-                                                <label for="2xl">2xl
-                                                    <input type="radio" id="2xl">
+                                                <label for="2xl" class="{{request('size') == '2xl' ? 'active' : ''}}">2xl
+                                                    <input type="radio" id="2xl" name="size" value="2xl" onchange="this.form.submit();"
+                                                        {{request('size') == '2xl' ? 'checked' : ''}}>
                                                 </label>
-                                                <label for="xxl">xxl
-                                                    <input type="radio" id="xxl">
+                                                <label for="xxl" class="{{request('size') == 'xxl' ? 'active' : ''}}">xxl
+                                                    <input type="radio" id="xxl" name="size" value="xxl" onchange="this.form.submit();"
+                                                        {{request('size') == 'xxl' ? 'checked' : ''}}>
                                                 </label>
-                                                <label for="3xl">3xl
-                                                    <input type="radio" id="3xl">
-                                                </label>
-                                                <label for="4xl">4xl
-                                                    <input type="radio" id="4xl">
-                                                </label>
+
                                             </div>
                                         </div>
                                     </div>
@@ -139,6 +157,7 @@
                                         </div>
                                     </div>
                                 </div>
+                                </form>
                             </div>
                         </div>
                     </div>

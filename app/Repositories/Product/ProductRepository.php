@@ -34,7 +34,7 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
         $search =$request->search ?? '';
 
         $product =$this->model->where('name','like','%'. $search .'%');
-
+        $product = $this->filter($product, $request);
         $product =$this->sortAndPagination($product,$request);
 
         return $product;
@@ -44,6 +44,7 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
     public function getProductByCategory($categoryName,$request)
     {
         $product = ProductCategory::where('name', $categoryName)->first()->products->toQuery();
+        $product = $this->filter($product, $request);
         $product = $this->sortAndPagination($product,$request);
         return $product;
     }
@@ -79,5 +80,34 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
         $product->appends(['sort_by'=>$sortBy,'show'=>$perPage]);
         return $product;
     }
+   private function filter($product ,Request $request)
+   {
+       //loc brands
+       $brand = $request->brand ?? [];
+       $brand_ids=array_keys($brand);
+       $product =$brand_ids != null ? $product->whereIn('brand_id',$brand_ids) : $product;
 
+
+//loc price
+       $priceMin = $request->price_min;
+       $priceMax = $request->price_max;
+
+       $priceMin =str_replace('$','',$priceMin);
+       $priceMax =str_replace('$','',$priceMax);
+
+       $product = ($priceMin != null && $priceMax != null) ?
+           $product->whereBetween('price',[$priceMin,$priceMax]) :
+           $product;
+
+       // loc size
+       $size =$request->size;
+       $product =$size != null
+           ? $product->whereHas('productDetails',function ($query) use ($size){
+               return $query->where('size',$size)
+                   ->where('qty','>',0);
+           })
+           : $product;
+
+       return $product;
+   }
 }
