@@ -142,7 +142,13 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-
+                                <div class="checkout__input__checkbox">
+                                    <label for="VNPAY">
+                                        VNPAY
+                                        <input name="payment_method" type="radio" id="VNPAY" value="VNPAY">
+                                        <span class="checkmark"></span>
+                                    </label>
+                                </div>
                                 <button type="submit" class="site-btn">PLACE ORDER</button>
                             </div>
                         </div>

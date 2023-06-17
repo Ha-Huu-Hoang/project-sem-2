@@ -112,7 +112,7 @@ class CheckoutController extends Controller
         }
 
         // Clear the cart
-        Cart::destroy();
+//        Cart::destroy();
 
         if ($order->payment_method == "PayPal") {
             //Payment Method PayPal
@@ -191,6 +191,63 @@ class CheckoutController extends Controller
 
             //Just a example, please check more in there
             return redirect()->to($jsonResult['payUrl']);
+        } else if ($order->payment_method == "VNPAY") {
+            //Payment Method VNPAY
+
+            session(['cost_id' => $request->id]);
+            session(['url_prev' => url()->previous()]);
+            $vnp_TmnCode = "UDOPNWS1"; //Mã website tại VNPAY
+            $vnp_HashSecret = "EBAHADUGCOEWYXCMYZRMTMLSHGKNRPBN"; //Chuỗi bí mật
+            $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            $vnp_Returnurl = "http://127.0.0.1:8000/checkout/thank-you/".$order->id;
+            $vnp_TxnRef = date("YmdHis"); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+            $vnp_OrderInfo = "Thanh toán đơn hàng qua VNPAY";
+            $vnp_OrderType = 'billpayment';
+            $vnp_Amount = ($total * 23500) * 100;
+            $vnp_Locale = 'vn';
+            $vnp_IpAddr = request()->ip();
+
+            $inputData = array(
+                "vnp_Version" => "2.0.0",
+                "vnp_TmnCode" => $vnp_TmnCode,
+                "vnp_Amount" => $vnp_Amount,
+                "vnp_Command" => "pay",
+                "vnp_CreateDate" => date('YmdHis'),
+                "vnp_CurrCode" => "VND",
+                "vnp_IpAddr" => $vnp_IpAddr,
+                "vnp_Locale" => $vnp_Locale,
+                "vnp_OrderInfo" => $vnp_OrderInfo,
+                "vnp_OrderType" => $vnp_OrderType,
+                "vnp_ReturnUrl" => $vnp_Returnurl,
+                "vnp_TxnRef" => $vnp_TxnRef,
+            );
+
+//            dd($inputData);
+
+            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
+                $inputData['vnp_BankCode'] = $vnp_BankCode;
+            }
+            ksort($inputData);
+            $query = "";
+            $i = 0;
+            $hashdata = "";
+            foreach ($inputData as $key => $value) {
+                if ($i == 1) {
+                    $hashdata .= '&' . $key . "=" . $value;
+                } else {
+                    $hashdata .= $key . "=" . $value;
+                    $i = 1;
+                }
+                $query .= urlencode($key) . "=" . urlencode($value) . '&';
+            }
+
+            $vnp_Url = $vnp_Url . "?" . $query;
+            if (isset($vnp_HashSecret)) {
+                // $vnpSecureHash = md5($vnp_HashSecret . $hashdata);
+                $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
+                $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
+            }
+            return redirect($vnp_Url);
         }
 
         // Redirect to thank you page
@@ -206,12 +263,19 @@ class CheckoutController extends Controller
         return redirect()->to("/checkout/thank-you/".$order->id);
     }
 
-    public function result() {
-        return view("front.checkout.thank-you");
+    public function vnpay(Order $order,Request $request){
+        if($request->vnp_ResponseCode == "00") {
+            $order->update(["is_paid" => true, "status" => 1]);// Paid, status changed to confirmed
+            return redirect()->to("/checkout/thank-you/".$order->id);
+        }
+        session()->forget('url_prev');
+        return 'Lỗi trong quá trình thanh toán hóa đơn';
     }
 
+    public function thankYou(Order $order) {
 
-
+        return view("front.checkout.thank-you");
+    }
 
 }
 

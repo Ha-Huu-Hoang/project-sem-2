@@ -99,7 +99,7 @@
                                             <span tabindex="0" class="ui-slider-handle ui-corner-all ui-state-default"></span>
                                         </div>
                                     </div>
-                                        <button type="submit" class="filter-btn">Filter</button>
+                                        <button type="submit" class="btn btn-dark" style="width: 100%; font-weight: 600">Filter</button>
                                     </div>
                                 </div>
                                 <div class="card">
