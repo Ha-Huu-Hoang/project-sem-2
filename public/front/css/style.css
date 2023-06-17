@@ -4201,7 +4201,7 @@ edit
     height: 16px;
     width: 16px;
     border-radius: 50%;
-    background: #e53637;
+    background: #23272b;
     border: none;
     -webkit-box-shadow: 1px 6px 14px -4px #425c6d;
     box-shadow: 1px 6px 14px -4px #425c6d;
@@ -4214,16 +4214,6 @@ edit
 }
 
 .filter-widget .filter-range-wrap .price-range .ui-slider-range.ui-corner-all.ui-widget-header:last-child {
-    background: #e53637;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
 }
-.filter-widget .filter-btn {
-    font-size: 14px;
-    color: #ffffff;
-    font-weight: 700;
-    background:#e53637;
-    padding: 7px 20px 5px;
-    border-radius: 2px;
-    display: inline-block;
-    text-transform: uppercase;
-}
-
