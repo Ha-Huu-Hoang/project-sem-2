@@ -10,6 +10,7 @@ use App\Service\Order\OrderServiceInterface;
 use App\Service\OrderDetail\OrderDetailServiceInterface;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 
@@ -112,7 +113,9 @@ class CheckoutController extends Controller
         }
 
         // Clear the cart
-//        Cart::destroy();
+        Cart::destroy();
+
+        $this->sendEmail($order, $subtotal, $total);
 
         if ($order->payment_method == "PayPal") {
             //Payment Method PayPal
@@ -155,8 +158,8 @@ class CheckoutController extends Controller
             $orderInfo = "Thanh toán qua ATM MoMo";
             $amount = $total* 23000;
             $orderId = time() ."";
-            $redirectUrl = "http://127.0.0.1:8000/checkout/thank-you/".$order->id;
-            $ipnUrl = "http://127.0.0.1:8000/checkout/thank-you/".$order->id;
+            $redirectUrl = "http://127.0.0.1:8000/checkout/thank-you/";
+            $ipnUrl = "http://127.0.0.1:8000/checkout/thank-you/";
             $extraData = "";
 
             $requestId = time() . "";
@@ -199,7 +202,7 @@ class CheckoutController extends Controller
             $vnp_TmnCode = "UDOPNWS1"; //Mã website tại VNPAY
             $vnp_HashSecret = "EBAHADUGCOEWYXCMYZRMTMLSHGKNRPBN"; //Chuỗi bí mật
             $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-            $vnp_Returnurl = "http://127.0.0.1:8000/checkout/thank-you/".$order->id;
+            $vnp_Returnurl = "http://127.0.0.1:8000/checkout/thank-you/";
             $vnp_TxnRef = date("YmdHis"); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
             $vnp_OrderInfo = "Thanh toán đơn hàng qua VNPAY";
             $vnp_OrderType = 'billpayment';
@@ -251,30 +254,44 @@ class CheckoutController extends Controller
         }
 
         // Redirect to thank you page
-        return redirect("/checkout/thank-you/".$order->id);
+        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail");
     }
 
+    //PayPal
     public function successTransaction(Order $order,Request $request){
         $order->update(["is_paid"=>true,"status"=>1]);// Paid, status changed to confirmed
-        return redirect()->to("/checkout/thank-you/".$order->id);
+        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail");
     }
 
-    public function cancelTransaction(Order $order,Request $request){
-        return redirect()->to("/checkout/thank-you/".$order->id);
+    public function cancelTransaction(){
+        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail");
     }
 
+    //VNPAY
     public function vnpay(Order $order,Request $request){
         if($request->vnp_ResponseCode == "00") {
             $order->update(["is_paid" => true, "status" => 1]);// Paid, status changed to confirmed
-            return redirect()->to("/checkout/thank-you/".$order->id);
+            return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail");
         }
         session()->forget('url_prev');
         return 'Lỗi trong quá trình thanh toán hóa đơn';
     }
 
-    public function thankYou(Order $order) {
+    public function thankYou() {
+        $notification = session("notification");
+        return view("front.checkout.thank-you", compact("notification"));
+    }
 
-        return view("front.checkout.thank-you");
+    //Send Email
+    private function sendEmail($order, $subtotal, $total) {
+        $email_to = $order->email;
+        Mail::send("front.checkout.email", compact("order", "subtotal", "total"),
+            function ($message) use ($email_to) {
+                $message->from('ngomanhson2004txpt@gmail.com', 'Shop Runner');
+                $message->to($email_to, $email_to);
+                $message->subject('Order Notification');
+            }
+        );
     }
 
 }
