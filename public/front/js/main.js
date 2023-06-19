@@ -238,3 +238,56 @@
 
 })(jQuery);
 
+ function addCart(productId) {
+     $.ajax({
+         type: "GET",
+         url:"cart/add",
+         data:{productId: productId},
+         success: function (response){
+         $('.cart-count').text(response['count']);
+         $('.price').text('$' + response['total']);
+
+         var row_tbody = $('.shopping__cart__table tbody');
+         var row_exitstItem = row_tbody.find("tr[data-rowId='"+ response['cart'].rowId +"']");
+
+         if (row_exitstItem.length){
+             row_exitstItem.find('.product__cart__item__text h5').text('$'+response['cart'].price.toFixed(2));
+
+         }else {
+             var newItem =
+                 '                                   <tr data-rowId="'+ response['cart'].rowId +'">\n' +
+                 '                                    <td class="product__cart__item">\n' +
+                 '                                        <div class="product__cart__item__pic">\n' +
+                 '                                            @if(isset($cart->options[\'images\']) && count($cart->options[\'images\']) > 0)\n' +
+                 '                                                <img src="'+ response['cart'].options.images[0].path +'" alt="" style="width: 90px;height: 90px; object-fit: cover">\n' +
+                 '                                            @endif\n' +
+                 '\n' +
+                 '                                        </div>\n' +
+                 '                                        <div class="product__cart__item__text">\n' +
+                 '                                            <h6>'+ response['cart'].name+'</h6>\n' +
+                 '                                            <h5>$'+ response['cart'].price.toFixed(2)+'</h5>\n' +
+                 '                                        </div>\n' +
+                 '                                    </td>\n' +
+                 '                                    <td class="quantity__item">\n' +
+                 '                                        <div class="quantity">\n' +
+                 '                                            <div class="pro-qty-2">\n' +
+                 '                                                <input type="text" value="{{$cart->qty}}">\n' +
+                 '                                            </div>\n' +
+                 '                                        </div>\n' +
+                 '                                    </td>\n' +
+                 '                                    <td class="cart__price">$\'+ response[\'cart\'].price.toFixed(2)+</td>\n' +
+                 '                                    <td class="cart__close"><a href="cart/delete/{{$cart->rowId}}"><i class="fa fa-close"></i></a></td>\n' +
+                 '                                </tr>';
+             row_tbody.append(newItem);
+         }
+         alert('add successful!\nProduct: ' + response['cart'].name)
+             console.log(response);
+         },
+         error:function (response){
+            alert('Add failed');
+            console.log(response);
+         },
+     });
+
+}
+

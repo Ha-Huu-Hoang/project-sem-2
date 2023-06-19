@@ -39,7 +39,7 @@
                             </thead>
                             <tbody>
                             @foreach($carts as $cart)
-                                <tr >
+                                <tr data-rowId="{{$cart->rowId}}">
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
                                             @if(isset($cart->options['images']) && count($cart->options['images']) > 0)
