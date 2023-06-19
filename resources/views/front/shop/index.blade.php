@@ -22,6 +22,7 @@
     <!-- Shop Section Begin -->
     <section class="shop spad">
         <div class="container">
+
             <div class="row">
                 <div class="col-lg-3">
                     <div class="shop__sidebar">
@@ -33,6 +34,7 @@
                         </div>
                         <div class="shop__sidebar__accordion">
                             <div class="accordion" id="accordionExample">
+                                <form action="">
                                 <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseOne">Categories</a>
@@ -42,14 +44,13 @@
                                             <div class="shop__sidebar__categories">
                                                 <ul class="nice-scroll">
                                                     @foreach($category as $ct)
-                                                    <li><a href="shop/category/{{$ct->name}}">{{$ct->name}}({{count($ct->products)}})</a></li>
+                                                    <li><a href="shop/category/{{$ct->name}}" >{{$ct->name}}({{count($ct->products)}})</a></li>
                                                     @endforeach
                                                 </ul>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                                <form action="shop">
                                 <div class="card">
 
                                     <div class="card-heading">
@@ -171,21 +172,39 @@
                                         </div>
                                     </div>
                                 </div>
-
                                 <div class="card">
                                     <div class="card-heading">
                                         <a data-toggle="collapse" data-target="#collapseSix">Tags</a>
                                     </div>
                                     <div id="collapseSix" class="collapse show" data-parent="#accordionExample">
                                         <div class="card-body">
-                                            <div class="shop__sidebar__tags">
-                                                <a href="#">Product</a>
-                                                <a href="#">Bags</a>
-                                                <a href="#">Shoes</a>
-                                                <a href="#">Fashio</a>
-                                                <a href="#">Clothing</a>
-                                                <a href="#">Hats</a>
-                                                <a href="#">Accessories</a>
+
+                                            <div class="shop__sidebar__size">
+                                                <label for="Product" class="{{request('tag') == 'Product' ? 'active' : ''}}">Product
+                                                    <input type="radio" id="Product" name="tag" value="Product" onchange="this.form.submit();"
+                                                        {{request('tag') == 'Product' ? 'checked' : ''}}>
+                                                </label>
+                                                <label for="Bags" class="{{request('tag') == 'Bags' ? 'active' : ''}}">Bags
+                                                    <input type="radio" id="Bags" name="tag" value="Bags" onchange="this.form.submit();"
+                                                        {{request('tag') == 'Bags' ? 'checked' : ''}}>
+                                                </label>
+                                                <label for="Shoes" class="{{request('tag') == 'Shoes' ? 'active' : ''}}">Shoes
+                                                    <input type="radio" id="Shoes" name="tag" value="Shoes" onchange="this.form.submit();"
+                                                        {{request('tag') == 'Shoes' ? 'checked' : ''}}>
+                                                </label>
+                                                <label for="Clothing" class="{{request('tag') == 'Clothing' ? 'active' : ''}}">Clothing
+                                                    <input type="radio" id="Clothing" name="tag" value="Clothing" onchange="this.form.submit();"
+                                                        {{request('tag') == 'v' ? 'checked' : ''}}>
+                                                </label>
+                                                <label for="Hats" class="{{request('tag') == 'Hats' ? 'active' : ''}}">Hats
+                                                    <input type="radio" id="Hats" name="tag" value="Hats" onchange="this.form.submit();"
+                                                        {{request('tag') == 'Hats' ? 'checked' : ''}}>
+                                                </label>
+
+                                                <label for="Accessories" class="{{request('tag') == 'Accessories' ? 'active' : ''}}">Accessories
+                                                    <input type="radio" id="Accessories" name="tag" value="Accessories" onchange="this.form.submit();"
+                                                        {{request('tag') == 'Accessories' ? 'checked' : ''}}>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>
@@ -197,8 +216,9 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="shop__product__option">
-                        <form action="">
+
                         <div class="row">
+
                             <div class="col-lg-6 col-md-6 col-sm-6">
                                 <div class="shop__product__option__right">
                                     <p>Sorting :</p>
@@ -223,8 +243,10 @@
 
                                 </div>
                             </div>
+
                         </div>
-                        </form>
+
+
                     </div>
                     <div class="row">
                         @foreach($product as $pr)
@@ -260,6 +282,7 @@
                     </div>
                 </div>
             </div>
+
         </div>
     </section>
     <!-- Shop Section End -->

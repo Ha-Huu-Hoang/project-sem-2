@@ -32,7 +32,6 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
     public function getProductOnIndex($request)
     {
         $search =$request->search ?? '';
-
         $product =$this->model->where('name','like','%'. $search .'%');
         $product = $this->filter($product, $request);
         $product =$this->sortAndPagination($product,$request);
@@ -45,6 +44,7 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
     {
         $product = ProductCategory::where('name', $categoryName)->first()->products->toQuery();
         $product = $this->filter($product, $request);
+
         $product = $this->sortAndPagination($product,$request);
         return $product;
     }
@@ -98,7 +98,6 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
        $product = ($priceMin != null && $priceMax != null) ?
            $product->whereBetween('price',[$priceMin,$priceMax]) :
            $product;
-
        // loc size
        $size =$request->size;
        $product =$size != null
@@ -107,6 +106,12 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
                    ->where('qty','>',0);
            })
            : $product;
+       //loc theo tag
+       $tag = $request->tag;
+       $product = $tag != null
+           ? $product->where('tag', $tag)
+           : $product;
+
 
        return $product;
    }
