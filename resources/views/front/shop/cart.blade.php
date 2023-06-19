@@ -2,7 +2,6 @@
 @section('title','Cart')
 @section('body')
 
-    @if(Cart::count()>0)
     <!-- Breadcrumb Section Begin -->
     <section class="breadcrumb-option">
         <div class="container">
@@ -21,7 +20,7 @@
         </div>
     </section>
     <!-- Breadcrumb Section End -->
-
+    @if(Cart::count()>0)
     <!-- Shopping Cart Section Begin -->
     <section class="shopping-cart spad">
         <div class="container">

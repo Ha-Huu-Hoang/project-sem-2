@@ -4118,32 +4118,27 @@ edit
     visibility: hidden;
 }
 
-.card-body .shop__sidebar__brand  .bc-item label input:checked~span {
-    background: #e53637;
-    border-color: #e53637;
+.card-body .shop__sidebar__brand  .bc-item label input:checked ~ span:before {
+    content: '\f00c';
+    position: absolute;
+    top: -3px;
+    left: 1px;
+    font-family: "FontAwesome";
+    font-size: 15px;
+    background: transparent;
+    color: #333;
 }
 
 .card-body .shop__sidebar__brand  .bc-item label .checkmark {
     position: absolute;
+    top: 1px;
     left: 0;
-    top: 5px;
-    height: 15px;
-    width: 15px;
+    height: 20px;
+    width: 20px;
     border: 2px solid #ebebeb;
     border-radius: 2px;
 }
 
-.card-body .shop__sidebar__brand  .bc-item label .checkmark:after {
-    left: 0;
-    top: 0;
-    width: 10px;
-    height: 8px;
-    border: solid white;
-    border-width: 3px 3px 0px 0px;
-    -webkit-transform: rotate(127deg);
-    -ms-transform: rotate(127deg);
-    transform: rotate(127deg);
-}
  /*loc price*/
 .filter-widget .filter-range-wrap {
     margin-bottom: 40px;
@@ -4169,7 +4164,6 @@ edit
 .filter-widget{
     padding-top:20px ;
 }
-
 
 .filter-widget .filter-range-wrap .range-slider .price-input input {
     font-size: 16px;
@@ -4201,11 +4195,12 @@ edit
     height: 16px;
     width: 16px;
     border-radius: 50%;
-    background: #23272b;
+    background: #fff;
     border: none;
     -webkit-box-shadow: 1px 6px 14px -4px #425c6d;
     box-shadow: 1px 6px 14px -4px #425c6d;
     outline: none;
+    margin-top: -2px;
 }
 
 .filter-widget .filter-range-wrap .price-range .ui-slider-range {
@@ -4214,6 +4209,6 @@ edit
 }
 
 .filter-widget .filter-range-wrap .price-range .ui-slider-range.ui-corner-all.ui-widget-header:last-child {
-    background: #fff;
+    background: #333;
     box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
 }
