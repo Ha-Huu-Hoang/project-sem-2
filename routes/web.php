@@ -62,7 +62,7 @@ Route::get('/contact',[\App\Http\Controllers\Front\ContactsController::class,'in
 
 //dashboard(Admin)
 Route::prefix('/admin')->group(function (){
-    Route::resource('/dashboard',\App\Http\Controllers\Admin\DashboardController::class);
-    Route::resource('/user',\App\Http\Controllers\Admin\UserController::class);
-    Route::resource('/orders',\App\Http\Controllers\Admin\OrdersController::class);
+    Route::get('/dashboard',[\App\Http\Controllers\Admin\DashboardController::class, 'index']);
+    Route::get('/user',[\App\Http\Controllers\Admin\UserController::class, 'index']);
+    Route::get('/orders',[\App\Http\Controllers\Admin\OrdersController::class, 'index']);
 });
