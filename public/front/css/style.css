@@ -4212,3 +4212,18 @@ edit
     background: #333;
     box-shadow: rgba(0, 0, 0, 0.16) 0 1px 4px;
 }
+
+/* === pagination === */
+.pagination {
+    justify-content: flex-end;
+}
+
+.page-item.active .page-link {
+    background-color: #333;
+    border-color: #333;
+    color: #fff;
+}
+
+.page-item .page-link {
+    color: #333;
+}
