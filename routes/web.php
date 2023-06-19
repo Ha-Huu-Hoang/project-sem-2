@@ -57,3 +57,11 @@ Route::get('blog',[\App\Http\Controllers\Front\BlogController::class,'index']);
 //trang contacts
 Route::get('contact',[\App\Http\Controllers\Front\ContactsController::class,'index']);
 
+
+
+
+//dashboard(Admin)
+Route::prefix('admin')->group(function (){
+    Route::resource('dashboard',\App\Http\Controllers\Admin\DashbroadController::class);
+    Route::resource('user' , \App\Http\Controllers\Admin\UserController::class);
+});
