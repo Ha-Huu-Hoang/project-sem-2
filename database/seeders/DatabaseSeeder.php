@@ -20,9 +20,9 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'id' => 1,
-                'name' => 'Ngô Mạnh Sơn',
-                'email' => 'ngomanhson2004txpt@gmail.com',
-                'password' => Hash::make('23102004'),
+                'name' => 'Code One Min',
+                'email' => 'codeonemin@gmail.com',
+                'password' => Hash::make('codeonemin2023'),
                 'avatar' => null,
                 'level' => 2,
                 'description' => null,
@@ -31,19 +31,10 @@ class DatabaseSeeder extends Seeder
                 'id' => 2,
                 'name' => 'admin',
                 'email' => 'admin@gmail.com',
-                'password' => Hash::make('123456'),
+                'password' => Hash::make('1234567890'),
                 'avatar' => null,
                 'level' => 0,
                 'description' => null,
-            ],
-            [
-                'id' => 3,
-                'name' => 'Shane Lynch',
-                'email' => 'ShaneLynch@gmail.com',
-                'password' => Hash::make('123456'),
-                'avatar' => 'avatar-0.png',
-                'level' => 1,
-                'description' => 'Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum bore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud amodo'
             ]
         ]);
 

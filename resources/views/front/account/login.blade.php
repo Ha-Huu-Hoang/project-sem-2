@@ -14,7 +14,7 @@
                                 <a href="{{url("/")}}"><img src="front/img/logo.png" alt="logo" class="logo" /></a>
                             </div>
                             <p class="login-card-description">Login to your account</p>
-                            <form action="" method="post">
+                            <form action="{{url("/account/login")}}" method="post">
                                 @csrf
 
                                 @if(session('notification'))
@@ -22,18 +22,25 @@
                                         {{session('notification')}}
                                     </div>
                                 @endif
+
+                                @if(session('success'))
+                                    <div class="alert alert-success text-small">
+                                        {{session('success')}}
+                                    </div>
+                                @endif
+
                                 <div class="form-group">
                                     <label for="email" class="sr-only">Email</label>
                                     <input type="email" name="email" id="email" class="form-control" placeholder="Enter email address" />
                                     @error("email")
-                                    <p class="text-danger text-small"><i>{{$message}}</i></p>
+                                        <p class="text-danger text-small"><i>{{$message}}</i></p>
                                     @enderror
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="password" class="sr-only">Password</label>
                                     <input type="password" name="password" id="password" class="form-control" placeholder="***********" />
                                     @error("password")
-                                    <p class="text-danger text-small"><i>{{$message}}</i></p>
+                                        <p class="text-danger text-small"><i>{{$message}}</i></p>
                                     @enderror
                                 </div>
                                 <button type="submit" class="btn btn-block login-btn mb-4">Login</button>
