@@ -6,40 +6,31 @@
             <div class="card login-card">
                 <div class="row no-gutters">
                     <div class="col-md-5">
-                        <img src="front/img/login.png" alt="login" class="login-card-img" />
+                        <img src="front/img//login.png" alt="login" class="login-card-img" />
                     </div>
                     <div class="col-md-7">
                         <div class="card-body">
                             <div class="brand-wrapper">
                                 <a href="{{url("/")}}"><img src="front/img/logo.png" alt="logo" class="logo" /></a>
                             </div>
-                            <p class="login-card-description">Login to your account</p>
-                            <form action="" method="post">
+                            <p class="login-card-description">Register account</p>
+                            <form action="#!" method="post">
                                 @csrf
-
-                                @if(session('notification'))
-                                    <div class="alert alert-warning text-small">
-                                        {{session('notification')}}
-                                    </div>
-                                @endif
+                                <div class="form-group">
+                                    <label for="fullname" class="sr-only">Email</label>
+                                    <input type="text" name="name" id="fullname" class="form-control" placeholder="Enter full name" />
+                                </div>
                                 <div class="form-group">
                                     <label for="email" class="sr-only">Email</label>
                                     <input type="email" name="email" id="email" class="form-control" placeholder="Enter email address" />
-                                    @error("email")
-                                    <p class="text-danger text-small"><i>{{$message}}</i></p>
-                                    @enderror
                                 </div>
                                 <div class="form-group mb-4">
                                     <label for="password" class="sr-only">Password</label>
                                     <input type="password" name="password" id="password" class="form-control" placeholder="***********" />
-                                    @error("password")
-                                    <p class="text-danger text-small"><i>{{$message}}</i></p>
-                                    @enderror
                                 </div>
-                                <button type="submit" class="btn btn-block login-btn mb-4">Login</button>
+                                <button type="submit" class="btn btn-block login-btn mb-4">Register</button>
                             </form>
-                            <a href="#!" class="forgot-password-link">Forgot password?</a>
-                            <p class="login-card-footer-text">Don't have an account? <a href="{{url("/account/register")}}" class="text-reset">Register here</a></p>
+                            <p class="login-card-footer-text">Have already an account? <a href="{{url("/account/login")}}" class="text-reset">Login now</a></p>
                             <nav class="login-card-footer-nav">
                                 <a href="#!">Terms of use</a>
                                 <a href="#!">Privacy policy</a>
