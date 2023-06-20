@@ -64,4 +64,15 @@ Route::prefix('account')->group(function () {
     Route::get('logout',[\App\Http\Controllers\Front\AccountController::class,'logout']);
     Route::get('register',[\App\Http\Controllers\Front\AccountController::class,'register']);
     Route::post('register',[\App\Http\Controllers\Front\AccountController::class,'postRegister']);
+
+    Route::prefix('my-order')->group(function (){
+        Route::get('/',[\App\Http\Controllers\Front\AccountController::class,'myOrder']);
+    });
+});
+
+//dashboard(Admin)
+Route::prefix('/admin')->group(function (){
+    Route::get('/dashboard',[\App\Http\Controllers\Admin\DashboardController::class, 'index']);
+    Route::get('/user',[\App\Http\Controllers\Admin\UserController::class, 'index']);
+    Route::get('/orders',[\App\Http\Controllers\Admin\OrdersController::class, 'index']);
 });
