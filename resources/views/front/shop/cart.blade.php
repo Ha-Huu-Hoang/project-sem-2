@@ -59,7 +59,7 @@
                                         </div>
                                     </td>
                                     <td class="cart__price">${{number_format($cart->price ,2)}}</td>
-                                    <td class="cart__close"><a href="cart/delete/{{$cart->rowId}}"><i class="fa fa-close"></i></a></td>
+                                    <td class="cart__close"><i onclick="removeCart('{{$cart->rowId}}' )" class="fa fa-close"></i></td>
                                 </tr>
                             @endforeach
                             </tbody>
@@ -73,7 +73,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
-                                <a href="#"><i class="fa fa-spinner"></i> Update cart</a>
+                                <a href="#"><i class="fa fa-trash"></i> Clear All</a>
                             </div>
                         </div>
                     </div>

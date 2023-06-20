@@ -28,17 +28,17 @@ use App\Http\Controllers\Front\ShopController;
 Route::get('/',[\App\Http\Controllers\Front\HomeController::class,'index']);
 
 //sản phẩm chi tiết
-Route::get('/shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'show']);
+Route::get('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'show']);
 //đăng comment
-Route::post('/shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
+Route::post('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
 //trang sản phẩm
-Route::get('/shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
-Route::get('/shop/category/{categoryName}',[\App\Http\Controllers\Front\ShopController::class,'category']);
+Route::get('shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
+Route::get('shop/category/{categoryName}',[\App\Http\Controllers\Front\ShopController::class,'category']);
 //trang shop cart
 Route::prefix('/cart')->group(function (){
     Route::get('/',[\App\Http\Controllers\Front\CartController::class,'index']);
-    Route::get('/add',[\App\Http\Controllers\Front\CartController::class,'add']);
-    Route::get('/delete/{id}',[\App\Http\Controllers\Front\CartController::class,'delete']);
+    Route::get('add',[\App\Http\Controllers\Front\CartController::class,'add']);
+    Route::get('delete',[\App\Http\Controllers\Front\CartController::class,'delete']);
 });
 
 //trang checkout
@@ -52,17 +52,8 @@ Route::prefix('/checkout')->group(function (){
 });
 
 //trang blog
-Route::get('/blog',[\App\Http\Controllers\Front\BlogController::class,'index']);
+Route::get('blog',[\App\Http\Controllers\Front\BlogController::class,'index']);
 
 //trang contacts
-Route::get('/contact',[\App\Http\Controllers\Front\ContactsController::class,'index']);
+Route::get('contact',[\App\Http\Controllers\Front\ContactsController::class,'index']);
 
-
-
-
-//dashboard(Admin)
-Route::prefix('/admin')->group(function (){
-    Route::get('/dashboard',[\App\Http\Controllers\Admin\DashboardController::class, 'index']);
-    Route::get('/user',[\App\Http\Controllers\Admin\UserController::class, 'index']);
-    Route::get('/orders',[\App\Http\Controllers\Admin\OrdersController::class, 'index']);
-});

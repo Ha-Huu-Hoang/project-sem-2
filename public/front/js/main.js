@@ -280,7 +280,7 @@
                  '                                </tr>';
              row_tbody.append(newItem);
          }
-         alert('add successful!\nProduct: ' + response['cart'].name)
+         alert('Add successful!\nProduct: ' + response['cart'].name)
              console.log(response);
          },
          error:function (response){
@@ -290,4 +290,39 @@
      });
 
 }
+
+function removeCart(rowId){
+    $.ajax({
+        type: "GET",
+        url:"cart/delete",
+        data:{rowId: rowId},
+        success: function (response){
+            // xử lý cart trong master.blade,php
+            $('.cart-count').text(response['count']);
+            $('.price').text('$' + response['total']);
+
+            var row_tbody = $('.shopping__cart__table tbody');
+            var row_exitstItem = row_tbody.find("tr[data-rowId='"+ rowId +"']");
+            row_exitstItem.remove();
+            // xử lý cart trong cart.blade.php
+            var cart_tbody =$('.shopping__cart__table tbody');
+            var cart_exitstItem = cart_tbody.find("tr[data-rowId='"+ rowId  +"']");
+            cart_exitstItem.remove();
+
+            if (row_exitstItem.length){
+
+
+            }else {
+
+            }
+            alert('Delete successful!\nProduct: ' + response['cart'].name)
+            console.log(response);
+        },
+        error:function (response){
+            alert('Delete failed');
+            console.log(response);
+        },
+    });
+}
+
 
