@@ -26,7 +26,7 @@
                             <label class="custom-control-label" for="all2"></label>
                           </div>
                         </th>
-                        <th>ID</th>
+                        <th>Avatar</th>
                         <th>User</th>
                         <th>Phone</th>
                         <th>Level</th>
@@ -45,7 +45,7 @@
                         </td>
                         <td>
                           <div class="avatar avatar-sm">
-                            <img src="../../../../../../../../Users/Ha%20Huu%20Hoang/Documents/Zalo%20Received%20Files/light/assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
+                            <img src="{{$user->avatar}}" alt="..." class="avatar-img rounded-circle">
                           </div>
                         </td>
                         <td>
