@@ -60,8 +60,10 @@
                                         @endif
                                     @endif
                                 </td>
-                                <th style="color: #E6B81D;">${{array_sum(array_column($order->orderDetails->toArray(),'total'))}}</th>
-                                <td><a href="/account/my-order/{{$order->id}}" class="btn">View Details</a></td>
+                                <th style="color: #E6B81D;">${{ number_format($order->total, 2, '.', '') }}</th>
+
+
+                                <td><a href="/account/my-order/{{$order->id}}" class="btn" style="color: #1E8BFF;">Details</a></td>
                             </tr>
                         @endforeach
                     </tbody>

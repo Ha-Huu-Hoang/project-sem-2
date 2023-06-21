@@ -2537,13 +2537,16 @@ ol {
     color: #0d0d0d;
 }
 
-.checkout__title {
-    color: #111111;
-    font-weight: 700;
-    text-transform: uppercase;
+.form__order {
     border-bottom: 1px solid #e1e1e1;
     padding-bottom: 25px;
     margin-bottom: 30px;
+}
+
+.checkout__title{
+    color: #111111;
+    font-weight: 700;
+    text-transform: uppercase;
 }
 
 .checkout__input {
