@@ -44,9 +44,10 @@ class AccountController extends Controller
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect("/"); // Go to home
+//            return redirect("/"); // Go to home
+            return redirect()->intended("/"); //Default will be the homepage
         } else {
-            return back()->with('notification', 'ERROR: Email or password is wrong');
+            return back()->with('notification', 'ERROR: Email or password is wrong.');
         }
     }
 
