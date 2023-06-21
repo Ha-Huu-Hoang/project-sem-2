@@ -11,7 +11,7 @@
                     <div class="col-md-7">
                         <div class="card-body">
                             <div class="brand-wrapper">
-                                <a href="{{url("/")}}"><img src="front/img/logo.png" alt="logo" class="logo" /></a>
+                                <a href="{{url("/")}}"><img src="front/img/logo.png" alt="logo"  title="Go to home" class="logo" /></a>
                             </div>
                             <p class="login-card-description">Register account</p>
                             <form action="{{url("/account/register")}}" method="post">

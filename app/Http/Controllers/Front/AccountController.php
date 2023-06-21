@@ -104,4 +104,17 @@ class AccountController extends Controller
         }
     }
 
+    public function orderDetail($id)
+    {
+        $order = $this->orderService->find($id);
+
+        // Tính toán subtotal và vat từ đơn hàng
+        $subtotal = array_sum(array_column($order->orderDetails->toArray(), 'total'));
+        $vatRate = 0.1;
+        $vatAmount = $subtotal * $vatRate;
+        $total = $subtotal + $vatAmount;
+
+        return view("front.account.my-order.detail", compact('order', 'subtotal', 'vatAmount', 'total'));
+    }
+
 }

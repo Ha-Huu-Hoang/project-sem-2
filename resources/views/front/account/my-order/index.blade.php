@@ -7,10 +7,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text">
-                        <h4>Order</h4>
+                        <h4>My Order</h4>
                         <div class="breadcrumb__links">
                             <a href="{{url("/")}}">Home</a>
-                            <span>Order</span>
+                            <span>My Order</span>
                         </div>
                     </div>
                 </div>
@@ -50,13 +50,20 @@
                                     @if(isset($order->orderDetails) && count($order->orderDetails) > 0)
                                         {{$order->orderDetails[0]->product->name}}
 
-                                        @if(count($order->orderDetails) > 1)
-                                            (and {{count($order->orderDetails)}} other products)
+                                        @php
+                                            $totalQuantity = $order->orderDetails->sum('qty');
+                                            $otherProductsCount = $totalQuantity - 1;
+                                        @endphp
+
+                                        @if($otherProductsCount > 0)
+                                            (and {{$otherProductsCount}} other product{{($otherProductsCount > 1) ? 's' : ''}})
                                         @endif
                                     @endif
                                 </td>
-                                <th style="color: #E6B81D;">${{array_sum(array_column($order->orderDetails->toArray(),'total'))}}</th>
-                                <td><a href="/account/my-order/{{$order->id}}" class="btn">View Details</a></td>
+                                <th style="color: #E6B81D;">${{ number_format($order->total, 2, '.', '') }}</th>
+
+
+                                <td><a href="/account/my-order/{{$order->id}}" class="btn btn-primary"><i class="fa fa-info-circle"></i></a></td>
                             </tr>
                         @endforeach
                     </tbody>
