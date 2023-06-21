@@ -23,7 +23,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Code One Min',
                 'email' => 'codeonemin@gmail.com',
                 'password' => Hash::make('codeonemin2023'),
-                'avatar' => null,
+                'avatar' => 'https://i.ibb.co/BGw0WB7/Code-One-Min.jpg',
                 'level' => 0,
                 'description' => 'Admin',
 
@@ -39,7 +39,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Ngô Mạnh Sơn',
                 'email' => 'ngomanhson2004txpt@gmail.com',
                 'password' => Hash::make('23102004'),
-                'avatar' => null,
+                'avatar' => 'https://i.ibb.co/PW3ks7w/Ngo-Manh-Son.jpg',
                 'level' => 2,
                 'description' => null,
 
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Hà Hữu Hoàng',
                 'email' => 'hahuuhoang732004@gmail.com',
                 'password' => Hash::make('07032004'),
-                'avatar' => null,
+                'avatar' => 'https://i.ibb.co/FgXdDTN/Ha-Huu-Hoang.jpg',
                 'level' => 2,
                 'description' => null,
 
@@ -71,7 +71,7 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Phùng Văn Vũ',
                 'email' => 'phungvu2711@gmail.com',
                 'password' => Hash::make('17042004'),
-                'avatar' => null,
+                'avatar' => 'https://i.ibb.co/1Kn6XFT/PhungVu.jpg',
                 'level' => 2,
                 'description' => null,
 

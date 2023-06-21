@@ -10,7 +10,7 @@
                   <h2 class="h3 mb-0 page-title">Contacts</h2>
                 </div>
                 <div class="col-auto">
-                  <button type="button" class="btn btn-secondary"><span class="fe fe-trash fe-12 mr-2"></span>Delete</button>
+                  <button type="button" class="btn btn-danger"><span class="fe fe-trash fe-12 mr-2"></span>Delete</button>
                   <button type="button" class="btn btn-primary"><span class="fe fe-filter fe-12 mr-2"></span>Create</button>
                 </div>
               </div>
@@ -28,6 +28,7 @@
                         </th>
                         <th>ID</th>
                         <th>User</th>
+                        <th>Avatar</th>
                         <th>Phone</th>
                         <th>Level</th>
                         <th>Date</th>
@@ -43,9 +44,13 @@
                             <label class="custom-control-label" for="2472"></label>
                           </div>
                         </td>
+                          <td>
+                              <p class="mb-0 text-muted"><strong>{{$user->id}}</strong></p>
+                              <small class="mb-0 text-muted"></small>
+                          </td>
                         <td>
                           <div class="avatar avatar-sm">
-                            <img src="../../../../../../../../Users/Ha%20Huu%20Hoang/Documents/Zalo%20Received%20Files/light/assets/avatars/face-3.jpg" alt="..." class="avatar-img rounded-circle">
+                            <img src="{{$user->avatar}}" alt="..." class="avatar-img rounded-circle">
                           </div>
                         </td>
                         <td>
@@ -58,7 +63,6 @@
                         </td>
                         <td>
                           <p class="mb-0 text-muted"><a href="#" class="text-muted">{{\App\Utilities\Constant::$user_level[$user->level]}}</a></p>
-
                         </td>
                         <td class="text-muted">2013/09/20</td>
                         <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
