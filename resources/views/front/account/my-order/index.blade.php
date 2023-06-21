@@ -63,7 +63,7 @@
                                 <th style="color: #E6B81D;">${{ number_format($order->total, 2, '.', '') }}</th>
 
 
-                                <td><a href="/account/my-order/{{$order->id}}" class="btn" style="color: #1E8BFF;">Details</a></td>
+                                <td><a href="/account/my-order/{{$order->id}}" class="btn btn-primary"><i class="fa fa-info-circle"></i></a></td>
                             </tr>
                         @endforeach
                     </tbody>
