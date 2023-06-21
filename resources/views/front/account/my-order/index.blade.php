@@ -22,7 +22,8 @@
     <section class="shop">
         <div class="container">
             <div class="order-table" style="margin: 50px 0">
-                @foreach($orders as $order)
+                @if(count($orders) > 0)
+                    @foreach($orders as $order)
                     <table class="table table-borderless">
                         <thead class="table-bordered">
                             <tr>
@@ -68,6 +69,22 @@
                         </tbody>
                     </table>
                 @endforeach
+                @else
+                    <div class="row justify-content-center">
+                        <div class="col-md-6">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <a href="{{url("/shop")}}" title="Shopping now!"><img src="front/img/my-order.png" width="200" alt=""></a>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <p>You don't have any orders yet. Order now!</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                @endif
             </div>
         </div>
     <section>

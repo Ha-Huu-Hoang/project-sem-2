@@ -104,11 +104,19 @@
     @else
         <section class="shoping-cart spad">
             <div class="container">
-                <div class="row">
-                    <a href="{{url("/shop")}}"><img src="front/img/empty-cart.png" width="200" alt=""></a>
-                </div>
-                <div class="row">
-                    <p>There are no products in the cart</p>
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <a href="{{url("/shop")}}" title="Shopping now!"><img src="front/img/empty-cart.png" width="200" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p>There are no products in the cart. Shopping now!</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
