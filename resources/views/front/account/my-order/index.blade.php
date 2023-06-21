@@ -7,10 +7,10 @@
             <div class="row">
                 <div class="col-lg-12">
                     <div class="breadcrumb__text">
-                        <h4>Order</h4>
+                        <h4>My Order</h4>
                         <div class="breadcrumb__links">
                             <a href="{{url("/")}}">Home</a>
-                            <span>Order</span>
+                            <span>My Order</span>
                         </div>
                     </div>
                 </div>
@@ -50,8 +50,13 @@
                                     @if(isset($order->orderDetails) && count($order->orderDetails) > 0)
                                         {{$order->orderDetails[0]->product->name}}
 
-                                        @if(count($order->orderDetails) > 1)
-                                            (and {{count($order->orderDetails)}} other products)
+                                        @php
+                                            $totalQuantity = $order->orderDetails->sum('qty');
+                                            $otherProductsCount = $totalQuantity - 1;
+                                        @endphp
+
+                                        @if($otherProductsCount > 0)
+                                            (and {{$otherProductsCount}} other product{{($otherProductsCount > 1) ? 's' : ''}})
                                         @endif
                                     @endif
                                 </td>
