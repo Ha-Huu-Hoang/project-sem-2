@@ -14,5 +14,9 @@ class UserService extends BaseService implements UserServiceInterface
     {
         $this->repository=$userRepository;
     }
+    public function searchAndPaginate(){
+        return $this->repository->searchAndPaginate();
+    }
+
 
 }

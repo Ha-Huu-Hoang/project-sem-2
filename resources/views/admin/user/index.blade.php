@@ -11,7 +11,7 @@
                 </div>
                 <div class="col-auto">
                   <button type="button" class="btn btn-secondary"><span class="fe fe-trash fe-12 mr-2"></span>Delete</button>
-                  <button type="button" class="btn btn-primary"><span class="fe fe-filter fe-12 mr-2"></span>Create</button>
+                    <a href="./admin/user/create" class="btn btn-primary"><span class="fe fe-filter fe-12 mr-2"></span>Create</a>
                 </div>
               </div>
               <!-- table -->
@@ -78,11 +78,7 @@
               </div>
               <nav aria-label="Table Paging" class="my-3">
                 <ul class="pagination justify-content-end mb-0">
-                  <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                  <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                  <li class="page-item"><a class="page-link" href="#">2</a></li>
-                  <li class="page-item"><a class="page-link" href="#">3</a></li>
-                  <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                    {!! $users->appends(app("request")->input())->links("pagination::bootstrap-4") !!}
                 </ul>
               </nav>
             </div> <!-- .col-12 -->

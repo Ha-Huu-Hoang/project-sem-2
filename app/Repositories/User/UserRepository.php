@@ -12,4 +12,8 @@ class UserRepository extends BaseRepositories implements UserRepositoryInterface
     {
         return User::class;
     }
+    public function searchAndPaginate(){
+        $users = $this->model->paginate(3);
+        return $users;
+    }
 }

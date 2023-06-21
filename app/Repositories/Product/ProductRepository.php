@@ -111,8 +111,6 @@ class ProductRepository extends BaseRepositories implements ProductRepositoryInt
        $product = $tag != null
            ? $product->where('tag', $tag)
            : $product;
-
-
        return $product;
    }
 }

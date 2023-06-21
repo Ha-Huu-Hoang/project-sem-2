@@ -22,7 +22,7 @@ class UserController extends Controller
 
     public function index()
     {
-        $users = $this->userService->all();
+        $users = $this->userService->searchAndPaginate();
         return view('admin.user.index',compact('users'));
     }
 

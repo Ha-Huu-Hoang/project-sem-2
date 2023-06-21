@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="dashboard/css/jquery.steps.css">
     <link rel="stylesheet" href="dashboard/css/jquery.timepicker.css">
     <link rel="stylesheet" href="dashboard/css/quill.snow.css">
+
     <!-- Date Range Picker CSS -->
     <link rel="stylesheet" href="dashboard/css/daterangepicker.css">
     <!-- App CSS -->
