@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Service\User\UserServiceInterface;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,9 +14,16 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    private $userService;
+    public function __construct(UserServiceInterface $userService)
+    {
+        $this->userService =$userService;
+    }
+
     public function index()
     {
-        return view('admin.user.index');
+        $users = $this->userService->all();
+        return view('admin.user.index',compact('users'));
     }
 
 
@@ -48,7 +56,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('admin.user.show',compact('user'));
     }
 
     /**

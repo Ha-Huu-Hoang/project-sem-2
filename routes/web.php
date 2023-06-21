@@ -75,5 +75,6 @@ Route::prefix('account')->group(function () {
 Route::prefix('/admin')->group(function (){
     Route::get('/dashboard',[\App\Http\Controllers\Admin\DashboardController::class, 'index']);
     Route::get('/user',[\App\Http\Controllers\Admin\UserController::class, 'index']);
+    Route::get('/user/{user}',[\App\Http\Controllers\Admin\UserController::class, 'show']);
     Route::get('/orders',[\App\Http\Controllers\Admin\OrdersController::class, 'index']);
 });
