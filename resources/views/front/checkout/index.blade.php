@@ -27,6 +27,9 @@
             <div class="checkout__form">
                 <form action="{{url("/checkout")}}" method="post">
                     @csrf
+
+                    <input type="hidden" name="user_id" id="user_id" value="{{Auth::user()->id ?? ''}}" >
+
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="{{url("/cart")}}" style="color: #1da1f2">Click
@@ -36,7 +39,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Fist Name<span>*</span></p>
-                                        <input type="text" name="first_name">
+                                        <input type="text" name="first_name" value="{{Auth::user()->name ?? ''}}">
                                         @error("first_name")
                                         <p class="text-danger"><i>{{$message}}</i></p>
                                         @enderror
@@ -54,14 +57,14 @@
                             </div>
                             <div class="checkout__input">
                                 <p>Country<span>*</span></p>
-                                <input type="text" name="country">
+                                <input type="text" name="country" value="{{Auth::user()->country ?? ''}}">
                                 @error("country")
                                 <p class="text-danger"><i>{{$message}}</i></p>
                                 @enderror
                             </div>
                             <div class="checkout__input">
                                 <p>Street Address<span>*</span></p>
-                                <input type="text" placeholder="Street Address" class="checkout__input__add" name="street_address">
+                                <input type="text" placeholder="Street Address" class="checkout__input__add" name="street_address" value="{{Auth::user()->street_address ?? ''}}">
                                 @error("street_address")
                                 <p class="text-danger"><i>{{$message}}</i></p>
                                 @enderror
@@ -69,14 +72,14 @@
                             </div>
                             <div class="checkout__input">
                                 <p>Town/City<span>*</span></p>
-                                <input type="text" name="town_city">
+                                <input type="text" name="town_city" value="{{Auth::user()->town_city ?? ''}}">
                                 @error("town_city")
                                 <p class="text-danger"><i>{{$message}}</i></p>
                                 @enderror
                             </div>
                             <div class="checkout__input">
                                 <p>Postcode / ZIP<span>*</span></p>
-                                <input type="text" name="postcode_zip">
+                                <input type="text" name="postcode_zip" value="{{Auth::user()->postcode_zip ?? ''}}">
                                 @error("postcode_zip")
                                 <p class="text-danger"><i>{{$message}}</i></p>
                                 @enderror
@@ -85,7 +88,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Phone<span>*</span></p>
-                                        <input type="text" name="phone">
+                                        <input type="text" name="phone" value="{{Auth::user()->phone ?? ''}}">
                                         @error("phone")
                                         <p class="text-danger"><i>{{$message}}</i></p>
                                         @enderror
@@ -94,7 +97,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <p>Email<span>*</span></p>
-                                        <input type="email" name="email">
+                                        <input type="email" name="email" value="{{Auth::user()->email ?? ''}}">
                                         @error("email")
                                         <p class="text-danger"><i>{{$message}}</i></p>
                                         @enderror

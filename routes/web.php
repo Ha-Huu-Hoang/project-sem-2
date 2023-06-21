@@ -48,6 +48,7 @@ Route::prefix('/checkout')->group(function (){
     Route::get("/thank-you/",[\App\Http\Controllers\Front\CheckoutController::class,"thankYou"]);
     Route::get('/success-transaction/{order}', [\App\Http\Controllers\Front\CheckoutController::class, 'successTransaction'])->name('successTransaction');
     Route::get('/cancel-transaction/{order}', [\App\Http\Controllers\Front\CheckoutController::class, 'cancelTransaction'])->name('cancelTransaction');
+    Route::post('/momo/callback', [\App\Http\Controllers\Front\CheckoutController::class, 'momoCallback']);
     Route::get('/vnpay/{order}', [\App\Http\Controllers\Front\CheckoutController::class, 'vnpay'])->name('vnpay');
 });
 

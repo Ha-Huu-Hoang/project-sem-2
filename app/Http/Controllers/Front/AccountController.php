@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepositoryInterface;
+use App\Service\Order\OrderServiceInterface;
+use App\Utilities\Constant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -12,10 +14,12 @@ class AccountController extends Controller
 {
 
     private $userService;
+    private $orderService;
 
-    public function __construct(UserRepositoryInterface $userService)
+    public function __construct(UserRepositoryInterface $userService, OrderServiceInterface $orderService)
     {
         $this->userService = $userService;
+        $this->orderService = $orderService;
     }
 
     public function login() {
@@ -32,10 +36,11 @@ class AccountController extends Controller
             "min"=>"Please enter at least :min characters.",
             "email" => "Please enter a valid email address.",
         ]);
+
         $credentials =[
             'email'=> $request->email,
             'password'=> $request->password,
-            'level'=> 2, //Account user
+            'level'=> Constant::user_level_client, //Account user
         ];
 
         if (Auth::attempt($credentials)) {
@@ -71,7 +76,7 @@ class AccountController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'password' => bcrypt($request->password),
-            'level' => 2, // Account User
+            'level' => Constant::user_level_client, // Account User
         ];
 
         $existingUser = User::where('email', $request->email)->first();
@@ -88,5 +93,15 @@ class AccountController extends Controller
         }
     }
 
+    public function myOrder()
+    {
+        if (Auth::check()) {
+            $user_id = Auth::id();
+            $orders = $this->orderService->getOrderByUserId($user_id);
+            return view("front.account.my-order.index", compact('orders'));
+        } else {
+            return view("front.account.login");
+        }
+    }
 
 }

@@ -16,6 +16,9 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
 
+            $table->integer('user_id')->nullable();
+
+
             $table->string('first_name');
             $table->string('last_name');
             $table->string('company_name')->nullable();
@@ -28,8 +31,7 @@ class CreateOrdersTable extends Migration
 
             $table->decimal("total",14,2);
             $table->string("payment_method",20);
-            $table->boolean("is_paid")->default(false);
-            $table->tinyInteger("status")->default(0);
+            $table->integer("status");
 
             $table->timestamps();
         });

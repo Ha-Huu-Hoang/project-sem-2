@@ -15,6 +15,7 @@ class Order extends Model
     protected $fillable = [
         'first_name',
         'last_name',
+        'user_id',
         'country',
         'street_address',
         'town_city',
@@ -23,7 +24,6 @@ class Order extends Model
         'email',
         'total',
         'payment_method',
-        "is_paid",
         "status",
     ];
 
