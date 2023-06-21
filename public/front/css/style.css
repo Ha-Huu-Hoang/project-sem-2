@@ -1606,7 +1606,8 @@ ol {
 }
 
 .product__details__text {
-    text-align: center;
+    text-align: left;
+    margin-left: 30px;
 }
 
 .product__details__text h4 {
@@ -1790,10 +1791,6 @@ ol {
 
 .product__details__cart__option .quantity .pro-qty .qtybtn.inc {
     top: 16px;
-}
-
-.product__details__btns__option {
-    margin-bottom: 40px;
 }
 
 .product__details__btns__option a {
