@@ -43,6 +43,12 @@
                                         <p class="text-danger text-small"><i>{{$message}}</i></p>
                                     @enderror
                                 </div>
+
+                                <label class="input-check">
+                                    Show Password <input type="checkbox" onclick="showPassword()" />
+                                    <span class="checkmark"></span>
+                                </label>
+
                                 <button type="submit" class="btn btn-block login-btn mb-4">Login</button>
                             </form>
                             <a href="#!" class="forgot-password-link">Forgot password?</a>

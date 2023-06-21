@@ -44,6 +44,12 @@
                                         <p class="text-danger text-small"><i>{{$message}}</i></p>
                                     @enderror
                                 </div>
+
+                                <label class="input-check">
+                                    Show Password <input type="checkbox" onclick="showPassword()" />
+                                    <span class="checkmark"></span>
+                                </label>
+
                                 <button type="submit" class="btn btn-block login-btn mb-4">Register</button>
                             </form>
                             <p class="login-card-footer-text">Have already an account? <a href="{{url("/account/login")}}" class="text-reset">Login now</a></p>
