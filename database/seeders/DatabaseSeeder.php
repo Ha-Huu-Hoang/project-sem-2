@@ -20,31 +20,69 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             [
                 'id' => 1,
+                'name' => 'Code One Min',
+                'email' => 'codeonemin@gmail.com',
+                'password' => Hash::make('codeonemin2023'),
+                'avatar' => null,
+                'level' => 0,
+                'description' => 'Admin',
+
+                'company_name'=> 'FPT APTECH',
+                'country'=> 'Viêt Nam',
+                'street_address'=> '8A Tôn Thất Thuyết',
+                'town_city'=> 'Hà Nội',
+                'postcode_zip'=> '100000',
+                'phone'=> '0999999999',
+            ],
+            [
+                'id' => 2,
                 'name' => 'Ngô Mạnh Sơn',
                 'email' => 'ngomanhson2004txpt@gmail.com',
                 'password' => Hash::make('23102004'),
                 'avatar' => null,
                 'level' => 2,
                 'description' => null,
-            ],
-            [
-                'id' => 2,
-                'name' => 'admin',
-                'email' => 'admin@gmail.com',
-                'password' => Hash::make('123456'),
-                'avatar' => null,
-                'level' => 0,
-                'description' => null,
+
+                'company_name'=> 'FPT APTECH',
+                'country'=> 'Viêt Nam',
+                'street_address'=> '8A Tôn Thất Thuyết',
+                'town_city'=> 'Hà Nội',
+                'postcode_zip'=> '100000',
+                'phone'=> '0999999999',
             ],
             [
                 'id' => 3,
-                'name' => 'Shane Lynch',
-                'email' => 'ShaneLynch@gmail.com',
-                'password' => Hash::make('123456'),
-                'avatar' => 'avatar-0.png',
-                'level' => 1,
-                'description' => 'Aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum bore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud amodo'
-            ]
+                'name' => 'Hà Hữu Hoàng',
+                'email' => 'hahuuhoang732004@gmail.com',
+                'password' => Hash::make('07032004'),
+                'avatar' => null,
+                'level' => 2,
+                'description' => null,
+
+                'company_name'=> 'FPT APTECH',
+                'country'=> 'Viêt Nam',
+                'street_address'=> '8A Tôn Thất Thuyết',
+                'town_city'=> 'Hà Nội',
+                'postcode_zip'=> '100000',
+                'phone'=> '0999999999',
+            ],
+            [
+                'id' => 4,
+                'name' => 'Phùng Văn Vũ',
+                'email' => 'phungvu2711@gmail.com',
+                'password' => Hash::make('17042004'),
+                'avatar' => null,
+                'level' => 2,
+                'description' => null,
+
+                'company_name'=> 'FPT APTECH',
+                'country'=> 'Viêt Nam',
+                'street_address'=> '8A Tôn Thất Thuyết',
+                'town_city'=> 'Hà Nội',
+                'postcode_zip'=> '100000',
+                'phone'=> '0999999999',
+            ],
+
         ]);
 
         DB::table('blogs')->insert([

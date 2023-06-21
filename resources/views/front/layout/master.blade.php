@@ -87,9 +87,9 @@
                         <div class="header__top__links">
                             <a href="#">FAQs</a>
                             @if(Auth::check())
-                                <a href="{{url("/account/logout")}}"><i class="fa fa-user"></i>{{Auth::user()->name}}</a>
+                                <a href="{{url("/account/logout")}}">{{Auth::user()->name}} <i class="fa fa-sign-out" aria-hidden="true"></i></a>
                             @else
-                                <a href="{{url("/account/login")}}"><i class="fa fa-user"></i>Login</a>
+                                <a href="{{url("/account/login")}}"><i class="fa fa-user"></i> Login</a>
                             @endif
                         </div>
                     </div>
@@ -109,17 +109,14 @@
                     <ul>
                         <li class="{{ request()->is('/') ? 'active' : '' }}"><a href="{{ url('/') }}">Home</a></li>
                         <li class="{{ request()->is('shop') ? 'active' : '' }}"><a href="{{ url('/shop') }}">Shop</a></li>
-                        <li><a href="#">Pages</a>
-                            <ul class="dropdown">
-                                <li><a href="./about.html">About Us</a></li>
-                                <li><a href="./shop-details.html">Shop Details</a></li>
-                                <li><a href="{{url("/cart")}}">Shopping Cart</a></li>
-                                <li><a href="./checkout.html">Check Out</a></li>
-                                <li><a href="./blog-details.html">Blog Details</a></li>
-                            </ul>
-                        </li>
                         <li class="{{ request()->is('blog') ? 'active' : '' }}"><a href="{{ url('/blog') }}">Blog</a></li>
                         <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contacts</a></li>
+                        <li><a href="#">Pages</a>
+                            <ul class="dropdown">
+                                <li><a href="{{url("/account/my-order")}}">My Order</a></li>
+                                <li><a href="{{url("/cart")}}">Shopping Cart</a></li>
+                            </ul>
+                        </li>
                     </ul>
                 </nav>
             </div>

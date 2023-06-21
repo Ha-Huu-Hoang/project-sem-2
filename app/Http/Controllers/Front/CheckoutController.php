@@ -8,6 +8,7 @@ use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Service\Order\OrderServiceInterface;
 use App\Service\OrderDetail\OrderDetailServiceInterface;
+use App\Utilities\Constant;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
@@ -93,10 +94,11 @@ class CheckoutController extends Controller
             "email" => $request->input("email"),
             "total" => $total,
             "payment_method" => $request->get("payment_method"),
-//            "is_paid"=>false,
-//            "status"=>0,
+            "status" => Constant::order_status_ReceiveOrders,
+            "user_id" => $request->input("user_id"),
         ]);
 
+        $order->status = Constant::order_status_ReceiveOrders;
 
 
         // Create order details
@@ -114,8 +116,6 @@ class CheckoutController extends Controller
 
         // Clear the cart
         Cart::destroy();
-
-        $this->sendEmail($order, $subtotal, $total);
 
         if ($order->payment_method == "PayPal") {
             //Payment Method PayPal
@@ -185,12 +185,8 @@ class CheckoutController extends Controller
                 'signature' => $signature);
             $result = $this->execPostRequest($endpoint, json_encode($data));
 //            dd($result);
-
+//
             $jsonResult = json_decode($result, true);  // decode json
-
-
-            // Update the order status and payment status
-            $order->update(["is_paid" => true, "status" => 1]); // Mark order as paid and change status to confirmed
 
             //Just a example, please check more in there
             return redirect()->to($jsonResult['payUrl']);
@@ -259,17 +255,71 @@ class CheckoutController extends Controller
 
     //PayPal
     public function successTransaction(Order $order,Request $request){
-        $order->update(["is_paid"=>true,"status"=>1]);// Paid, status changed to confirmed
-        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail");
+        //Send Email
+        $carts = Cart::content();
+        $subtotal = str_replace(',', '', Cart::subtotal());
+        $vatRate = 0.1;
+        $vatAmount = $subtotal * $vatRate;
+        $total = $subtotal + $vatAmount;
+        $this->sendEmail($order, $subtotal, $total);
+
+        $this->orderService->update([
+            'status'=> Constant::order_status_Paid,
+        ], $order->id);
+        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail.");
     }
 
-    public function cancelTransaction(){
-        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail");
+    public function cancelTransaction(Order $order){
+        $order = Order::where('status', Constant::order_status_ReceiveOrders)->orderBy('id', 'desc')->first();
+        if ($order) {
+            $order->delete();
+        }
+        return redirect("/checkout/thank-you/")->with("notification","Failed! Error during checkout");
+    }
+
+    //MoMo
+    public function momoCallback(Request $request)
+    {
+        // Check the payment result parameters from MoMo
+        $status = $request->input('status'); // Payment Status
+        $orderId = $request->input('orderId'); // Code order
+
+        // Check payment status and update order status
+        $order = Order::find($orderId);
+        if ($status == '0') {
+            // Payment success
+            if ($order) {
+                //Send Email
+                $carts = Cart::content();
+                $subtotal = str_replace(',', '', Cart::subtotal());
+                $vatRate = 0.1;
+                $vatAmount = $subtotal * $vatRate;
+                $total = $subtotal + $vatAmount;
+                $this->sendEmail($order, $subtotal, $total);
+
+                $order->status = Constant::order_status_Paid;
+            }
+        } else {
+            $this->orderService->update([
+                'status'=> Constant::order_status_ReceiveOrders,
+            ], $order->id);
+        }
+
+        // Returns a successful response to MoMo
+        return response()->json(['status' => 'success']);
     }
 
     //VNPAY
     public function vnpay(Order $order,Request $request){
         if($request->vnp_ResponseCode == "00") {
+            //Send Email
+            $carts = Cart::content();
+            $subtotal = str_replace(',', '', Cart::subtotal());
+            $vatRate = 0.1;
+            $vatAmount = $subtotal * $vatRate;
+            $total = $subtotal + $vatAmount;
+            $this->sendEmail($order, $subtotal, $total);
+
             $order->update(["is_paid" => true, "status" => 1]);// Paid, status changed to confirmed
             return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail");
         }
@@ -293,6 +343,5 @@ class CheckoutController extends Controller
             }
         );
     }
-
 }
 

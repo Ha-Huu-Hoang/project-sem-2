@@ -25,6 +25,7 @@
     <!-- App CSS -->
     <link rel="stylesheet" href="dashboard/css/app-light.css" id="lightTheme">
     <link rel="stylesheet" href="dashboard/css/app-dark.css" id="darkTheme" disabled>
+    <link rel="icon" type="image/x-icon" href="front/img/favicon.ico">
 </head>
 <body class="vertical  light  ">
 <div class="wrapper">
