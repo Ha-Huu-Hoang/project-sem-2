@@ -161,9 +161,9 @@
 		Quantity change
 	--------------------- */
     var proQty = $('.pro-qty');
-    proQty.prepend('<span class="fa fa-angle-up dec qtybtn"></span>');
-    proQty.append('<span class="fa fa-angle-down inc qtybtn"></span>');
-    proQty.on('click', '.qtybtn', function () {
+    proQty.prepend('<span class=" dec qtybtn-detail">-</span>');
+    proQty.append('<span class=" inc qtybtn-detail">+</span>');
+    proQty.on('click', '.qtybtn-detail', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
         if ($button.hasClass('inc')) {
@@ -386,41 +386,36 @@ function updateCart(rowId,qty){
                 row_exitstItem.find('.price').text('$'+response['cart'].price.toFixed(2)+'x'+response['cart'].qty);
             }
 
-            // xử lý cart trong cart.blade.php
-            var cart_tbody =$('.shopping__cart__table tbody');
-            var cart_exitstItem = cart_tbody.find("tr[data-rowId='"+ rowId +"']");
-            if (qty === 0){
+            // Handle cart in cart.blade.php
+            var cart_tbody = $('.shopping__cart__table tbody');
+            var cart_exitstItem = cart_tbody.find("tr[data-rowId='" + rowId + "']");
+            if (qty === 0) {
                 cart_exitstItem.remove();
-            }else {
-                cart_exitstItem.find('.cart__price').text('$'+ (response['cart'].price * response['cart'].qty).toFixed(2));
+            } else {
+                var totalPrice = response['cart'].price * response['cart'].qty;
+                var formattedPrice = totalPrice.toFixed(2).replace(',', '');
+                cart_exitstItem.find('.cart__price').text('$' + formattedPrice);
             }
 
             $('.cart__total ul li:first-child span').text('$' + response['subtotal']);
 
-            var vatRate = 10; // Đặt tỷ lệ VAT tùy thuộc vào yêu cầu của bạn
-            var subtotal = response['subtotal'];
+            var vatRate = 10; // VAT 10%
+            var subtotal = parseFloat(response['subtotal'].replace(',', ''));
             var vatAmount = calculateVAT(subtotal, vatRate);
 
-// Tính giá trị total bằng cách cộng subtotal, vatAmount và giá trị VAT mới
-            var total = parseFloat(subtotal) + parseFloat(vatAmount);
+            var total = subtotal + vatAmount;
 
-// Cập nhật giá trị total trong phần tổng của giỏ hàng
+            // Update subtotal, VAT and total values in cart total
+            $('.cart__total ul li:first-child span').text('$' + subtotal.toFixed(2));
+            $('.cart__total ul li:nth-child(2) span').text('$' + vatAmount.toFixed(2));
             $('.cart__total ul li:last-child span').text('$' + total.toFixed(2));
 
-            $('.cart__total ul li:nth-child(2) span').text('$' + vatAmount.toFixed(2));
-
-
-
-
-
-
-
-
         },
-        error:function (response){
+        error: function (response) {
             alert('Update failed');
             console.log(response);
         },
+
     });
 }
 

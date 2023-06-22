@@ -58,7 +58,7 @@
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="cart__price">${{number_format($cart->price * $cart->qty ,2)}}</td>
+                                    <td class="cart__price">${{str_replace(',', '', number_format($cart->price * $cart->qty, 2))}}</td>
                                     <td class="cart__close"><i onclick="removeCart('{{$cart->rowId}}' )" class="fa fa-close"></i></td>
                                 </tr>
                             @endforeach

@@ -1505,7 +1505,7 @@ ol {
     text-align: center;
     background: #f3f2ee;
     padding: 40px 0 60px;
-    margin-bottom: 100px;
+    margin-bottom: 30px;
 }
 
 .product__details__pic .nav-tabs {
@@ -1756,11 +1756,18 @@ ol {
 }
 
 .product__details__cart__option .quantity {
-    display: inline-block;
-    margin-right: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+}
+
+.quantity p {
+    margin: 0 0 0 20px;
 }
 
 .product__details__cart__option .quantity .pro-qty {
+    display: flex;
+    align-items: center;
     width: 100px;
     height: 40px;
     border: 1px solid #e5e5e5;
@@ -1770,30 +1777,28 @@ ol {
 .product__details__cart__option .quantity .pro-qty input {
     color: #0d0d0d;
     font-size: 15px;
-    font-weight: 700;
-    width: 70px;
+    font-weight: 500;
+    width: 40px;
     height: 100%;
     text-align: center;
     border: none;
 }
 
-.product__details__cart__option .quantity .pro-qty .qtybtn {
-    font-size: 18px;
+.product__details__cart__option .quantity .pro-qty span {
+    font-size: 16px;
     color: #0d0d0d;
-    position: absolute;
-    right: 15px;
-    top: 3px;
-    height: 10px;
-    width: 10px;
+    height: 100%;
+    width: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     cursor: pointer;
-    font-weight: 600;
-}
-
-.product__details__cart__option .quantity .pro-qty .qtybtn.inc {
-    top: 16px;
+    font-weight: 400;
+    border: 1px solid #e5e5e5;
 }
 
 .product__details__btns__option a {
+    margin-top: 25px;
     display: inline-block;
     font-size: 13px;
     color: #3d3d3d;
@@ -1805,6 +1810,11 @@ ol {
 
 .product__details__btns__option a:last-child {
     margin-right: 0;
+}
+
+.btn-detail {
+    width: 79%;
+    text-align: center;
 }
 
 .product__details__last__option h5 {
@@ -4229,3 +4239,5 @@ edit
 .page-item .page-link {
     color: #333;
 }
+
+/*=== Qty Shop Details ===*/

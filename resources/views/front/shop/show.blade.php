@@ -49,7 +49,7 @@
                                         <i class="fa fa-star-o"></i>
                                     @endif
                                 @endfor
-                                <span> - {{count($product->productComment)}} Reviews</span>
+                                <span> | {{count($product->productComment)}} Reviews</span>
                             </div>
                             @if($product->discount != null)
                                 <h3>${{$product->discount}} <span>{{$product->price}}</span></h3>
@@ -73,13 +73,14 @@
                                     <div class="pro-qty">
                                         <input type="text" value="1">
                                     </div>
+                                    <p>20 products are available</p>
                                 </div>
-                                <a href="#" class="primary-btn">add to cart</a>
+                                <div class="product__details__btns__option">
+                                    <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
+                                </div>
+
                             </div>
-                            <div class="product__details__btns__option">
-                                <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
-                                <a href="#"><i class="fa fa-exchange"></i> Add To Compare</a>
-                            </div>
+                            <a href="#" class="primary-btn btn-detail">add to cart</a>
                             <div class="product__details__last__option">
                                 <ul class="d-flex justify-content-center" style="column-gap: 20px">
                                     <li><span>SKU:</span> {{$product->sku}}</li>
