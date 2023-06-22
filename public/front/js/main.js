@@ -440,3 +440,21 @@ document.addEventListener("click", function (event) {
         searchInput.blur();
     }
 });
+
+//Back to top
+window.addEventListener('scroll', function() {
+    var backToTopBtn = document.getElementById("back-to-top");
+
+    if (window.scrollY > 20) {
+        backToTopBtn.style.display = "block";
+    } else {
+        backToTopBtn.style.display = "none";
+    }
+});
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}

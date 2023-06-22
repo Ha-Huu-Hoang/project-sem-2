@@ -146,7 +146,11 @@
 {{--body here--}}
 @yield('body')
 
-
+<div class="back-to-top-container">
+    <button onclick="scrollToTop()" id="back-to-top" title="Back to top">
+        <i class="fa fa-angle-double-up"></i>
+    </button>
+</div>
 <footer class="footer">
     <div class="container">
         <div class="row">
@@ -207,17 +211,6 @@
     </div>
 </footer>
 <!-- Footer Section End -->
-
-<!-- Search Begin -->
-{{--<div class="search-model">--}}
-{{--    <div class="h-100 d-flex align-items-center justify-content-center">--}}
-{{--        <div class="search-close-switch">+</div>--}}
-{{--        <form class="search-model-form">--}}
-{{--            <input type="text" id="search-input" placeholder="Search here.....">--}}
-{{--        </form>--}}
-{{--    </div>--}}
-{{--</div>--}}
-<!-- Search End -->
 
 <!-- Js Plugins -->
 <script src="front/js/jquery-3.3.1.min.js"></script>

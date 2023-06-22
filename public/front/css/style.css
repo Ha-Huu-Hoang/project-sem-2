@@ -4291,9 +4291,40 @@ edit
     z-index: 99;
 }
 
-
 #search-icon:hover + .search-input-container,
 .search-container:hover .show-input {
     opacity: 1;
 }
 
+/*=== Back to top ===*/
+.back-to-top-container {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 9999;
+}
+
+#back-to-top {
+    display: none;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: transparent;
+    color: #333;
+    font-size: 24px;
+    border: 1px solid #333;
+    text-align: center;
+    cursor: pointer;
+    line-height: 0;
+    vertical-align: middle;
+    transition: all 0.3s linear;
+}
+
+#back-to-top i {
+    vertical-align: middle;
+}
+
+#back-to-top:hover {
+    background: #333;
+    color: #fff;
+}
