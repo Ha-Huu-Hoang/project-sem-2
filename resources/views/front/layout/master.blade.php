@@ -111,7 +111,7 @@
                         <li class="{{ request()->is('shop') ? 'active' : '' }}"><a href="{{ url('/shop') }}">Shop</a></li>
                         <li class="{{ request()->is('blog') ? 'active' : '' }}"><a href="{{ url('/blog') }}">Blog</a></li>
                         <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contacts</a></li>
-                        <li><a href="#">Pages</a>
+                        <li><a href="#!">Pages</a>
                             <ul class="dropdown">
                                 <li><a href="{{url("/account/my-order")}}">My Order</a></li>
                                 <li><a href="{{url("/cart")}}">Shopping Cart</a></li>
@@ -121,8 +121,16 @@
                 </nav>
             </div>
             <div class="col-lg-3 col-md-3">
-                <div class="header__nav__option">
-                    <a href="#" class="search-switch"><img src="front/img/icon/search.png" alt=""></a>
+                <div class="header__nav__option d-flex">
+                    <div class="search-container">
+                        <i class="fa fa-search" id="search-icon"></i>
+                        <div class="search-input-container">
+                            <form action="#!">
+                                <input type="text" id="search-input" name="search" placeholder="Search..." />
+                            </form>
+                            <div class="triangle-icon"></div>
+                        </div>
+                    </div>
                     <a href="#"><img src="front/img/icon/heart.png" alt=""></a>
                     <a href="{{url("/cart")}}" style="" class="count"><img src="front/img/icon/cart.png" alt=""> <span class="cart-count">{{Cart::count()}}</span></a>
                     <div class="price">${{Cart::subtotal()}}</div>
@@ -201,14 +209,14 @@
 <!-- Footer Section End -->
 
 <!-- Search Begin -->
-<div class="search-model">
-    <div class="h-100 d-flex align-items-center justify-content-center">
-        <div class="search-close-switch">+</div>
-        <form class="search-model-form">
-            <input type="text" id="search-input" placeholder="Search here.....">
-        </form>
-    </div>
-</div>
+{{--<div class="search-model">--}}
+{{--    <div class="h-100 d-flex align-items-center justify-content-center">--}}
+{{--        <div class="search-close-switch">+</div>--}}
+{{--        <form class="search-model-form">--}}
+{{--            <input type="text" id="search-input" placeholder="Search here.....">--}}
+{{--        </form>--}}
+{{--    </div>--}}
+{{--</div>--}}
 <!-- Search End -->
 
 <!-- Js Plugins -->

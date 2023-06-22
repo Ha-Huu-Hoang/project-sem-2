@@ -4240,4 +4240,115 @@ edit
     color: #333;
 }
 
-/*=== Qty Shop Details ===*/
+/*=== Search Navbar ===*/
+/*.search-container {*/
+/*    position: relative;*/
+/*    margin-right: 26px;*/
+/*}*/
+
+/*#search-icon {*/
+/*    cursor: pointer;*/
+/*}*/
+
+/*.search-input-container {*/
+/*    !*display: none;*!*/
+/*    position: absolute;*/
+/*    top: 100%;*/
+/*    left: 0;*/
+/*    width: 100%;*/
+/*    padding: 3px;*/
+/*    opacity: 1;*/
+/*    transition: all 0.3s linear;*/
+/*    z-index: 99;*/
+/*}*/
+
+/*#search-input {*/
+/*    position: relative;*/
+/*    width: 250px;*/
+/*    padding: 10px 15px;*/
+/*    border: 1px solid #ddd;*/
+/*    border-radius: 5px;*/
+/*    outline: none;*/
+/*}*/
+
+/*.show-input {*/
+/*    opacity: 1;*/
+/*    margin: 15px 0 0 -15px;*/
+/*    z-index: 99;*/
+/*}*/
+
+/*.show-input::before {*/
+/*    content: "";*/
+/*    position: absolute;*/
+/*    top: -17px;*/
+/*    width: 0;*/
+/*    height: 0;*/
+/*    border-width: 10px;*/
+/*    border-color: transparent;*/
+/*    border-style: solid;*/
+/*    border-bottom-color: #333;*/
+/*}*/
+/*#search-icon:hover + .search-input-container,*/
+/*#search-icon:hover .show-input,*/
+/*#search-icon:hover .show-input::before {*/
+/*    opacity: 1;*/
+/*    z-index: 99;*/
+/*}*/
+
+
+.search-container {
+    position: relative;
+    margin-right: 26px;
+}
+
+#search-icon {
+    cursor: pointer;
+}
+
+.search-input-container {
+    /*display: none;*/
+    position: absolute;
+    margin: 15px 0 0 -15px;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    padding: 3px;
+    opacity: 0;
+    transition: all 0.3s linear;
+    z-index: 99;
+}
+
+#search-input {
+    position: relative;
+    width: 250px;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    outline: none;
+}
+
+.triangle-icon {
+    position: absolute;
+    top: -17px;
+    left: 13px;
+    width: 0;
+    height: 0;
+    border-width: 10px;
+    border-color: transparent;
+    border-style: solid;
+    border-bottom-color: #333;
+    opacity: 1;
+    transition: opacity 0.3s linear;
+}
+
+.show-input {
+    opacity: 1;
+    z-index: 99;
+}
+
+
+#search-icon:hover + .search-input-container,
+.search-container:hover .show-input {
+    opacity: 1;
+}
+

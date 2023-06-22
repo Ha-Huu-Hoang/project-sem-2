@@ -419,3 +419,24 @@ function updateCart(rowId,qty){
     });
 }
 
+//Search Navbar
+const searchIcon = document.getElementById("search-icon");
+const searchInputContainer = document.querySelector(".search-input-container");
+const searchInput = document.getElementById("search-input");
+
+searchIcon.addEventListener("click", function () {
+    searchInputContainer.classList.toggle("show-input");
+    if (searchInputContainer.classList.contains("show-input")) {
+        searchInput.focus();
+    } else {
+        searchInput.blur();
+    }
+});
+
+document.addEventListener("click", function (event) {
+    const targetElement = event.target;
+    if (!targetElement.closest(".search-container")) {
+        searchInputContainer.classList.remove("show-input");
+        searchInput.blur();
+    }
+});
