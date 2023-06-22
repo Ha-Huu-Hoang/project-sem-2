@@ -38,7 +38,7 @@
                             </thead>
                             <tbody>
                             @foreach($carts as $cart)
-                                <tr data-rowId="{{$cart->rowId}}">
+                                <tr data-rowid="{{$cart->rowId}}">
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
                                             @if(isset($cart->options['images']) && count($cart->options['images']) > 0)
@@ -48,17 +48,17 @@
                                         </div>
                                         <div class="product__cart__item__text">
                                             <h6>{{$cart->name}}</h6>
-                                            <h5>${{number_format($cart->price,2)}}</h5>
+                                            <h5>${{number_format($cart->price  ,2)}}</h5>
                                         </div>
                                     </td>
                                     <td class="quantity__item">
                                         <div class="quantity">
                                             <div class="pro-qty-2">
-                                                <input type="text" value="{{$cart->qty}}">
+                                                <input type="text" value="{{$cart->qty}}" data-rowid="{{$cart->rowId}}">
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="cart__price">${{number_format($cart->price ,2)}}</td>
+                                    <td class="cart__price">${{number_format($cart->price * $cart->qty ,2)}}</td>
                                     <td class="cart__close"><i onclick="removeCart('{{$cart->rowId}}' )" class="fa fa-close"></i></td>
                                 </tr>
                             @endforeach
@@ -73,7 +73,8 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
-                                <a href="#"><i class="fa fa-trash"></i> Clear All</a>
+                                <a onclick="confirm('Are you sure to delete all carts ? ')=== true ? destroyCart():''"
+                                   style="cursor: pointer "><i   class="fa fa-trash"></i> Clear All</a>
                             </div>
                         </div>
                     </div>
