@@ -121,7 +121,7 @@
                 </nav>
             </div>
             <div class="col-lg-3 col-md-3">
-                <div class="header__nav__option d-flex">
+                <div class="header__nav__option d-flex justify-content-end">
                     <div class="search-container">
                         <i class="fa fa-search" id="search-icon"></i>
                         <div class="search-input-container">
