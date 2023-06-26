@@ -30,7 +30,9 @@ class CreateOrdersTable extends Migration
 
             $table->decimal("total",14,2);
             $table->string("payment_method",20);
-            $table->integer("status");
+
+            $table->boolean("is_paid")->default(false);
+            $table->tinyInteger("status")->default(1);
 
             $table->timestamps();
         });
