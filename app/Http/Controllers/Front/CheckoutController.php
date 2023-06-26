@@ -188,6 +188,27 @@ class CheckoutController extends Controller
 //            dd($result);
             $jsonResult = json_decode($result, true);  // decode json
 
+            $status = $request->input('status');
+//            $orderId = $request->input('orderId');
+
+            if ($status == '0') {
+                // Payment success
+                if ($order) {
+                    //Send Email
+                    $carts = Cart::content();
+                    $subtotal = str_replace(',', '', Cart::subtotal());
+                    $vatRate = 0.1;
+                    $vatAmount = $subtotal * $vatRate;
+                    $total = $subtotal + $vatAmount;
+                    $this->sendEmail($order, $subtotal, $total);
+
+                    $order->status = Constant::order_status_Paid;
+                }
+            } else {
+                $this->orderService->update([
+                    'status'=> Constant::order_status_ReceiveOrders,
+                ], $order->id);
+            }
 //            $status = $jsonResult['resultCode'];
 //            $this->orderService->update([
 //                'status'=> Constant::order_status_Paid,
