@@ -73,8 +73,7 @@
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-6">
                             <div class="continue__btn update__btn">
-                                <a onclick="confirm('Are you sure to delete all carts ? ')=== true ? destroyCart():''"
-                                   style="cursor: pointer "><i   class="fa fa-trash"></i> Clear All</a>
+
                             </div>
                         </div>
                     </div>
