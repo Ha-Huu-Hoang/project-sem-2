@@ -109,9 +109,6 @@
     <tr>
         <td>
             <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff" style="border-radius: 10px 10px 0 0">
-                <tr class="hiddenMobile">
-                    <td height="40"></td>
-                </tr>
                 <tr class="visibleMobile">
                     <td height="30"></td>
                 </tr>
@@ -124,22 +121,21 @@
                                 <td>
                                     <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
                                         <tbody>
-                                        <tr>
-                                            <td align="left">
-                                                <img width="190" src="https://i.ibb.co/S0WVnsx/logo-email.png" alt="logo" border="0" />
-                                            </td>
-                                        </tr>
                                         <tr class="hiddenMobile">
-                                            <td height="40"></td>
+                                            <td height="20"></td>
+                                        </tr>
+                                        <tr>
+                                            <td align="left"><img src="https://i.ibb.co/S0WVnsx/logo-email.png" width="150" alt="logo" border="0" /></td>
                                         </tr>
                                         <tr class="visibleMobile">
                                             <td height="20"></td>
                                         </tr>
                                         <tr>
                                             <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left">
-                                                Hello, Ngo Manh Son.
-                                                <br />
-                                                Thank you for shopping from our store and for your order.
+                                                Shop Runner.<br />
+                                                8 Tôn Thất Thuyết, Mỹ Đình, <br />
+                                                Nam Từ Liêm, Hà Nội, Việt Nam.<br />
+                                                Phone: 099-999-9999.
                                             </td>
                                         </tr>
                                         </tbody>
@@ -168,16 +164,13 @@
                                             </td>
                                         </tr>
                                         <tr></tr>
-                                        <tr class="hiddenMobile">
-                                            <td height="50"></td>
-                                        </tr>
                                         <tr class="visibleMobile">
                                             <td height="20"></td>
                                         </tr>
                                         <tr>
-                                            <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right">
-                                                <small>ORDER</small> #800000025<br />
-                                                <small>MARCH 4TH 2016</small>
+                                            <td style="font-size: 12px; color: #ff0000; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right">
+                                                <small style="color: #5b5b5b">Order ID: </small>#{{ $order->id }}<br />
+                                                <small style="color: #5b5b5b">Order date: {{ $order->created_at }}</small>
                                             </td>
                                         </tr>
                                         </tbody>
@@ -193,6 +186,115 @@
     </tr>
 </table>
 <!-- /Header -->
+<!-- Information -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
+    <tbody>
+    <tr>
+        <td>
+            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
+                <tbody>
+                <tr></tr>
+                <tr class="visibleMobile">
+                    <td height="20"></td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
+                            <tbody>
+                            <tr>
+                                <td height="1" colspan="4" style="border-bottom: 1px solid #e4e4e4"></td>
+                            </tr>
+                            <tr>
+                                <td style="padding-top: 30px">
+                                    <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
+                                        <tbody>
+                                        <tr>
+                                            <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top">
+                                                <strong>BILLING INFORMATION</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+                                        <tr>
+                                            <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top">
+                                                Name: {{ $order->first_name }} {{ $order->last_name }}.<br />
+                                                Phone: {{ $order->phone }}.<br />
+                                                Company name: {{ $order->company_name }}.<br />
+                                                Street address: {{ $order->street_address }}.<br />
+                                                Town/City: {{ $order->town_city }}.<br />
+                                                Country: {{ $order->country }}.<br />
+                                                Postcode / ZIP: {{ $order->postcode_zip }}.<br />
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+
+                                    <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
+                                        <tbody>
+                                        <tr>
+                                            <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top; text-align: right">
+                                                <strong>PAYMENT</strong>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td width="100%" height="10"></td>
+                                        </tr>
+                                        <tr>
+                                            <td
+                                                style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top; text-align: right"
+                                            >
+                                                Payment Method: {{$order->payment_method}}<br />
+                                                Order Status:
+                                                    @switch($order->status)
+                                                        @case(0)
+                                                            <span class="text text-danger">Cancel</span>
+                                                            @break
+                                                        @case(1)
+                                                            <span class="text text-secondary">Receive Orders</span>
+                                                            @break
+                                                        @case(2)
+                                                            <span class="text text-warning">Unconfirmed</span>
+                                                            @break
+                                                        @case(3)
+                                                            <span class="text text-success">Confirmed</span>
+                                                              @break
+                                                        @case(4)
+                                                            <span class="text text-primary">Paid</span>
+                                                            @break
+                                                        @case(5)
+                                                            <span class="text text-primary">Processing</span>
+                                                            @break
+                                                        @case(6)
+                                                            <span class="text text-primary">Shipping</span>
+                                                            @break
+                                                        @case(7)
+                                                            <span class="text text-success">Finish</span>
+                                                            @break
+                                                   @endswitch
+                                                <br />
+                                            </td>
+                                        </tr>
+                                        </tbody>
+                                    </table>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+                <tr class="visibleMobile">
+                    <td height="20"></td>
+                </tr>
+                </tbody>
+            </table>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<!-- /Information -->
+
 <!-- Order Details -->
 <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
     <tbody>
@@ -201,11 +303,8 @@
             <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
                 <tbody>
                 <tr></tr>
-                <tr class="hiddenMobile">
-                    <td height="60"></td>
-                </tr>
                 <tr class="visibleMobile">
-                    <td height="40"></td>
+                    <td height="20"></td>
                 </tr>
                 <tr>
                     <td>
@@ -225,7 +324,7 @@
                                     width="52%"
                                     align="left"
                                 >
-                                    Product
+                                    Products
                                 </th>
                                 <th
                                     style="
@@ -273,43 +372,25 @@
                             <tr>
                                 <td height="1" style="background: #bebebe" colspan="4"></td>
                             </tr>
-                            <tr>
-                                <td height="10" colspan="4"></td>
-                            </tr>
-                            <tr>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #ff0000; line-height: 18px; vertical-align: top; padding: 10px 0" class="article">
-                                    Beats Studio Over-Ear Headphones
-                                </td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 18px; vertical-align: top; padding: 10px 0">
-                                    <small>MH792AM/A</small>
-                                </td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 18px; vertical-align: top; padding: 10px 0" align="center">
-                                    1
-                                </td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33; line-height: 18px; vertical-align: top; padding: 10px 0" align="right">
-                                    $299.95
-                                </td>
-                            </tr>
-                            <tr>
-                                <td height="1" colspan="4" style="border-bottom: 1px solid #e4e4e4"></td>
-                            </tr>
-                            <tr>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #ff0000; line-height: 18px; vertical-align: top; padding: 10px 0" class="article">
-                                    Beats RemoteTalk Cable
-                                </td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 18px; vertical-align: top; padding: 10px 0">
-                                    <small>MHDV2G/A</small>
-                                </td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 18px; vertical-align: top; padding: 10px 0" align="center">
-                                    1
-                                </td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33; line-height: 18px; vertical-align: top; padding: 10px 0" align="right">
-                                    $29.95
-                                </td>
-                            </tr>
-                            <tr>
-                                <td height="1" colspan="4" style="border-bottom: 1px solid #e4e4e4"></td>
-                            </tr>
+                            @foreach($order->orderDetails as $orderDetail)
+                                <tr>
+                                    <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #ff0000; line-height: 18px; vertical-align: top; padding: 10px 0" class="article">
+                                        {{ $orderDetail->product->name }}
+                                    </td>
+                                    <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 18px; vertical-align: top; padding: 10px 0">
+                                        <small>MH792AM/A</small>
+                                    </td>
+                                    <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 18px; vertical-align: top; padding: 10px 0" align="center">
+                                        {{ $orderDetail->qty}}
+                                    </td>
+                                    <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #1e2b33; line-height: 18px; vertical-align: top; padding: 10px 0" align="right">
+                                        ${{ $orderDetail->total }}
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td height="1" colspan="4" style="border-bottom: 1px solid #e4e4e4"></td>
+                                </tr>
+                            @endforeach
                             </tbody>
                         </table>
                     </td>
@@ -350,29 +431,17 @@
                                                 "
                                     width="80"
                                 >
-                                    $329.90
+                                    ${{ $subtotal }}
                                 </td>
                             </tr>
                             <tr>
                                 <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">VAT 10%</td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">$15.00</td>
+                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">${{ $vatAmount }}</td>
                             </tr>
                             <tr>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align: right">
-                                    <strong>Total</strong>
-                                </td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #000; line-height: 22px; vertical-align: top; text-align: right">
-                                    <strong>$344.90</strong>
-                                </td>
+                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">Total</td>
+                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">${{ $total }}</td>
                             </tr>
-                            <!-- <tr>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #b0b0b0; line-height: 22px; vertical-align: top; text-align: right">
-                                    <small>TAX</small>
-                                </td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #b0b0b0; line-height: 22px; vertical-align: top; text-align: right">
-                                    <small>$72.40</small>
-                                </td>
-                            </tr> -->
                             </tbody>
                         </table>
                         <!-- /Table Total -->
@@ -385,153 +454,7 @@
     </tbody>
 </table>
 <!-- /Total -->
-<!-- Information -->
-<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
-    <tbody>
-    <tr>
-        <td>
-            <table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#ffffff">
-                <tbody>
-                <tr></tr>
-                <tr class="hiddenMobile">
-                    <td height="60"></td>
-                </tr>
-                <tr class="visibleMobile">
-                    <td height="40"></td>
-                </tr>
-                <tr>
-                    <td>
-                        <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
-                                        <tbody>
-                                        <tr>
-                                            <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top">
-                                                <strong>BILLING INFORMATION</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="100%" height="10"></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top">
-                                                Philip Brooks<br />
-                                                Public Wales, Somewhere<br />
-                                                New York NY<br />
-                                                4468, United States<br />
-                                                T: 202-555-0133
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
 
-                                    <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
-                                        <tbody>
-                                        <tr class="visibleMobile">
-                                            <td height="20"></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top">
-                                                <strong>PAYMENT METHOD</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="100%" height="10"></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top">
-                                                Credit Card<br />
-                                                Credit Card Type: Visa<br />
-                                                Worldpay Transaction ID: <a href="#" style="color: #ff0000; text-decoration: underline">4185939336</a><br />
-                                                <a href="#" style="color: #b0b0b0">Right of Withdrawal</a>
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
-                            <tbody>
-                            <tr>
-                                <td>
-                                    <table width="220" border="0" cellpadding="0" cellspacing="0" align="left" class="col">
-                                        <tbody>
-                                        <tr class="hiddenMobile">
-                                            <td height="35"></td>
-                                        </tr>
-                                        <tr class="visibleMobile">
-                                            <td height="20"></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top">
-                                                <strong>SHIPPING INFORMATION</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="100%" height="10"></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top">
-                                                Sup Inc<br />
-                                                Another Place, Somewhere<br />
-                                                New York NY<br />
-                                                4468, United States<br />
-                                                T: 202-555-0171
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-
-                                    <table width="220" border="0" cellpadding="0" cellspacing="0" align="right" class="col">
-                                        <tbody>
-                                        <tr class="hiddenMobile">
-                                            <td height="35"></td>
-                                        </tr>
-                                        <tr class="visibleMobile">
-                                            <td height="20"></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size: 11px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 1; vertical-align: top">
-                                                <strong>SHIPPING METHOD</strong>
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td width="100%" height="10"></td>
-                                        </tr>
-                                        <tr>
-                                            <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top">
-                                                UPS: U.S. Shipping Services
-                                            </td>
-                                        </tr>
-                                        </tbody>
-                                    </table>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </td>
-                </tr>
-                <tr class="hiddenMobile">
-                    <td height="60"></td>
-                </tr>
-                <tr class="visibleMobile">
-                    <td height="30"></td>
-                </tr>
-                </tbody>
-            </table>
-        </td>
-    </tr>
-    </tbody>
-</table>
-<!-- /Information -->
 <table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="fullTable" bgcolor="#e1e1e1">
     <tr>
         <td>
@@ -541,7 +464,15 @@
                         <table width="480" border="0" cellpadding="0" cellspacing="0" align="center" class="fullPadding">
                             <tbody>
                             <tr>
-                                <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left">Have a nice day.</td>
+                                <td style="font-size: 12px; color: #5b5b5b; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: left">
+                                    Hello <strong>{{ $order->first_name }} {{ $order->last_name }},</strong> <br />Thank you for shopping from our store and for your order. it is really awesome to have you as one of our paid users.
+                                    We hope that you will be satisfied with our products and services, if you ever have any questions, suggestions or concerns please do not hesitate to contact us. <br /><br />
+
+                                    <br />Best Regards, <br />Code One Min Team. <br />
+                                    <br />
+                                    Email: <a href="mailto:codeonemin@gmail.com"></a> codeonemin@gmail.com. <br />
+                                    Website: <a href="http://127.0.0.1:8000/">shoprunner.com</a>
+                                </td>
                             </tr>
                             </tbody>
                         </table>
@@ -557,3 +488,4 @@
         <td height="20"></td>
     </tr>
 </table>
+

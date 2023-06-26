@@ -11,6 +11,7 @@ use App\Service\OrderDetail\OrderDetailServiceInterface;
 use App\Utilities\Constant;
 use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
@@ -98,6 +99,7 @@ class CheckoutController extends Controller
             "user_id" => $request->input("user_id"),
         ]);
 
+        //Payment Method default = 1
         $order->status = Constant::order_status_ReceiveOrders;
 
 
@@ -146,9 +148,9 @@ class CheckoutController extends Controller
                         return redirect()->away($links['href']);
                     }
                 }
-
             }
-        } else if ($order->payment_method == "MoMo"){
+
+        } else if ($order->payment_method == "MoMo") {
             //Payment Method MoMo
             $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
 
@@ -156,19 +158,18 @@ class CheckoutController extends Controller
             $accessKey = 'klm05TvNBzhg7h7j';
             $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
             $orderInfo = "Thanh toán qua ATM MoMo";
-            $amount = $total* 23000;
-            $orderId = time() ."";
+            $amount = $total * 23000;
+            $orderId = time() . "";
             $redirectUrl = "http://127.0.0.1:8000/checkout/thank-you/";
             $ipnUrl = "http://127.0.0.1:8000/checkout/thank-you/";
             $extraData = "";
-
             $requestId = time() . "";
             $requestType = "payWithATM";
 //            $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
             //before sign HMAC SHA256 signature
             $rawHash = "accessKey=" . $accessKey . "&amount=" . $amount . "&extraData=" . $extraData . "&ipnUrl=" . $ipnUrl . "&orderId=" . $orderId . "&orderInfo=" . $orderInfo . "&partnerCode=" . $partnerCode . "&redirectUrl=" . $redirectUrl . "&requestId=" . $requestId . "&requestType=" . $requestType;
             $signature = hash_hmac("sha256", $rawHash, $secretKey);
-//            dd($signature);
+//            dd($secretKey);
 
             $data = array('partnerCode' => $partnerCode,
                 'partnerName' => "Test",
@@ -179,17 +180,23 @@ class CheckoutController extends Controller
                 'orderInfo' => $orderInfo,
                 'redirectUrl' => $redirectUrl,
                 'ipnUrl' => $ipnUrl,
-                'lang' => 'vi',
+                'lang' => 'en',
                 'extraData' => $extraData,
                 'requestType' => $requestType,
                 'signature' => $signature);
             $result = $this->execPostRequest($endpoint, json_encode($data));
 //            dd($result);
-//
             $jsonResult = json_decode($result, true);  // decode json
+
+//            $status = $jsonResult['resultCode'];
+//            $this->orderService->update([
+//                'status'=> Constant::order_status_Paid,
+//            ], $order->id);
+
 
             //Just a example, please check more in there
             return redirect()->to($jsonResult['payUrl']);
+
         } else if ($order->payment_method == "VNPAY") {
             //Payment Method VNPAY
 
@@ -254,72 +261,36 @@ class CheckoutController extends Controller
     }
 
     //PayPal
-    public function successTransaction(Order $order,Request $request){
-        //Send Email
+    public function successTransaction(Order $order, Request $request){
+        $this->orderService->update([
+            'status'=> Constant::order_status_Paid,
+        ], $order->id);
+
+//        dd($order->status);
+
         $carts = Cart::content();
         $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
         $total = $subtotal + $vatAmount;
+
         $this->sendEmail($order, $subtotal, $total);
 
-        $this->orderService->update([
-            'status'=> Constant::order_status_Paid,
-        ], $order->id);
         return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail.");
     }
 
     public function cancelTransaction(Order $order){
-        $order = Order::where('status', Constant::order_status_ReceiveOrders)->orderBy('id', 'desc')->first();
-        if ($order) {
-            $order->delete();
-        }
+//        $order->delete();
+
+        $this->orderService->update([
+            'status'=> Constant::order_status_ReceiveOrders,
+        ], $order->id);
         return redirect("/checkout/thank-you/")->with("notification","Failed! Error during checkout");
     }
 
-    //MoMo
-    public function momoCallback(Request $request)
-    {
-        // Check the payment result parameters from MoMo
-        $status = $request->input('status'); // Payment Status
-        $orderId = $request->input('orderId'); // Code order
-
-        // Check payment status and update order status
-        $order = Order::find($orderId);
-        if ($status == '0') {
-            // Payment success
-            if ($order) {
-                //Send Email
-                $carts = Cart::content();
-                $subtotal = str_replace(',', '', Cart::subtotal());
-                $vatRate = 0.1;
-                $vatAmount = $subtotal * $vatRate;
-                $total = $subtotal + $vatAmount;
-                $this->sendEmail($order, $subtotal, $total);
-
-                $order->status = Constant::order_status_Paid;
-            }
-        } else {
-            $this->orderService->update([
-                'status'=> Constant::order_status_ReceiveOrders,
-            ], $order->id);
-        }
-
-        // Returns a successful response to MoMo
-        return response()->json(['status' => 'success']);
-    }
-
     //VNPAY
-    public function vnpay(Order $order,Request $request){
-        if($request->vnp_ResponseCode == "00") {
-            //Send Email
-            $carts = Cart::content();
-            $subtotal = str_replace(',', '', Cart::subtotal());
-            $vatRate = 0.1;
-            $vatAmount = $subtotal * $vatRate;
-            $total = $subtotal + $vatAmount;
-            $this->sendEmail($order, $subtotal, $total);
-
+    public function vnpay(Order $order, Request $request){
+        if ($request->vnp_ResponseCode == "00") {
             $order->update(["is_paid" => true, "status" => 1]);// Paid, status changed to confirmed
             return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail");
         }
@@ -333,9 +304,20 @@ class CheckoutController extends Controller
     }
 
     //Send Email
-    private function sendEmail($order, $subtotal, $total) {
+    public function sendEmail($order) {
+
         $email_to = $order->email;
-        Mail::send("front.checkout.email", compact("order", "subtotal", "total"),
+
+        $carts = Cart::content();
+        $subtotal = str_replace(',', '', Cart::subtotal());
+
+        $vatRate = 0.1;
+        $vatAmount = $subtotal * $vatRate;
+        $total = $subtotal + $vatAmount;
+
+//        dd($subtotal, $vatAmount, $total);
+
+        Mail::send("front.checkout.email", compact("order", "carts","subtotal", "total", "vatRate", "vatAmount"),
             function ($message) use ($email_to) {
                 $message->from('ngomanhson2004txpt@gmail.com', 'Shop Runner');
                 $message->to($email_to, $email_to);
@@ -343,5 +325,9 @@ class CheckoutController extends Controller
             }
         );
     }
+
+
+
+
 }
 
