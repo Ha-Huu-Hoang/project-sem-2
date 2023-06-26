@@ -319,8 +319,9 @@ class CheckoutController extends Controller
         return 'Lỗi trong quá trình thanh toán hóa đơn';
     }
 
-    public function thankYou() {
+    public function thankYou(Request $request) {
         $notification = session("notification");
+//        dd($request->all());
         return view("front.checkout.thank-you", compact("notification"));
     }
 
