@@ -59,9 +59,7 @@ class CartController extends Controller
         }
         return back();
     }
-    public function destroy(){
-        Cart::destroy();
-    }
+
 
     public function update(Request $request){
         if ($request->ajax()){

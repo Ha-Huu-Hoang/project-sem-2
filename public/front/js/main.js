@@ -314,12 +314,26 @@ function removeCart(rowId){
             var cart_exitstItem = cart_tbody.find("tr[data-rowId='"+ rowId  +"']");
             cart_exitstItem.remove();
 
-            $('.cart__total ul li:first-child span').text('0');
-            $('.cart__total ul li:last-child span').text('0');
-            $('.cart__total ul li:nth-child(2) span').text('0');
+            $('.cart__total ul li:first-child span').text(response['total']);
+            $('.cart__total ul li:last-child span').text(response['total']);
+            $('.cart__total ul li:nth-child(2) span').text(response['quantity']);
+            var vatRate = 10; // Đặt tỷ lệ VAT tùy thuộc vào yêu cầu của bạn
+            var subtotal = response['subtotal'];
+            var vatAmount = calculateVAT(subtotal, vatRate);
 
-            alert('Delete successful!\nProduct: ' + response['cart'].name)
-            console.log(response);
+// Tính giá trị total bằng cách cộng subtotal, vatAmount và giá trị VAT mới
+            var total = parseFloat(subtotal) + parseFloat(vatAmount);
+
+// Cập nhật giá trị total trong phần tổng của giỏ hàng
+            $('.cart__total ul li:last-child span').text('$' + total.toFixed(2));
+
+            $('.cart__total ul li:nth-child(2) span').text('$' + vatAmount.toFixed(2));
+
+            var cartCount = parseInt(response['count']);
+            if (cartCount === 0) {
+                // Nếu số lượng sản phẩm là 0, tải lại trang
+                location.reload(true);
+            }
         },
         error:function (response){
             alert('Delete failed');
@@ -328,40 +342,7 @@ function removeCart(rowId){
     });
 }
 
-function destroyCart(){
-    $.ajax({
-        type: "GET",
-        url:"cart/destroy",
-        data:{},
-        success: function (response){
-            // xử lý cart trong master.blade,php
-            $('.cart-count').text('0');
-            $('.price').text('0');
 
-            var row_tbody = $('.shopping__cart__table tbody');
-            row_tbody.children().remove();
-            // xử lý cart trong cart.blade.php
-            var cart_tbody =$('.shopping__cart__table tbody');
-            cart_tbody.children().remove();
-
-            $('.cart__total ul li:first-child span').text('0');
-            $('.cart__total ul li:last-child span').text('0');
-            $('.cart__total ul li:nth-child(2) span').text('0');
-
-
-
-
-
-
-            alert('Delete successful!\nProduct: ' + response['cart'].name)
-            console.log(response);
-        },
-        error:function (response){
-            alert('Delete failed');
-            console.log(response);
-        },
-    });
-}
 
 function calculateVAT(subtotal, vatRate) {
     var vatAmount = (subtotal * vatRate) / 100;
