@@ -33,8 +33,17 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="d-flex justify-content-between form__order">
-                                <h6 class="checkout__title">Order ID: #{{$order->id}}</h6>
-                                <h6 class="checkout__title">Status: {{\App\Utilities\Constant::$order_status[$order->status]}}</h6>
+                                <h6 class="order-detail__title">Order ID: #{{$order->id}}</h6>
+                                <h6 class="order-detail__title">Status:
+                                    @switch($order->status)
+                                        @case(0)<span class="text text-secondary">Pending</span>@break
+                                        @case(1)<span class="text text-primary">Confirmed</span>@break
+                                        @case(2)<span class="text text-primary">Shipping</span>@break
+                                        @case(3)<span class="text text-warning">Shipped</span>@break
+                                        @case(4)<span class="text text-success">Completed</span>@break
+                                        @case(5)<span class="text text-danger">Cancel</span>@break
+                                    @endswitch
+                                </h6>
                             </div>
                             <div class="row">
                                 <div class="col-lg-6">

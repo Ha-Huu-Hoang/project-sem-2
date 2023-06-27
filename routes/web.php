@@ -39,7 +39,7 @@ Route::prefix('/cart')->group(function (){
     Route::get('/',[\App\Http\Controllers\Front\CartController::class,'index']);
     Route::get('add',[\App\Http\Controllers\Front\CartController::class,'add']);
     Route::get('delete',[\App\Http\Controllers\Front\CartController::class,'delete']);
-    Route::get('destroy',[\App\Http\Controllers\Front\CartController::class,'destroy']);
+
     Route::get('update',[\App\Http\Controllers\Front\CartController::class,'update']);
 });
 
@@ -50,7 +50,6 @@ Route::prefix('/checkout')->group(function (){
     Route::get("/thank-you/",[\App\Http\Controllers\Front\CheckoutController::class,"thankYou"]);
     Route::get('/success-transaction/{order}', [\App\Http\Controllers\Front\CheckoutController::class, 'successTransaction'])->name('successTransaction');
     Route::get('/cancel-transaction/{order}', [\App\Http\Controllers\Front\CheckoutController::class, 'cancelTransaction'])->name('cancelTransaction');
-    Route::get('/vnpay/{order}', [\App\Http\Controllers\Front\CheckoutController::class, 'vnpay'])->name('vnpay');
 });
 
 //trang blog

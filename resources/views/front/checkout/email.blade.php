@@ -135,7 +135,7 @@
                                                 Shop Runner.<br />
                                                 8 Tôn Thất Thuyết, Mỹ Đình, <br />
                                                 Nam Từ Liêm, Hà Nội, Việt Nam.<br />
-                                                Phone: 099-999-9999.
+                                                Phone: 099 999 9999.
                                             </td>
                                         </tr>
                                         </tbody>
@@ -248,32 +248,20 @@
                                                 Payment Method: {{$order->payment_method}}<br />
                                                 Order Status:
                                                     @switch($order->status)
-                                                        @case(0)
-                                                            <span class="text text-danger">Cancel</span>
-                                                            @break
-                                                        @case(1)
-                                                            <span class="text text-secondary">Receive Orders</span>
-                                                            @break
-                                                        @case(2)
-                                                            <span class="text text-warning">Unconfirmed</span>
-                                                            @break
-                                                        @case(3)
-                                                            <span class="text text-success">Confirmed</span>
-                                                              @break
-                                                        @case(4)
-                                                            <span class="text text-primary">Paid</span>
-                                                            @break
-                                                        @case(5)
-                                                            <span class="text text-primary">Processing</span>
-                                                            @break
-                                                        @case(6)
-                                                            <span class="text text-primary">Shipping</span>
-                                                            @break
-                                                        @case(7)
-                                                            <span class="text text-success">Finish</span>
-                                                            @break
+                                                        @case(0)<span class="text text-secondary">Pending</span>@break
+                                                        @case(1)<span class="text text-success">Confirmed</span>@break
+                                                        @case(2)<span class="text text-primary">Shipping</span>@break
+                                                        @case(3)<span class="text text-primary">Shipped</span>@break
+                                                        @case(4)<span class="text text-success">Completed</span>@break
+                                                        @case(5)<span class="text text-danger">Cancel</span>@break
                                                    @endswitch
                                                 <br />
+                                                Payment Status: @switch($order->is_paid)
+                                                    @case(0)<span class="text text-secondary">Unpaid</span>@break
+                                                    @case(1)<span class="text text-success">Paid</span>@break
+                                                @endswitch
+                                                <br />
+                                                Shipping Method: {{$order->shipping_method}}
                                             </td>
                                         </tr>
                                         </tbody>
@@ -419,8 +407,7 @@
                             <tbody>
                             <tr>
                                 <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">Subtotal</td>
-                                <td
-                                    style="
+                                <td style="
                                                     font-size: 12px;
                                                     font-family: 'Open Sans', sans-serif;
                                                     color: #646a6e;
@@ -428,19 +415,20 @@
                                                     vertical-align: top;
                                                     text-align: right;
                                                     white-space: nowrap;
-                                                "
-                                    width="80"
-                                >
-                                    ${{ $subtotal }}
+                                                " width="80">${{number_format($subtotal, 2, '.', '') }}
                                 </td>
                             </tr>
                             <tr>
                                 <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">VAT 10%</td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">${{ $vatAmount }}</td>
+                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">${{number_format($vatAmount, 2, '.', '') }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">Shipping</td>
+                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">$0.00</td>
                             </tr>
                             <tr>
                                 <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">Total</td>
-                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">${{ $total }}</td>
+                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">${{number_format($total, 2, '.', '') }}</td>
                             </tr>
                             </tbody>
                         </table>

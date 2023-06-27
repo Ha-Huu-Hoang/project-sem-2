@@ -16,6 +16,7 @@ class Order extends Model
         'first_name',
         'last_name',
         'user_id',
+        'company_name',
         'country',
         'street_address',
         'town_city',
@@ -24,7 +25,9 @@ class Order extends Model
         'email',
         'total',
         'payment_method',
+        'shipping_method',
         "status",
+        "is_paid",
     ];
 
     public function orderDetails()

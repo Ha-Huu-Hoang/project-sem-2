@@ -161,9 +161,9 @@
 		Quantity change
 	--------------------- */
     var proQty = $('.pro-qty');
-    proQty.prepend('<span class=" dec qtybtn-detail">-</span>');
-    proQty.append('<span class=" inc qtybtn-detail">+</span>');
-    proQty.on('click', '.qtybtn-detail', function () {
+    proQty.prepend('<span class="fa fa-angle-up dec qtybtn"></span>');
+    proQty.append('<span class="fa fa-angle-down inc qtybtn"></span>');
+    proQty.on('click', '.qtybtn', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
         if ($button.hasClass('inc')) {
@@ -314,12 +314,26 @@ function removeCart(rowId){
             var cart_exitstItem = cart_tbody.find("tr[data-rowId='"+ rowId  +"']");
             cart_exitstItem.remove();
 
-            $('.cart__total ul li:first-child span').text('0');
-            $('.cart__total ul li:last-child span').text('0');
-            $('.cart__total ul li:nth-child(2) span').text('0');
+            $('.cart__total ul li:first-child span').text(response['total']);
+            $('.cart__total ul li:last-child span').text(response['total']);
+            $('.cart__total ul li:nth-child(2) span').text(response['quantity']);
+            var vatRate = 10; // Đặt tỷ lệ VAT tùy thuộc vào yêu cầu của bạn
+            var subtotal = response['subtotal'];
+            var vatAmount = calculateVAT(subtotal, vatRate);
 
-            alert('Delete successful!\nProduct: ' + response['cart'].name)
-            console.log(response);
+// Tính giá trị total bằng cách cộng subtotal, vatAmount và giá trị VAT mới
+            var total = parseFloat(subtotal) + parseFloat(vatAmount);
+
+// Cập nhật giá trị total trong phần tổng của giỏ hàng
+            $('.cart__total ul li:last-child span').text('$' + total.toFixed(2));
+
+            $('.cart__total ul li:nth-child(2) span').text('$' + vatAmount.toFixed(2));
+
+            var cartCount = parseInt(response['count']);
+            if (cartCount === 0) {
+                // Nếu số lượng sản phẩm là 0, tải lại trang
+                location.reload(true);
+            }
         },
         error:function (response){
             alert('Delete failed');
@@ -328,40 +342,7 @@ function removeCart(rowId){
     });
 }
 
-function destroyCart(){
-    $.ajax({
-        type: "GET",
-        url:"cart/destroy",
-        data:{},
-        success: function (response){
-            // xử lý cart trong master.blade,php
-            $('.cart-count').text('0');
-            $('.price').text('0');
 
-            var row_tbody = $('.shopping__cart__table tbody');
-            row_tbody.children().remove();
-            // xử lý cart trong cart.blade.php
-            var cart_tbody =$('.shopping__cart__table tbody');
-            cart_tbody.children().remove();
-
-            $('.cart__total ul li:first-child span').text('0');
-            $('.cart__total ul li:last-child span').text('0');
-            $('.cart__total ul li:nth-child(2) span').text('0');
-
-
-
-
-
-
-            alert('Delete successful!\nProduct: ' + response['cart'].name)
-            console.log(response);
-        },
-        error:function (response){
-            alert('Delete failed');
-            console.log(response);
-        },
-    });
-}
 
 function calculateVAT(subtotal, vatRate) {
     var vatAmount = (subtotal * vatRate) / 100;
@@ -386,75 +367,41 @@ function updateCart(rowId,qty){
                 row_exitstItem.find('.price').text('$'+response['cart'].price.toFixed(2)+'x'+response['cart'].qty);
             }
 
-            // Handle cart in cart.blade.php
-            var cart_tbody = $('.shopping__cart__table tbody');
-            var cart_exitstItem = cart_tbody.find("tr[data-rowId='" + rowId + "']");
-            if (qty === 0) {
+            // xử lý cart trong cart.blade.php
+            var cart_tbody =$('.shopping__cart__table tbody');
+            var cart_exitstItem = cart_tbody.find("tr[data-rowId='"+ rowId +"']");
+            if (qty === 0){
                 cart_exitstItem.remove();
-            } else {
-                var totalPrice = response['cart'].price * response['cart'].qty;
-                var formattedPrice = totalPrice.toFixed(2).replace(',', '');
-                cart_exitstItem.find('.cart__price').text('$' + formattedPrice);
+            }else {
+                cart_exitstItem.find('.cart__price').text('$'+ (response['cart'].price * response['cart'].qty).toFixed(2));
             }
 
             $('.cart__total ul li:first-child span').text('$' + response['subtotal']);
 
-            var vatRate = 10; // VAT 10%
-            var subtotal = parseFloat(response['subtotal'].replace(',', ''));
+            var vatRate = 10; // Đặt tỷ lệ VAT tùy thuộc vào yêu cầu của bạn
+            var subtotal = response['subtotal'];
             var vatAmount = calculateVAT(subtotal, vatRate);
 
-            var total = subtotal + vatAmount;
+// Tính giá trị total bằng cách cộng subtotal, vatAmount và giá trị VAT mới
+            var total = parseFloat(subtotal) + parseFloat(vatAmount);
 
-            // Update subtotal, VAT and total values in cart total
-            $('.cart__total ul li:first-child span').text('$' + subtotal.toFixed(2));
-            $('.cart__total ul li:nth-child(2) span').text('$' + vatAmount.toFixed(2));
+// Cập nhật giá trị total trong phần tổng của giỏ hàng
             $('.cart__total ul li:last-child span').text('$' + total.toFixed(2));
 
+            $('.cart__total ul li:nth-child(2) span').text('$' + vatAmount.toFixed(2));
+
+
+
+
+
+
+
+
         },
-        error: function (response) {
+        error:function (response){
             alert('Update failed');
             console.log(response);
         },
-
     });
 }
 
-//Search Navbar
-const searchIcon = document.getElementById("search-icon");
-const searchInputContainer = document.querySelector(".search-input-container");
-const searchInput = document.getElementById("search-input");
-
-searchIcon.addEventListener("click", function () {
-    searchInputContainer.classList.toggle("show-input");
-    if (searchInputContainer.classList.contains("show-input")) {
-        searchInput.focus();
-    } else {
-        searchInput.blur();
-    }
-});
-
-document.addEventListener("click", function (event) {
-    const targetElement = event.target;
-    if (!targetElement.closest(".search-container")) {
-        searchInputContainer.classList.remove("show-input");
-        searchInput.blur();
-    }
-});
-
-//Back to top
-window.addEventListener('scroll', function() {
-    var backToTopBtn = document.getElementById("back-to-top");
-
-    if (window.scrollY > 20) {
-        backToTopBtn.style.display = "block";
-    } else {
-        backToTopBtn.style.display = "none";
-    }
-});
-
-function scrollToTop() {
-    window.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
