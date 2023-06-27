@@ -28,7 +28,7 @@ class CheckoutController extends Controller
         $this->orderDetailService = $orderDetailService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $carts = Cart::content();
         $subtotal = str_replace(',', '', Cart::subtotal());
@@ -38,7 +38,6 @@ class CheckoutController extends Controller
 
         return view('front.checkout.index', compact('carts', 'total', 'subtotal', 'vatAmount'));
     }
-
 
     //Helper MoMo
     function execPostRequest($url, $data)
@@ -87,6 +86,7 @@ class CheckoutController extends Controller
         $order = Order::create([
             "first_name" => $request->input("first_name"),
             "last_name" => $request->input("last_name"),
+            "company_name" => $request->input("company_name"),
             "country" => $request->input("country"),
             "street_address" => $request->input("street_address"),
             "town_city" => $request->input("town_city"),
@@ -95,12 +95,11 @@ class CheckoutController extends Controller
             "email" => $request->input("email"),
             "total" => $total,
             "payment_method" => $request->get("payment_method"),
-            "status" => Constant::order_status_ReceiveOrders,
             "user_id" => $request->input("user_id"),
+            //  "is_paid"=>false,
+            //   "status"=>0,
         ]);
 
-        //Payment Method default = 1
-        $order->status = Constant::order_status_ReceiveOrders;
 
 
         // Create order details
@@ -157,13 +156,13 @@ class CheckoutController extends Controller
             $partnerCode = 'MOMOBKUN20180529';
             $accessKey = 'klm05TvNBzhg7h7j';
             $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
-            $orderInfo = "Thanh toán qua ATM MoMo";
+            $orderInfo = "Thanh toán đơn đặt hàng - Shop Runner";
             $amount = $total * 23000;
             $orderId = time() . "";
             $redirectUrl = "http://127.0.0.1:8000/checkout/thank-you/";
             $ipnUrl = "http://127.0.0.1:8000/checkout/thank-you/";
             $extraData = "";
-            $requestId = time() . "";
+            $requestId = $order->id;
             $requestType = "payWithATM";
 //            $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
             //before sign HMAC SHA256 signature
@@ -188,50 +187,23 @@ class CheckoutController extends Controller
 //            dd($result);
             $jsonResult = json_decode($result, true);  // decode json
 
-            $status = $request->input('status');
-//            $orderId = $request->input('orderId');
-
-            if ($status == '0') {
-                // Payment success
-                if ($order) {
-                    //Send Email
-                    $carts = Cart::content();
-                    $subtotal = str_replace(',', '', Cart::subtotal());
-                    $vatRate = 0.1;
-                    $vatAmount = $subtotal * $vatRate;
-                    $total = $subtotal + $vatAmount;
-                    $this->sendEmail($order, $subtotal, $total);
-
-                    $order->status = Constant::order_status_Paid;
-                }
-            } else {
-                $this->orderService->update([
-                    'status'=> Constant::order_status_ReceiveOrders,
-                ], $order->id);
-            }
-//            $status = $jsonResult['resultCode'];
-//            $this->orderService->update([
-//                'status'=> Constant::order_status_Paid,
-//            ], $order->id);
-
+//            dd($jsonResult);
 
             //Just a example, please check more in there
             return redirect()->to($jsonResult['payUrl']);
-
         } else if ($order->payment_method == "VNPAY") {
             //Payment Method VNPAY
-
             session(['cost_id' => $request->id]);
             session(['url_prev' => url()->previous()]);
             $vnp_TmnCode = "UDOPNWS1"; //Mã website tại VNPAY
             $vnp_HashSecret = "EBAHADUGCOEWYXCMYZRMTMLSHGKNRPBN"; //Chuỗi bí mật
-            $vnp_Url = "http://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
+            $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
             $vnp_Returnurl = "http://127.0.0.1:8000/checkout/thank-you/";
-            $vnp_TxnRef = date("YmdHis"); //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-            $vnp_OrderInfo = "Thanh toán đơn hàng qua VNPAY";
+            $vnp_TxnRef = '12312312312321'; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
+            $vnp_OrderInfo = "Thanh toán đơn đặt hàng - Shop Runner";
             $vnp_OrderType = 'billpayment';
             $vnp_Amount = ($total * 23500) * 100;
-            $vnp_Locale = 'vn';
+            $vnp_Locale = 'en';
             $vnp_IpAddr = request()->ip();
 
             $inputData = array(
@@ -276,54 +248,41 @@ class CheckoutController extends Controller
             }
             return redirect($vnp_Url);
         }
-
-        // Redirect to thank you page
-        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail");
     }
 
     //PayPal
-    public function successTransaction(Order $order, Request $request){
-        $this->orderService->update([
-            'status'=> Constant::order_status_Paid,
-        ], $order->id);
+    public function successTransaction(Order $order){
+        $order->update(["is_paid" => true, "status" => 1]);// Paid, status changed to confirmed
 
-//        dd($order->status);
-
-        $carts = Cart::content();
-        $subtotal = str_replace(',', '', Cart::subtotal());
-        $vatRate = 0.1;
-        $vatAmount = $subtotal * $vatRate;
-        $total = $subtotal + $vatAmount;
-
-        $this->sendEmail($order, $subtotal, $total);
+//        dd($order->is_paid);
+        $this->sendEmail($order);
 
         return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail.");
     }
 
     public function cancelTransaction(Order $order){
-//        $order->delete();
-
-        $this->orderService->update([
-            'status'=> Constant::order_status_ReceiveOrders,
-        ], $order->id);
         return redirect("/checkout/thank-you/")->with("notification","Failed! Error during checkout");
     }
 
-    //VNPAY
-    public function vnpay(Order $order, Request $request){
-        if ($request->vnp_ResponseCode == "00") {
-            $order->update(["is_paid" => true, "status" => 1]);// Paid, status changed to confirmed
-            return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail");
-        }
-        session()->forget('url_prev');
-        return 'Lỗi trong quá trình thanh toán hóa đơn';
-    }
+    public function thankYou(Request $request, Order $order) {
+        $status = $request->input('resultCode');
+        $requestId = $request->input('requestId');
+        $order = Order::where('id', $requestId)->first();
 
-    public function thankYou(Request $request) {
+        if ($status == '0' && $order) {
+            // Cập nhật trạng thái đơn hàng
+            $order->update(["is_paid" => true, "status" => 1]);
+
+            // Gửi email thông báo
+            $this->sendEmail($order);
+
+        }
         $notification = session("notification");
 //        dd($request->all());
         return view("front.checkout.thank-you", compact("notification"));
     }
+
+
 
     //Send Email
     public function sendEmail($order) {
@@ -340,16 +299,12 @@ class CheckoutController extends Controller
 //        dd($subtotal, $vatAmount, $total);
 
         Mail::send("front.checkout.email", compact("order", "carts","subtotal", "total", "vatRate", "vatAmount"),
-            function ($message) use ($email_to) {
+            function ($message) use ($email_to, $order) {
                 $message->from('ngomanhson2004txpt@gmail.com', 'Shop Runner');
                 $message->to($email_to, $email_to);
-                $message->subject('Order Notification');
+                $message->subject('Order Notification - #'.$order->id);
             }
         );
     }
-
-
-
-
 }
 

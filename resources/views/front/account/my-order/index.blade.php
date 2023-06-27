@@ -67,14 +67,12 @@
                                     <td>{{$order->payment_method}}</td>
                                     <td>
                                         @switch($order->status)
-                                            @case(0)<span class="text text-danger">Cancel</span>@break
-                                            @case(1)<span class="text text-secondary">Receive Orders</span>@break
-                                            @case(2)<span class="text text-warning">Unconfirmed</span>@break
-                                            @case(3)<span class="text text-success">Confirmed</span>@break
-                                            @case(4)<span class="text text-primary">Paid</span>@break
-                                            @case(5)<span class="text text-primary">Processing</span>@break
-                                            @case(6)<span class="text text-primary">Shipping</span>@break
-                                            @case(7)<span class="text text-success">Finish</span>@break
+                                            @case(0)<span class="text text-secondary">Pending</span>@break
+                                            @case(1)<span class="text text-primary">Confirmed</span>@break
+                                            @case(2)<span class="text text-primary">Shipping</span>@break
+                                            @case(3)<span class="text text-warning">Shipped</span>@break
+                                            @case(4)<span class="text text-success">Completed</span>@break
+                                            @case(5)<span class="text text-danger">Cancel</span>@break
                                         @endswitch
                                     </td>
                                 <td><a href="/account/my-order/{{$order->id}}" class="btn btn-primary"><i class="fa fa-info-circle"></i></a></td>

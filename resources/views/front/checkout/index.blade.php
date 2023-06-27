@@ -56,6 +56,10 @@
                                 </div>
                             </div>
                             <div class="checkout__input">
+                                <p>Company Name</p>
+                                <input type="text" name="company_name" value="{{Auth::user()->company_name ?? ''}}">
+                            </div>
+                            <div class="checkout__input">
                                 <p>Country<span>*</span></p>
                                 <input type="text" name="country" value="{{Auth::user()->country ?? ''}}">
                                 @error("country")
@@ -103,7 +107,6 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
@@ -116,13 +119,15 @@
                                             <span>${{number_format($item->price * $item->qty, 2, '.', '')}}</span>
                                         </li>
                                     @endforeach
-
                                 </ul>
+
                                 <ul class="checkout__total__all">
                                     <li>Subtotal <span>${{$subtotal}}</span></li>
                                     <li>VAT 10% <span>${{number_format($vatAmount, 2, '.', '') }}</span></li>
+                                    <li>Shipping <span id="shipping_fee">$0.00</span></li>
                                     <li>Total<span>${{number_format($total, 2, '.', '') }}</span></li>
                                 </ul>
+
                                 <div class="checkout__input__checkbox">
                                     <label for="payment">
                                         COD

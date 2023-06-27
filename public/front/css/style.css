@@ -335,7 +335,6 @@ ol {
 
 .header__top__links {
     display: inline-block;
-    margin-right: 25px;
 }
 
 .header__top__links a {
@@ -2550,10 +2549,17 @@ ol {
     margin-bottom: 30px;
 }
 
-.checkout__title{
+.checkout__title,
+.order-detail__title {
     color: #111111;
     font-weight: 700;
     text-transform: uppercase;
+}
+
+.checkout__title {
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .checkout__input {
@@ -2569,7 +2575,7 @@ ol {
     color: #e53637;
 }
 
-.checkout__input input {
+.checkout__input input{
     height: 50px;
     width: 100%;
     border: 1px solid #e1e1e1;
@@ -2598,6 +2604,26 @@ ol {
 .checkout__input input::placeholder {
     color: #b7b7b7;
 }
+
+.checkout__input .custom-select {
+    height: 50px;
+    border: 1px solid #e1e1e1;
+    font-size: 14px;
+    color: #b7b7b7;
+    padding-left: 20px;
+    border-radius: 0;
+}
+
+.nice-select::after {
+    content: none;
+}
+
+.checkout__input .custom-select:focus {
+    border-color: #e1e1e1;
+    outline: none;
+    box-shadow: none;
+}
+
 
 .checkout__input__checkbox label {
     font-size: 15px;
