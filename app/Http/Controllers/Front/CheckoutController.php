@@ -161,6 +161,7 @@ class CheckoutController extends Controller
             $ipnUrl = "http://127.0.0.1:8000/checkout/thank-you/";
             $extraData = "";
             $requestId = $order->id;
+//            dd($requestId);
             $requestType = "payWithATM";
 //            $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
             //before sign HMAC SHA256 signature
@@ -210,10 +211,10 @@ class CheckoutController extends Controller
         return redirect("/checkout/thank-you/")->with("notification","Failed! Error during checkout");
     }
 
-    public function thankYou(Request $request, Order $order) {
+    public function thankYou(Request $request) {
         $status = $request->input('resultCode');
         $requestId = $request->input('requestId');
-//        $order = Order::where('id', $requestId)->first();
+        $order = Order::where('id', $requestId)->first();
 
         if ($status == '0' ) {
             // Update order status

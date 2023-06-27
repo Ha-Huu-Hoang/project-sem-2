@@ -183,7 +183,7 @@ class DatabaseSeeder extends Seeder
                 'id' => 2,
                 'brand_id' => 2,
                 'product_category_id' => 2,
-                'name' => 'Adidas Unisex-Child X Speedflow',
+                'name' => 'Adidas Unisex-Child',
                 'description' => null,
                 'content' => null,
                 'price' => 35,
