@@ -28,7 +28,7 @@ class CheckoutController extends Controller
         $this->orderDetailService = $orderDetailService;
     }
 
-    public function index(Request $request)
+    public function index()
     {
         $carts = Cart::content();
         $subtotal = str_replace(',', '', Cart::subtotal());
@@ -210,12 +210,12 @@ class CheckoutController extends Controller
         return redirect("/checkout/thank-you/")->with("notification","Failed! Error during checkout");
     }
 
-    public function thankYou(Request $request) {
+    public function thankYou(Request $request, Order $order) {
         $status = $request->input('resultCode');
         $requestId = $request->input('requestId');
-        $order = Order::where('id', $requestId)->first();
+//        $order = Order::where('id', $requestId)->first();
 
-        if ($status == '0' && $order) {
+        if ($status == '0' ) {
             // Update order status
             $order->update(["is_paid" => true, "status" => 1]);
 
