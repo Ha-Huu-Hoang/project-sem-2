@@ -135,7 +135,7 @@
                                                 Shop Runner.<br />
                                                 8 Tôn Thất Thuyết, Mỹ Đình, <br />
                                                 Nam Từ Liêm, Hà Nội, Việt Nam.<br />
-                                                Phone: 099-999-9999.
+                                                Phone: 099 999 9999.
                                             </td>
                                         </tr>
                                         </tbody>
@@ -260,6 +260,8 @@
                                                     @case(0)<span class="text text-secondary">Unpaid</span>@break
                                                     @case(1)<span class="text text-success">Paid</span>@break
                                                 @endswitch
+                                                <br />
+                                                Shipping Method: {{$order->shipping_method}}
                                             </td>
                                         </tr>
                                         </tbody>
@@ -423,6 +425,10 @@
                             <tr>
                                 <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">VAT 10%</td>
                                 <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">${{ $vatAmount }}</td>
+                            </tr>
+                            <tr>
+                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">Shipping</td>
+                                <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">${{ $total }}</td>
                             </tr>
                             <tr>
                                 <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 22px; vertical-align: top; text-align: right">Total</td>

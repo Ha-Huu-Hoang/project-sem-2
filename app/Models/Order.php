@@ -25,6 +25,7 @@ class Order extends Model
         'email',
         'total',
         'payment_method',
+        'shipping_method',
         "status",
         "is_paid",
     ];

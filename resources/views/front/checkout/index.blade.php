@@ -107,6 +107,44 @@
                                     </div>
                                 </div>
                             </div>
+                            <h6 class="shipping__title">Shipping Method</h6>
+                            <p class="shipping shipping-note">NOTE: Delivery times may vary due to location and other factors. Thank you, we hope you understand.</p>
+                            <div class="row">
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <div class="custom-input">
+                                            <input type="radio" id="radio" name="shipping_method" value="Standard Shipping" checked/>
+                                            <label for="radio">
+                                                <span class="check-mark"></span>
+                                                <div class="content">
+                                                    <div class="text-container">
+                                                        <div class="title">Standard Shipping</div>
+                                                        <div class="description">Estimated delivery in 3-5 business days</div>
+                                                    </div>
+                                                    <div class="shipping-price">$10</div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="checkout__input">
+                                        <div class="custom-input">
+                                            <input type="radio" id="option" value="Express Shipping" name="shipping_method" />
+                                            <label for="option">
+                                                <span class="check-mark"></span>
+                                                <div class="content">
+                                                    <div class="text-container">
+                                                        <div class="title">Express Shipping</div>
+                                                        <div class="description">Estimated delivery in 1-2 business days</div>
+                                                    </div>
+                                                    <div class="shipping-price">$30</div>
+                                                </div>
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
@@ -122,10 +160,10 @@
                                 </ul>
 
                                 <ul class="checkout__total__all">
-                                    <li>Subtotal <span>${{$subtotal}}</span></li>
-                                    <li>VAT 10% <span>${{number_format($vatAmount, 2, '.', '') }}</span></li>
-                                    <li>Shipping <span id="shipping_fee">$0.00</span></li>
-                                    <li>Total<span>${{number_format($total, 2, '.', '') }}</span></li>
+                                    <li>Subtotal <span id="subtotal">${{$subtotal}}</span></li>
+                                    <li>VAT 10% <span id="vatAmount">${{number_format($vatAmount, 2, '.', '') }}</span></li>
+                                    <li>Shipping <span id="shipping_fee">$0</span></li>
+                                    <li>Total<span id="total">${{number_format($total, 2, '.', '') }}</span></li>
                                 </ul>
 
                                 <div class="checkout__input__checkbox">
@@ -149,13 +187,6 @@
                                         <span class="checkmark"></span>
                                     </label>
                                 </div>
-                                <div class="checkout__input__checkbox">
-                                    <label for="VNPAY">
-                                        VNPAY
-                                        <input name="payment_method" type="radio" id="VNPAY" value="VNPAY">
-                                        <span class="checkmark"></span>
-                                    </label>
-                                </div>
                                 <button type="submit" class="site-btn">PLACE ORDER</button>
                             </div>
                         </div>
@@ -166,3 +197,53 @@
     </section>
     <!-- Checkout Section End -->
 @endsection
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const subtotalElement = document.getElementById('subtotal');
+        const vatAmountElement = document.getElementById('vatAmount');
+        const shippingFeeElement = document.getElementById('shipping_fee');
+        const totalElement = document.getElementById('total');
+        const radioButtons = document.querySelectorAll('input[name="shipping_method"]');
+
+        // The function calculates and updates the total amount
+        function updateTotal() {
+            const shippingPrice = parseFloat(shippingFeeElement.textContent.replace('$', ''));
+            const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
+            const vatAmount = parseFloat(vatAmountElement.textContent.replace('$', ''));
+            const total = subtotal + vatAmount + shippingPrice;
+            totalElement.textContent = '$' + total.toFixed(2);
+        }
+
+        // Loop through the radios and add the onchange event
+        radioButtons.forEach(radio => {
+            radio.addEventListener('change', function() {
+                // Lấy giá trị số tiền vận chuyển từ phần tử có class "shipping-price"
+                const shippingPrice = parseFloat(this.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
+                shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
+                updateTotal();
+            });
+        });
+
+        // Check default radio (checked) and update shipping amount
+        const defaultShippingMethod = document.querySelector('input[name="shipping_method"]:checked');
+        if (defaultShippingMethod) {
+            const shippingPrice = parseFloat(defaultShippingMethod.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
+            shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
+            updateTotal();
+        }
+    });
+</script>
+
+<script>
+    window.addEventListener("scroll", function() {
+        var checkoutOrder = document.querySelector(".checkout__order");
+        var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+        if (scrollPosition >= 380) {
+            checkoutOrder.classList.add("sticky");
+        } else {
+            checkoutOrder.classList.remove("sticky");
+        }
+    });
+</script>

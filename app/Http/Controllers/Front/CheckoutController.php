@@ -95,12 +95,11 @@ class CheckoutController extends Controller
             "email" => $request->input("email"),
             "total" => $total,
             "payment_method" => $request->get("payment_method"),
+            "shipping_method" => $request->get("shipping_method"),
             "user_id" => $request->input("user_id"),
             //  "is_paid"=>false,
             //   "status"=>0,
         ]);
-
-
 
         // Create order details
         foreach ($carts as $cart) {
@@ -116,7 +115,7 @@ class CheckoutController extends Controller
         }
 
         // Clear the cart
-        Cart::destroy();
+//        Cart::destroy();
 
         if ($order->payment_method == "PayPal") {
             //Payment Method PayPal
@@ -152,7 +151,6 @@ class CheckoutController extends Controller
         } else if ($order->payment_method == "MoMo") {
             //Payment Method MoMo
             $endpoint = "https://test-payment.momo.vn/v2/gateway/api/create";
-
             $partnerCode = 'MOMOBKUN20180529';
             $accessKey = 'klm05TvNBzhg7h7j';
             $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
@@ -191,63 +189,11 @@ class CheckoutController extends Controller
 
             //Just a example, please check more in there
             return redirect()->to($jsonResult['payUrl']);
-        } else if ($order->payment_method == "VNPAY") {
-            //Payment Method VNPAY
-            session(['cost_id' => $request->id]);
-            session(['url_prev' => url()->previous()]);
-            $vnp_TmnCode = "UDOPNWS1"; //Mã website tại VNPAY
-            $vnp_HashSecret = "EBAHADUGCOEWYXCMYZRMTMLSHGKNRPBN"; //Chuỗi bí mật
-            $vnp_Url = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-            $vnp_Returnurl = "http://127.0.0.1:8000/checkout/thank-you/";
-            $vnp_TxnRef = '12312312312321'; //Mã đơn hàng. Trong thực tế Merchant cần insert đơn hàng vào DB và gửi mã này sang VNPAY
-            $vnp_OrderInfo = "Thanh toán đơn đặt hàng - Shop Runner";
-            $vnp_OrderType = 'billpayment';
-            $vnp_Amount = ($total * 23500) * 100;
-            $vnp_Locale = 'en';
-            $vnp_IpAddr = request()->ip();
-
-            $inputData = array(
-                "vnp_Version" => "2.0.0",
-                "vnp_TmnCode" => $vnp_TmnCode,
-                "vnp_Amount" => $vnp_Amount,
-                "vnp_Command" => "pay",
-                "vnp_CreateDate" => date('YmdHis'),
-                "vnp_CurrCode" => "VND",
-                "vnp_IpAddr" => $vnp_IpAddr,
-                "vnp_Locale" => $vnp_Locale,
-                "vnp_OrderInfo" => $vnp_OrderInfo,
-                "vnp_OrderType" => $vnp_OrderType,
-                "vnp_ReturnUrl" => $vnp_Returnurl,
-                "vnp_TxnRef" => $vnp_TxnRef,
-            );
-
-//            dd($inputData);
-
-            if (isset($vnp_BankCode) && $vnp_BankCode != "") {
-                $inputData['vnp_BankCode'] = $vnp_BankCode;
-            }
-            ksort($inputData);
-            $query = "";
-            $i = 0;
-            $hashdata = "";
-            foreach ($inputData as $key => $value) {
-                if ($i == 1) {
-                    $hashdata .= '&' . $key . "=" . $value;
-                } else {
-                    $hashdata .= $key . "=" . $value;
-                    $i = 1;
-                }
-                $query .= urlencode($key) . "=" . urlencode($value) . '&';
-            }
-
-            $vnp_Url = $vnp_Url . "?" . $query;
-            if (isset($vnp_HashSecret)) {
-                // $vnpSecureHash = md5($vnp_HashSecret . $hashdata);
-                $vnpSecureHash = hash('sha256', $vnp_HashSecret . $hashdata);
-                $vnp_Url .= 'vnp_SecureHashType=SHA256&vnp_SecureHash=' . $vnpSecureHash;
-            }
-            return redirect($vnp_Url);
         }
+
+        // Send Email
+        $this->sendEmail($order);
+        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail.");
     }
 
     //PayPal
@@ -257,38 +203,33 @@ class CheckoutController extends Controller
 //        dd($order->is_paid);
         $this->sendEmail($order);
 
-        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail.");
+        return redirect("/checkout/thank-you/")->with("notification","Success! You have successfully paid for your order. Please check your email.");
     }
 
-    public function cancelTransaction(Order $order){
+    public function cancelTransaction(){
         return redirect("/checkout/thank-you/")->with("notification","Failed! Error during checkout");
     }
 
-    public function thankYou(Request $request, Order $order) {
+    public function thankYou(Request $request) {
         $status = $request->input('resultCode');
         $requestId = $request->input('requestId');
         $order = Order::where('id', $requestId)->first();
 
         if ($status == '0' && $order) {
-            // Cập nhật trạng thái đơn hàng
+            // Update order status
             $order->update(["is_paid" => true, "status" => 1]);
 
-            // Gửi email thông báo
+            // Send Email
             $this->sendEmail($order);
-
         }
         $notification = session("notification");
 //        dd($request->all());
         return view("front.checkout.thank-you", compact("notification"));
     }
 
-
-
     //Send Email
     public function sendEmail($order) {
-
         $email_to = $order->email;
-
         $carts = Cart::content();
         $subtotal = str_replace(',', '', Cart::subtotal());
 
