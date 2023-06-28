@@ -434,4 +434,109 @@ function updateCart(rowId,qty){
     });
 }
 
+//Search Navbar
+const searchIcon = document.getElementById("search-icon");
+const searchInputContainer = document.querySelector(".search-input-container");
+const searchInput = document.getElementById("search-input");
 
+searchIcon.addEventListener("click", function () {
+    searchInputContainer.classList.toggle("show-input");
+    if (searchInputContainer.classList.contains("show-input")) {
+        searchInput.focus();
+    } else {
+        searchInput.blur();
+    }
+});
+
+document.addEventListener("click", function (event) {
+    const targetElement = event.target;
+    if (!targetElement.closest(".search-container")) {
+        searchInputContainer.classList.remove("show-input");
+        searchInput.blur();
+    }
+});
+
+//Back to top
+window.addEventListener('scroll', function() {
+    var backToTopBtn = document.getElementById("back-to-top");
+
+    if (window.scrollY > 20) {
+        backToTopBtn.style.display = "block";
+    } else {
+        backToTopBtn.style.display = "none";
+    }
+});
+
+function scrollToTop() {
+    window.scrollTo({
+        top: 0,
+        behavior: 'smooth'
+    });
+}
+
+
+//Shipping
+document.addEventListener('DOMContentLoaded', function() {
+    const subtotalElement = document.getElementById('subtotal');
+    const vatAmountElement = document.getElementById('vatAmount');
+    const shippingFeeElement = document.getElementById('shipping_fee');
+    const totalElement = document.getElementById('total');
+    const radioButtons = document.querySelectorAll('input[name="shipping_method"]');
+
+    // Hàm tính toán và cập nhật tổng số tiền
+    function updateTotal() {
+        const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
+        const vatAmount = parseFloat(vatAmountElement.textContent.replace('$', ''));
+        const shippingPrice = parseFloat(shippingFeeElement.textContent.replace('$', ''));
+        const total = subtotal + vatAmount + shippingPrice;
+        totalElement.textContent = '$' + total.toFixed(2);
+
+        // Gửi giá trị total và phí vận chuyển qua request Ajax đến controller Laravel
+        const data = {
+            shipping_fee: shippingPrice,
+            total: total,
+            _token: '{{ csrf_token() }}'
+        };
+
+        $.ajax({
+            url: '/checkout/update-total',
+            method: 'POST',
+            data: data,
+            success: function(response) {
+                console.log(response.total);
+            },
+            error: function(error) {
+                console.error(error);
+            }
+        });
+    }
+
+    // Lặp qua các input và thêm sự kiện onchange
+    radioButtons.forEach(function(radio) {
+        radio.addEventListener('change', function() {
+            const shippingPrice = parseFloat(this.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
+            shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
+            updateTotal();
+        });
+    });
+
+    // Kiểm tra radio checked và cập nhật phí vận chuyển
+    const defaultShippingMethod = document.querySelector('input[name="shipping_method"]:checked');
+    if (defaultShippingMethod) {
+        const shippingPrice = parseFloat(defaultShippingMethod.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
+        shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
+        updateTotal();
+    }
+});
+
+//Sticky checkout order
+window.addEventListener("scroll", function() {
+    var checkoutOrder = document.querySelector(".checkout__order");
+    var scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+
+    if (scrollPosition >= 380) {
+        checkoutOrder.classList.add("sticky");
+    } else {
+        checkoutOrder.classList.remove("sticky");
+    }
+});
