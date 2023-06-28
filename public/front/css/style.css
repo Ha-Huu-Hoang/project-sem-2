@@ -4328,3 +4328,13 @@ edit
     background: #333;
     color: #fff;
 }
+.alert {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px 20px;
+
+    font-size: 16px;
+
+    z-index: 9999;
+}
