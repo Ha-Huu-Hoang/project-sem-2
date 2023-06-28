@@ -54,7 +54,7 @@
                                     <td class="quantity__item">
                                         <div class="quantity">
                                             <div class="pro-qty-2">
-                                                <input type="text" value="{{$cart->qty}}" data-rowid="{{$cart->rowId}}">
+                                                <input class="quantity-input" type="text" value="{{$cart->qty}}" data-rowid="{{$cart->rowId}}">
                                             </div>
                                         </div>
                                     </td>

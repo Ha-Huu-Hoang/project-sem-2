@@ -16,15 +16,22 @@ class CartController extends Controller
         $this->productService =  $productService;
     }
 
-    public function index(){
+    public function index()
+    {
         $carts = Cart::content();
         $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
         $total = $subtotal + $vatAmount;
 
-        return view('front.shop.cart', compact('carts', 'total', 'subtotal', 'vatAmount'));
+        $subtotal = number_format($subtotal, 2, '.', '');
+        $vatAmount = number_format($vatAmount, 2, '.', '');
+        $total = number_format($total, 2, '.', '');
+
+        return view('front.shop.cart', compact('carts', 'total', 'subtotal', 'vatAmount', 'vatRate'));
     }
+
+
 
     public function add(Request $request){
 
@@ -61,16 +68,18 @@ class CartController extends Controller
     }
 
 
-    public function update(Request $request){
-        if ($request->ajax()){
-            $response['cart'] = Cart::update($request->rowId,$request->qty);
+    public function update(Request $request) {
+        if ($request->ajax()) {
+            $response['cart'] = Cart::update($request->rowId, $request->qty);
 
             $response['count'] = Cart::count();
-            $response['total'] = Cart::total();
-            $response['subtotal'] = Cart::subtotal();
+            $response['total'] = floatval(str_replace(',', '', Cart::total()));
+            $response['subtotal'] = floatval(str_replace(',', '', Cart::subtotal()));
+
             return $response;
         }
     }
+
 
 
 }

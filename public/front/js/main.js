@@ -285,15 +285,27 @@
                  '                                </tr>';
              row_tbody.append(newItem);
          }
-         alert('Add successful!\nProduct: ' + response['cart'].name)
+             var alertMsg = 'Add successful!\nProduct: ' + response['cart'].name;
+             showAlert(alertMsg);
+
              console.log(response);
          },
-         error:function (response){
-            alert('Add failed');
-            console.log(response);
+         error: function(response) {
+             showAlert('Add failed');
+
+             console.log(response);
          },
      });
+ }
+function showAlert(message) {
+    var alert = $('<div class="alert alert-success">').addClass('alert').text(message);
+    $('body').append(alert);
 
+    setTimeout(function() {
+        alert.fadeOut(function() {
+            alert.remove();
+        });
+    }, 3000); // Thời gian hiển thị là 3 giây (3000 milliseconds)
 }
 
 function removeCart(rowId){
@@ -314,9 +326,10 @@ function removeCart(rowId){
             var cart_exitstItem = cart_tbody.find("tr[data-rowId='"+ rowId  +"']");
             cart_exitstItem.remove();
 
-            $('.cart__total ul li:first-child span').text(response['total']);
+            $('.cart__total ul li:first-child span').text(response['subtotal']);
             $('.cart__total ul li:last-child span').text(response['total']);
             $('.cart__total ul li:nth-child(2) span').text(response['quantity']);
+
             var vatRate = 10; // Đặt tỷ lệ VAT tùy thuộc vào yêu cầu của bạn
             var subtotal = response['subtotal'];
             var vatAmount = calculateVAT(subtotal, vatRate);
@@ -348,6 +361,21 @@ function calculateVAT(subtotal, vatRate) {
     var vatAmount = (subtotal * vatRate) / 100;
     return parseFloat(vatAmount.toFixed(2));
 }
+$('.quantity-input').on('change', function() {
+    var rowId = $(this).data('rowid');
+    var qty = $(this).val();
+    updateCart(rowId, qty);
+});
+
+$('.quantity-input').on('keydown', function(e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        var rowId = $(this).data('rowid');
+        var qty = $(this).val();
+        updateCart(rowId, qty);
+    }
+});
+
 
 function updateCart(rowId,qty){
     $.ajax({
@@ -393,10 +421,11 @@ function updateCart(rowId,qty){
 
 
 
-
-
-
-
+            var cartCount = parseInt(response['count']);
+            if (cartCount === 0) {
+                // Nếu số lượng sản phẩm là 0, tải lại trang
+                location.reload(true);
+            }
         },
         error:function (response){
             alert('Update failed');
@@ -404,4 +433,5 @@ function updateCart(rowId,qty){
         },
     });
 }
+
 
