@@ -4240,6 +4240,12 @@ edit
     color: #333;
 }
 
+.pagination .page-item .page-link:focus,
+.pagination .page-item .page-link:active {
+    outline: none;
+    box-shadow: none;
+}
+
 /*=== Search Navbar ===*/
 .search-container {
     position: relative;

@@ -20,7 +20,6 @@ class CheckoutController extends Controller
 {
     private $orderService;
     private $orderDetailService;
-    private $apSer;
 
     public function __construct(OrderServiceInterface $orderService, OrderDetailServiceInterface $orderDetailService)
     {
@@ -28,15 +27,33 @@ class CheckoutController extends Controller
         $this->orderDetailService = $orderDetailService;
     }
 
-    public function index()
+    public function index(Request $request)
     {
         $carts = Cart::content();
         $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
-        $total = $subtotal + $vatAmount;
+        $shippingFee = $request->input('shipping_fee');
+        $total = $subtotal + $vatAmount + $shippingFee;
 
-        return view('front.checkout.index', compact('carts', 'total', 'subtotal', 'vatAmount'));
+//        return response()->json(['total' => $total]);
+
+//        dd($shippingFee);
+        return view('front.checkout.index', compact('carts', 'total', 'subtotal', 'vatAmount', 'shippingFee'));
+    }
+
+    public function updateTotal(Request $request)
+    {
+        $carts = Cart::content();
+        $subtotal = str_replace(',', '', Cart::subtotal());
+        $vatRate = 0.1;
+        $vatAmount = $subtotal * $vatRate;
+        $shippingFee = $request->input('shipping_fee');
+//        dd($shippingFee);
+//        dd(gettype($shippingFee));
+        $total = $subtotal + $vatAmount + $shippingFee;
+//        dd($total);
+//        return response()->json(['total' => $total]);
     }
 
     //Helper MoMo
@@ -76,11 +93,21 @@ class CheckoutController extends Controller
         ]);
 
         // Get cart items
+//        $carts = Cart::content();
+//        $subtotal = str_replace(',', '', Cart::subtotal());
+//        $vatRate = 0.1;
+//        $vatAmount = $subtotal * $vatRate;
+//        $shippingFee = $request->input('shipping_fee');
+//        $total = $subtotal + $vatAmount + $shippingFee;
         $carts = Cart::content();
         $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
-        $total = $subtotal + $vatAmount;
+        $shippingFee = $request->input('shipping_fee');
+//        dd($shippingFee);
+        $total = $subtotal + $vatAmount + $shippingFee;
+//        dd($total);
+//        $total = $subtotal + $vatAmount;
 
         // Create order
         $order = Order::create([
@@ -188,6 +215,7 @@ class CheckoutController extends Controller
 
 //            dd($jsonResult);
 
+            dd($order->all());
             //Just a example, please check more in there
             return redirect()->to($jsonResult['payUrl']);
         }

@@ -22,7 +22,8 @@
     <!-- Breadcrumb Section End -->
 
     <!-- Checkout Section Begin -->
-    <section class="checkout spad">
+    @if(Cart::count()>0)
+        <section class="checkout spad">
         <div class="container">
             <div class="checkout__form">
                 <form action="{{url("/checkout")}}" method="post">
@@ -162,7 +163,7 @@
                                 <ul class="checkout__total__all">
                                     <li>Subtotal <span id="subtotal">${{$subtotal}}</span></li>
                                     <li>VAT 10% <span id="vatAmount">${{number_format($vatAmount, 2, '.', '') }}</span></li>
-                                    <li>Shipping <span id="shipping_fee">$0</span></li>
+                                    <li>Shipping <span id="shipping_fee">${{number_format($shippingFee, 2, '.', '') }}</span></li>
                                     <li>Total<span id="total">${{number_format($total, 2, '.', '') }}</span></li>
                                 </ul>
 
@@ -195,10 +196,110 @@
             </div>
         </div>
     </section>
+    @else
+        <section class="shoping-cart spad">
+            <div class="container">
+                <div class="row justify-content-center">
+                    <div class="col-md-6">
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <a href="{{url("/shop")}}" title="Shopping now!"><img src="front/img/empty-cart.png" width="200" alt=""></a>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12 text-center">
+                                <p>There are no products in the cart. Shopping now!</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    @endif
+
     <!-- Checkout Section End -->
 @endsection
 
 <script>
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const subtotalElement = document.getElementById('subtotal');
+    //     const vatAmountElement = document.getElementById('vatAmount');
+    //     const shippingFeeElement = document.getElementById('shipping_fee');
+    //     const totalElement = document.getElementById('total');
+    //     const radioButtons = document.querySelectorAll('input[name="shipping_method"]');
+    //
+    //     // The function calculates and updates the total amount
+    //     function updateTotal() {
+    //         const shippingPrice = parseFloat(shippingFeeElement.textContent.replace('$', ''));
+    //         const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
+    //         const vatAmount = parseFloat(vatAmountElement.textContent.replace('$', ''));
+    //         const total = subtotal + vatAmount + shippingPrice;
+    //         totalElement.textContent = '$' + total.toFixed(2);
+    //     }
+    //
+    //     // Loop through the radios and add the onchange event
+    //     radioButtons.forEach(radio => {
+    //         radio.addEventListener('change', function() {
+    //             // Lấy giá trị số tiền vận chuyển từ phần tử có class "shipping-price"
+    //             const shippingPrice = parseFloat(this.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
+    //             shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
+    //             updateTotal();
+    //         });
+    //     });
+    //
+    //     // Check default radio (checked) and update shipping amount
+    //     const defaultShippingMethod = document.querySelector('input[name="shipping_method"]:checked');
+    //     if (defaultShippingMethod) {
+    //         const shippingPrice = parseFloat(defaultShippingMethod.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
+    //         shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
+    //         updateTotal();
+    //     }
+    // });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     const subtotalElement = document.getElementById('subtotal');
+    //     const vatAmountElement = document.getElementById('vatAmount');
+    //     const shippingFeeElement = document.getElementById('shipping_fee');
+    //     const totalElement = document.getElementById('total');
+    //     const radioButtons = document.querySelectorAll('input[name="shipping_method"]');
+    //
+    //     // Hàm tính toán và cập nhật tổng số tiền
+    //     function updateTotal() {
+    //         const shippingPrice = parseFloat(shippingFeeElement.textContent.replace('$', ''));
+    //         const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
+    //         const vatAmount = parseFloat(vatAmountElement.textContent.replace('$', ''));
+    //         const total = subtotal + vatAmount + shippingPrice;
+    //         totalElement.textContent = '$' + total.toFixed(2);
+    //
+    //         // Gửi giá trị total qua request HTTP đến controller Laravel
+    //         axios.post('checkout/update-total', {
+    //             total: total
+    //         })
+    //             .then(function(response) {
+    //                 console.log(response.data);
+    //             })
+    //             .catch(function(error) {
+    //                 console.error(error);
+    //             });
+    //     }
+    //
+    //     // Lặp qua các radio buttons và thêm sự kiện onchange
+    //     radioButtons.forEach(function(radio) {
+    //         radio.addEventListener('change', function() {
+    //             const shippingPrice = parseFloat(this.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
+    //             shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
+    //             updateTotal();
+    //         });
+    //     });
+    //
+    //     // Kiểm tra radio mặc định (đã được chọn) và cập nhật phí vận chuyển
+    //     const defaultShippingMethod = document.querySelector('input[name="shipping_method"]:checked');
+    //     if (defaultShippingMethod) {
+    //         const shippingPrice = parseFloat(defaultShippingMethod.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
+    //         shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
+    //         updateTotal();
+    //     }
+    // });
+
     document.addEventListener('DOMContentLoaded', function() {
         const subtotalElement = document.getElementById('subtotal');
         const vatAmountElement = document.getElementById('vatAmount');
@@ -206,26 +307,44 @@
         const totalElement = document.getElementById('total');
         const radioButtons = document.querySelectorAll('input[name="shipping_method"]');
 
-        // The function calculates and updates the total amount
+        // Hàm tính toán và cập nhật tổng số tiền
         function updateTotal() {
-            const shippingPrice = parseFloat(shippingFeeElement.textContent.replace('$', ''));
             const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
             const vatAmount = parseFloat(vatAmountElement.textContent.replace('$', ''));
+            const shippingPrice = parseFloat(shippingFeeElement.textContent.replace('$', ''));
             const total = subtotal + vatAmount + shippingPrice;
             totalElement.textContent = '$' + total.toFixed(2);
+
+            // Gửi giá trị total và phí vận chuyển qua request Ajax đến controller Laravel
+            const data = {
+                shipping_fee: shippingPrice,
+                total: total,
+                _token: '{{ csrf_token() }}'
+            };
+
+            $.ajax({
+                url: '/checkout/update-total',
+                method: 'POST',
+                data: data,
+                success: function(response) {
+                    console.log(response.total);
+                },
+                error: function(error) {
+                    console.error(error);
+                }
+            });
         }
 
-        // Loop through the radios and add the onchange event
-        radioButtons.forEach(radio => {
+        // Lặp qua các radio buttons và thêm sự kiện onchange
+        radioButtons.forEach(function(radio) {
             radio.addEventListener('change', function() {
-                // Lấy giá trị số tiền vận chuyển từ phần tử có class "shipping-price"
                 const shippingPrice = parseFloat(this.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
                 shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
                 updateTotal();
             });
         });
 
-        // Check default radio (checked) and update shipping amount
+        // Kiểm tra radio mặc định (đã được chọn) và cập nhật phí vận chuyển
         const defaultShippingMethod = document.querySelector('input[name="shipping_method"]:checked');
         if (defaultShippingMethod) {
             const shippingPrice = parseFloat(defaultShippingMethod.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
