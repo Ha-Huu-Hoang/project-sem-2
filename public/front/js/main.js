@@ -161,24 +161,22 @@
 		Quantity change
 	--------------------- */
     var proQty = $('.pro-qty');
-    proQty.prepend('<span class="fa fa-angle-up dec qtybtn"></span>');
-    proQty.append('<span class="fa fa-angle-down inc qtybtn"></span>');
-    proQty.on('click', '.qtybtn', function () {
+    proQty.prepend('<span class=" dec qtybtn-detail">-</span>');
+    proQty.append('<span class=" inc qtybtn-detail">+</span>');
+    proQty.on('click', '.qtybtn-detail', function () {
         var $button = $(this);
         var oldValue = $button.parent().find('input').val();
         if ($button.hasClass('inc')) {
             var newVal = parseFloat(oldValue) + 1;
         } else {
             // Don't allow decrementing below zero
-            if (oldValue > 0) {
+            if (oldValue > 1) {
                 var newVal = parseFloat(oldValue) - 1;
             } else {
-                newVal = 0;
+                newVal = 1;
             }
         }
         $button.parent().find('input').val(newVal);
-
-
     });
 
     var proQty = $('.pro-qty-2');
@@ -495,12 +493,12 @@ document.addEventListener('DOMContentLoaded', function() {
             url: '/checkout/update-total',
             method: 'POST',
             data: data,
-            success: function(response) {
-                console.log(response);
-            },
-            error: function(error) {
-                console.error(error);
-            }
+            // success: function(response) {
+            //     console.log(response);
+            // },
+            // error: function(error) {
+            //     console.error(error);
+            // }
         });
     }
 
