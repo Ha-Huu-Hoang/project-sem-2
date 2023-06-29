@@ -55,6 +55,10 @@ class CheckoutController extends Controller
         $total = $request->session()->get('total', $subtotal + $vatAmount + $shippingFee);
 //        dd($subtotal, $vatAmount, $total);
 
+        $request->session()->put('subtotal', $subtotal);
+        $request->session()->put('vatAmount', $vatAmount);
+        $request->session()->put('total', $total);
+
 //        dd($carts);
         return view('front.checkout.index', compact('carts', 'total', 'subtotal', 'vatAmount', 'shippingFee'));
     }
@@ -258,14 +262,14 @@ class CheckoutController extends Controller
         $carts = Cart::content();
 //        dd($carts);
 
-        $subtotal = str_replace(',', '', Cart::subtotal());
-        $vatRate = 0.1;
-        $vatAmount = $subtotal * $vatRate;
+        $subtotal = $request->session()->get('subtotal', 0);
+        $vatAmount = $request->session()->get('vatAmount', 0);
         $shippingFee = $request->session()->get('shipping_fee', 0);
-//        dd($shippingFee);
+        $total = $request->session()->get('total', 0);
 
-        $total = $request->session()->get('total', $subtotal + $vatAmount + $shippingFee);
-//        dd($subtotal, $vatAmount, $total);
+        $request->session()->forget('subtotal');
+        $request->session()->forget('vatAmount');
+        $request->session()->forget('total');
 
         Mail::send("front.checkout.email", compact("order", "carts", "subtotal", "total", "vatAmount", "shippingFee"),
             function ($message) use ($email_to, $order, $shippingFee) {
