@@ -27,7 +27,7 @@
                         <thead class="table-bordered">
                             <tr>
                                 <th scope="col">Image</th>
-                                <th scope="col">ID</th>
+                                <th scope="col">Order Code</th>
                                 <th scope="col">Product</th>
                                 <th scope="col">Total</th>
                                 <th scope="col">Payment Method</th>
@@ -42,14 +42,16 @@
                                     @if(isset($order->orderDetails) && count($order->orderDetails) > 0)
                                         @foreach($order->orderDetails as $orderDetail)
                                             @if(isset($orderDetail->product) && isset($orderDetail->product->productImages) && count($orderDetail->product->productImages) > 0)
-                                                <img src="{{$orderDetail->product->productImages[0]->path}}" alt="..." class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover">
+                                                <a href="{{url("/shop/product/{$orderDetail->product->slug}")}}">
+                                                    <img src="{{$orderDetail->product->productImages[0]->path}}" alt="..." class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover">
+                                                </a>
                                                 @break
                                             @endif
                                         @endforeach
                                     @endif
                                 </td>
-                                <td>#{{$order->id}}</td>
-                                <td>
+                                <td>#{{$order->order_code}}</td>
+                                <td style="font-weight: 600">
                                     @if(isset($order->orderDetails) && count($order->orderDetails) > 0)
                                         {{$order->orderDetails[0]->product->name}}
 

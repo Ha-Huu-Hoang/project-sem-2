@@ -169,7 +169,7 @@
                                         </tr>
                                         <tr>
                                             <td style="font-size: 12px; color: #ff0000; font-family: 'Open Sans', sans-serif; line-height: 18px; vertical-align: top; text-align: right">
-                                                <small style="color: #5b5b5b">Order Code: </small>{{ $order->order_code }}<br />
+                                                <small style="color: #5b5b5b">Order Code: </small><a href="http://127.0.0.1:8000/account/my-order/{{ $order->order_code }}" style="color: #f00">#{{ $order->order_code }}</a><br />
                                                 <small style="color: #5b5b5b">Order date: {{ $order->created_at }}</small>
                                             </td>
                                         </tr>

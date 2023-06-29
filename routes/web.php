@@ -68,7 +68,7 @@ Route::prefix('account')->group(function () {
     Route::post('register',[\App\Http\Controllers\Front\AccountController::class,'postRegister']);
 
 
-    Route::prefix('my-order')->group(function (){
+    Route::prefix('my-order')->middleware('CheckMemberLogin')->group(function (){
         Route::get('/',[\App\Http\Controllers\Front\AccountController::class,'myOrder']);
         Route::get('/{orderCode}',[\App\Http\Controllers\Front\AccountController::class,'orderDetail']);
     });

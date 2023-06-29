@@ -33,7 +33,7 @@
                     <div class="row">
                         <div class="col-lg-8 col-md-6">
                             <div class="d-flex justify-content-between form__order">
-                                <h6 class="order-detail__title">Order ID: #{{$order->id}}</h6>
+                                <h6 class="order-detail__title">Order Code: <span class="text-danger">#{{$order->order_code}}</span></h6>
                                 <h6 class="order-detail__title">Status:
                                     @switch($order->status)
                                         @case(0)<span class="text text-secondary">Pending</span>@break

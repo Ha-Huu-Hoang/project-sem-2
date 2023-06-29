@@ -245,7 +245,8 @@ class CheckoutController extends Controller
 
     public function thankYou(Request $request) {
         $status = $request->input('resultCode');
-        $requestId = $request->input('requestId');
+        $requestId = $request->input('orderId');
+//        $requestId = $request->input('requestId');
         $order = Order::where('order_code', $requestId)->first();
 
         if ($status == '0' ) {
@@ -279,7 +280,7 @@ class CheckoutController extends Controller
             function ($message) use ($email_to, $order, $shippingFee) {
                 $message->from('sonnmth2205010@fpt.edu.vn', 'Shop Runner');
                 $message->to($email_to, $email_to);
-                $message->subject('Order Notification - ' . $order->order_code);
+                $message->subject('Order Notification - #' . $order->order_code);
             }
         );
     }
