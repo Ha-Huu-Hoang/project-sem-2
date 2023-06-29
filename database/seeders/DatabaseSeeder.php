@@ -34,6 +34,8 @@ class DatabaseSeeder extends Seeder
                 'town_city'=> 'Hà Nội',
                 'postcode_zip'=> '100000',
                 'phone'=> '0999999999',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 2,
@@ -50,6 +52,8 @@ class DatabaseSeeder extends Seeder
                 'town_city'=> 'Hà Nội',
                 'postcode_zip'=> '100000',
                 'phone'=> '0999999999',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 3,
@@ -66,6 +70,8 @@ class DatabaseSeeder extends Seeder
                 'town_city'=> 'Hà Nội',
                 'postcode_zip'=> '100000',
                 'phone'=> '0999999999',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 4,
@@ -82,6 +88,8 @@ class DatabaseSeeder extends Seeder
                 'town_city'=> 'Hà Nội',
                 'postcode_zip'=> '100000',
                 'phone'=> '0999999999',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
 
         ]);
@@ -94,14 +102,18 @@ class DatabaseSeeder extends Seeder
                 'image' => 'blog-1.jpg',
                 'category' => 'TRAVEL',
                 'content' => '',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'user_id' => 3,
                 'title' => 'This was one of our first days in Hawaii last week.',
                 'subtitle' =>'hhh',
                 'image' => 'blog-2.jpg',
-                'category' => 'CodeLeanON',
+                'category' => 'CodeOneMin',
                 'content' => '',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'user_id' => 3,
@@ -110,14 +122,18 @@ class DatabaseSeeder extends Seeder
                 'image' => 'blog-3.jpg',
                 'category' => 'TRAVEL',
                 'content' => '',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'user_id' => 3,
                 'title' => 'Happppppy New Year! I know I am a little late on this post',
                 'subtitle' =>'hhh',
                 'image' => 'blog-4.jpg',
-                'category' => 'CodeLeanON',
+                'category' => 'CodeOneMin',
                 'content' => '',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'user_id' => 3,
@@ -126,41 +142,59 @@ class DatabaseSeeder extends Seeder
                 'image' => 'blog-5.jpg',
                 'category' => 'MODEL',
                 'content' => '',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'user_id' => 3,
                 'title' => 'Writing has always been kind of therapeutic for me',
                 'subtitle' =>'hhh',
                 'image' => 'blog-6.jpg',
-                'category' => 'CodeLeanON',
+                'category' => 'CodeOneMin',
                 'content' => '',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
 
         DB::table('brands')->insert([
             [
                 'name' => 'Calvin Klein',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Diesel',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Polo',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Tommy Hilfiger',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
 
         DB::table('product_categories')->insert([
             [
                 'name' => 'Men',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Women',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'name' => 'Kids',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
 
@@ -180,6 +214,8 @@ class DatabaseSeeder extends Seeder
                 'sku' =>  Str::random(8),
                 'featured' => true,
                 'tag' => 'Clothing',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 2,
@@ -196,6 +232,8 @@ class DatabaseSeeder extends Seeder
                 'sku' => Str::random(8),
                 'featured' => true,
                 'tag' => 'Clothing',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 3,
@@ -212,6 +250,8 @@ class DatabaseSeeder extends Seeder
                 'sku' => Str::random(8),
                 'featured' => true,
                 'tag' => 'Clothing',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 4,
@@ -228,6 +268,8 @@ class DatabaseSeeder extends Seeder
                 'sku' => Str::random(8),
                 'featured' => true,
                 'tag' => 'Accessories',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 5,
@@ -244,6 +286,8 @@ class DatabaseSeeder extends Seeder
                 'sku' => Str::random(8),
                 'featured' => false,
                 'tag' => 'Accessories',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 6,
@@ -260,6 +304,8 @@ class DatabaseSeeder extends Seeder
                 'sku' => Str::random(8),
                 'featured' => true,
                 'tag' => 'Clothing',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 7,
@@ -276,6 +322,8 @@ class DatabaseSeeder extends Seeder
                 'sku' => Str::random(8),
                 'featured' => true,
                 'tag' => 'HandBag',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 8,
@@ -292,6 +340,8 @@ class DatabaseSeeder extends Seeder
                 'sku' => Str::random(8),
                 'featured' => true,
                 'tag' => 'Clothing',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'id' => 9,
@@ -308,6 +358,8 @@ class DatabaseSeeder extends Seeder
                 'sku' => Str::random(8),
                 'featured' => true,
                 'tag' => 'Shoes',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
 
@@ -315,144 +367,216 @@ class DatabaseSeeder extends Seeder
             [
                 'product_id' => 1,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/0846e90b15144861b33dacf500e3cfd1_9366/Kaptir_2.0_Shoes_White_H00276_01_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 1,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/3ccc7c7e068a47889378acf500e3eb46_9366/Kaptir_2.0_Shoes_White_H00276_04_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 1,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/dbb4d73e94694515a547acf500e3f1f3_9366/Kaptir_2.0_Shoes_White_H00276_05_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 1,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/e17fcadb756b4823bd32acf500e3d617_9366/Kaptir_2.0_Shoes_White_H00276_06_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 2,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/183c827729cb446583cdad0a00b238f7_9366/X_Speedflow.3_Firm_Ground_Boots_Grey_FY3297_01_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 2,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/c0d41c2b4f9a4e7ca162ad0a00b25221_9366/X_Speedflow.3_Firm_Ground_Boots_Grey_FY3297_04_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 2,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/2b735cae81464966b4f0ad0a00b2584b_9366/X_Speedflow.3_Firm_Ground_Boots_Grey_FY3297_05_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 2,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/e454bd4a9e1542cc8681ad0a00b23f59_9366/X_Speedflow.3_Firm_Ground_Boots_Grey_FY3297_06_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 3,
                 'path' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/efa12034-edc3-4463-aedf-759f655df8a0/backpack-lKwr7b.png',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 3,
                 'path' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/9710bebe-87d7-4941-8230-b16038878ad2/backpack-lKwr7b.png',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],[
                 'product_id' => 3,
                 'path' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/08f126a9-b3e3-44f9-b0df-57050ea15972/backpack-lKwr7b.png',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],[
                 'product_id' => 3,
                 'path' => 'https://static.nike.com/a/images/t_PDP_1728_v1/f_auto,q_auto:eco/1929eba0-cefc-4679-81e9-e8634013f48c/backpack-lKwr7b.png',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 4,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/f042b05ad1bf4d51b7dfaf1600054038_9366/Giay_Ultraboost_1.0_trang_HQ4202_01_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 4,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/4b5ec88318204e548d24af1600058a59_9366/Giay_Ultraboost_1.0_trang_HQ4202_05_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 4,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/aeab39b6e4af428abdb7af1600056580_9366/Giay_Ultraboost_1.0_trang_HQ4202_06_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 4,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/f4a83445e9de4bc58e82af16000742de_9366/Giay_Ultraboost_1.0_trang_HQ4202_04_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 5,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/b3684cd8d09741a9b5feae4d00f98db4_9366/Ba_Lo_Bage_of_Sport_Motion_DJen_HG0356_01_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 5,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/4d999079d6904338a1a8ae4d00f996a0_9366/Ba_Lo_Bage_of_Sport_Motion_DJen_HG0356_02_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 5,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/5d4613f97755449cb6c7ae4d00f9a1c5_9366/Ba_Lo_Bage_of_Sport_Motion_DJen_HG0356_04_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 5,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/fbec7d50635841a0ac8fae4d00f9adfe_9366/Ba_Lo_Bage_of_Sport_Motion_DJen_HG0356_05_hover_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 6,
                 'path' => 'https://assets.adidas.com/images/w_1880,f_auto,q_auto/8a31294dc0b7494e8f06af8c00f51857_9366/FZ6281_01_standard_hover.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 6,
                 'path' => 'https://assets.adidas.com/images/w_1880,f_auto,q_auto/8a31294dc0b7494e8f06af8c00f51857_9366/FZ6281_01_standard_hover.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 6,
                 'path' => 'https://assets.adidas.com/images/w_1880,f_auto,q_auto/f8e56f55a56a41eb80aaaf8c00f54385_9366/FZ6281_04_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 6,
                 'path' => 'https://assets.adidas.com/images/w_1880,f_auto,q_auto/f8e56f55a56a41eb80aaaf8c00f54385_9366/FZ6281_04_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 7,
                 'path' => 'https://lason.vn/wp-content/uploads/2023/05/nen-san-pham-1ff-min.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 7,
                 'path' => 'https://lason.vn/wp-content/uploads/2023/05/nen-san-pham-qqqq1-min.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 7,
                 'path' => 'https://lason.vn/wp-content/uploads/2023/05/nen-san-pham-1aa-min-768x768.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 7,
                 'path' => 'https://lason.vn/wp-content/uploads/2023/05/nen-san-pham-1sa-min-768x768.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 8,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/9bca5d1660284cee8395ceed10f91491_9366/CourtJam_Control_Tennis_Shoes_Black_ID1535_01_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 8,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/e667614a889b4b2eb5c9381526b23712_9366/CourtJam_Control_Tennis_Shoes_Black_ID1535_04_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 8,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/ae80b37b6835444899fa0c6a4f0d8558_9366/CourtJam_Control_Tennis_Shoes_Black_ID1535_05_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 8,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/eba81af0b85545038ac79b8263809393_9366/CourtJam_Control_Tennis_Shoes_Black_ID1535_06_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 9,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/b3684cd8d09741a9b5feae4d00f98db4_9366/Ba_Lo_Bage_of_Sport_Motion_DJen_HG0356_01_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 9,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/4d999079d6904338a1a8ae4d00f996a0_9366/Ba_Lo_Bage_of_Sport_Motion_DJen_HG0356_02_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 9,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/5d4613f97755449cb6c7ae4d00f9a1c5_9366/Ba_Lo_Bage_of_Sport_Motion_DJen_HG0356_04_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 9,
                 'path' => 'https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/fbec7d50635841a0ac8fae4d00f9adfe_9366/Ba_Lo_Bage_of_Sport_Motion_DJen_HG0356_05_hover_standard.jpg',
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
 
@@ -462,36 +586,48 @@ class DatabaseSeeder extends Seeder
                 'color' => 'blue',
                 'size' => 'S',
                 'qty' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 1,
                 'color' => 'blue',
                 'size' => 'M',
                 'qty' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 1,
                 'color' => 'blue',
                 'size' => 'L',
                 'qty' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 1,
                 'color' => 'blue',
                 'size' => 'XS',
                 'qty' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 1,
                 'color' => 'yellow',
                 'size' => 'S',
                 'qty' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 1,
                 'color' => 'violet',
                 'size' => 'S',
                 'qty' => 0,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
 
@@ -503,6 +639,8 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Ngô Mạnh Sơn',
                 'messages' => 'Nice !',
                 'rating' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
             [
                 'product_id' => 1,
@@ -511,6 +649,8 @@ class DatabaseSeeder extends Seeder
                 'name' => 'Roy Banks',
                 'messages' => 'Nice !',
                 'rating' => 4,
+                'created_at' => now(),
+                'updated_at' => now(),
             ],
         ]);
     }
