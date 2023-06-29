@@ -478,7 +478,6 @@ document.addEventListener('DOMContentLoaded', function() {
     const totalElement = document.getElementById('total');
     const radioButtons = document.querySelectorAll('input[name="shipping_method"]');
 
-    // Hàm tính toán và cập nhật tổng số tiền
     function updateTotal() {
         const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
         const vatAmount = parseFloat(vatAmountElement.textContent.replace('$', ''));
@@ -486,11 +485,10 @@ document.addEventListener('DOMContentLoaded', function() {
         const total = subtotal + vatAmount + shippingPrice;
         totalElement.textContent = '$' + total.toFixed(2);
 
-        // Gửi giá trị total và phí vận chuyển qua request Ajax đến controller Laravel
         const data = {
             shipping_fee: shippingPrice,
             total: total,
-            _token: '{{ csrf_token() }}'
+            _token: $('meta[name="csrf-token"]').attr('content'),
         };
 
         $.ajax({
@@ -498,7 +496,7 @@ document.addEventListener('DOMContentLoaded', function() {
             method: 'POST',
             data: data,
             success: function(response) {
-                console.log(response.total);
+                console.log(response);
             },
             error: function(error) {
                 console.error(error);
@@ -506,7 +504,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     }
 
-    // Lặp qua các input và thêm sự kiện onchange
     radioButtons.forEach(function(radio) {
         radio.addEventListener('change', function() {
             const shippingPrice = parseFloat(this.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
@@ -515,7 +512,6 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Kiểm tra radio checked và cập nhật phí vận chuyển
     const defaultShippingMethod = document.querySelector('input[name="shipping_method"]:checked');
     if (defaultShippingMethod) {
         const shippingPrice = parseFloat(defaultShippingMethod.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
@@ -523,6 +519,7 @@ document.addEventListener('DOMContentLoaded', function() {
         updateTotal();
     }
 });
+
 
 //Sticky checkout order
 window.addEventListener("scroll", function() {

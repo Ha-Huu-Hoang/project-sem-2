@@ -114,7 +114,7 @@
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
                                         <div class="custom-input">
-                                            <input type="radio" id="radio" name="shipping_method" value="Standard Shipping" checked/>
+                                            <input type="radio" id="radio" name="shipping_method" value="Standard Shipping" checked />
                                             <label for="radio">
                                                 <span class="check-mark"></span>
                                                 <div class="content">

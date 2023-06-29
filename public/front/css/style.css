@@ -2550,10 +2550,19 @@ ol {
     margin-bottom: 30px;
 }
 
-.checkout__title{
+.checkout__title,
+.order-detail__title,
+.shipping__title{
     color: #111111;
     font-weight: 700;
     text-transform: uppercase;
+
+}
+
+.checkout__title {
+    border-bottom: 1px solid #e1e1e1;
+    padding-bottom: 25px;
+    margin-bottom: 30px;
 }
 
 .checkout__input {
@@ -2577,6 +2586,7 @@ ol {
     color: #b7b7b7;
     padding-left: 20px;
     margin-bottom: 20px;
+    border-radius: 3px;
 }
 
 .checkout__input input::-webkit-input-placeholder {
@@ -4437,7 +4447,7 @@ edit
     opacity: 0;
 }
 
-/*ádjkldjkldjkldjkldjkldjkl*/
+/*Alert Message*/
 #alert-container {
     position: fixed;
     top: 67px;

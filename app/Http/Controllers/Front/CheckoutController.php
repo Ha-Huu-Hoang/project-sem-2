@@ -14,6 +14,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
+use Illuminate\Support\Facades\Session;
 
 
 class CheckoutController extends Controller
@@ -27,34 +28,37 @@ class CheckoutController extends Controller
         $this->orderDetailService = $orderDetailService;
     }
 
+    public function updateTotal(Request $request)
+    {
+        $shippingFee = $request->input('shipping_fee');
+
+        $request->session()->put('shipping_fee', $shippingFee);
+        $subtotal = str_replace(',', '', Cart::subtotal());
+        $vatRate = 0.1;
+        $vatAmount = $subtotal * $vatRate;
+        $total = $subtotal + $vatAmount + $shippingFee;
+        $request->session()->put('total', $total);
+
+        return response()->json(['total' => $total]);
+    }
+
+
     public function index(Request $request)
     {
         $carts = Cart::content();
+//        dd($carts);
         $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
-        $shippingFee = $request->input('shipping_fee');
-        $total = $subtotal + $vatAmount + $shippingFee;
-
-//        return response()->json(['total' => $total]);
-
+        $shippingFee = $request->session()->get('shipping_fee', 0);
 //        dd($shippingFee);
+        $total = $request->session()->get('total', $subtotal + $vatAmount + $shippingFee);
+//        dd($subtotal, $vatAmount, $total);
+
+//        dd($carts);
         return view('front.checkout.index', compact('carts', 'total', 'subtotal', 'vatAmount', 'shippingFee'));
     }
 
-    public function updateTotal(Request $request)
-    {
-        $carts = Cart::content();
-        $subtotal = str_replace(',', '', Cart::subtotal());
-        $vatRate = 0.1;
-        $vatAmount = $subtotal * $vatRate;
-        $shippingFee = $request->input('shipping_fee');
-//        dd($shippingFee);
-//        dd(gettype($shippingFee));
-        $total = $subtotal + $vatAmount + $shippingFee;
-//        dd($total);
-//        return response()->json(['total' => $total]);
-    }
 
     //Helper MoMo
     function execPostRequest($url, $data)
@@ -93,21 +97,13 @@ class CheckoutController extends Controller
         ]);
 
         // Get cart items
-//        $carts = Cart::content();
-//        $subtotal = str_replace(',', '', Cart::subtotal());
-//        $vatRate = 0.1;
-//        $vatAmount = $subtotal * $vatRate;
-//        $shippingFee = $request->input('shipping_fee');
-//        $total = $subtotal + $vatAmount + $shippingFee;
         $carts = Cart::content();
         $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
-        $shippingFee = $request->input('shipping_fee');
+        $shippingFee = $request->session()->get('shipping_fee', 0); // Lấy giá trị phí vận chuyển từ session
 //        dd($shippingFee);
-        $total = $subtotal + $vatAmount + $shippingFee;
-//        dd($total);
-//        $total = $subtotal + $vatAmount;
+        $total = $request->session()->get('total', $subtotal + $vatAmount + $shippingFee);
 
         // Create order
         $order = Order::create([
@@ -142,7 +138,7 @@ class CheckoutController extends Controller
         }
 
         // Clear the cart
-//        Cart::destroy();
+        Cart::destroy();
 
         if ($order->payment_method == "PayPal") {
             //Payment Method PayPal
@@ -215,22 +211,22 @@ class CheckoutController extends Controller
 
 //            dd($jsonResult);
 
-            dd($order->all());
+//            dd($order->all());
             //Just a example, please check more in there
             return redirect()->to($jsonResult['payUrl']);
         }
 
         // Send Email
-        $this->sendEmail($order);
+        $this->sendEmail($request ,$order);
         return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail.");
     }
 
     //PayPal
-    public function successTransaction(Order $order){
+    public function successTransaction(Order $order, Request $request){
         $order->update(["is_paid" => true, "status" => 1]);// Paid, status changed to confirmed
-
 //        dd($order->is_paid);
-        $this->sendEmail($order);
+
+        $this->sendEmail($request , $order);
 
         return redirect("/checkout/thank-you/")->with("notification","Success! You have successfully paid for your order. Please check your email.");
     }
@@ -249,7 +245,7 @@ class CheckoutController extends Controller
             $order->update(["is_paid" => true, "status" => 1]);
 
             // Send Email
-            $this->sendEmail($order);
+            $this->sendEmail($request, $order);
         }
         $notification = session("notification");
 //        dd($request->all());
@@ -257,24 +253,28 @@ class CheckoutController extends Controller
     }
 
     //Send Email
-    public function sendEmail($order) {
+    public function sendEmail(Request $request, $order) {
         $email_to = $order->email;
         $carts = Cart::content();
-        $subtotal = str_replace(',', '', Cart::subtotal());
+//        dd($carts);
 
+        $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
-        $total = $subtotal + $vatAmount;
+        $shippingFee = $request->session()->get('shipping_fee', 0);
+//        dd($shippingFee);
 
+        $total = $request->session()->get('total', $subtotal + $vatAmount + $shippingFee);
 //        dd($subtotal, $vatAmount, $total);
 
-        Mail::send("front.checkout.email", compact("order", "carts","subtotal", "total", "vatRate", "vatAmount"),
-            function ($message) use ($email_to, $order) {
-                $message->from('ngomanhson2004txpt@gmail.com', 'Shop Runner');
+        Mail::send("front.checkout.email", compact("order", "carts", "subtotal", "total", "vatAmount", "shippingFee"),
+            function ($message) use ($email_to, $order, $shippingFee) {
+                $message->from('sonnmth2205010@fpt.edu.vn', 'Shop Runner');
                 $message->to($email_to, $email_to);
-                $message->subject('Order Notification - #'.$order->id);
+                $message->subject('Order Notification - #' . $order->id);
             }
         );
     }
+
 }
 

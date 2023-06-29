@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Service\Order\OrderServiceInterface;
 use App\Utilities\Constant;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\Rule;
@@ -40,11 +41,11 @@ class AccountController extends Controller
         $credentials =[
             'email'=> $request->email,
             'password'=> $request->password,
-            'level'=> Constant::user_level_client, //Account user
+            'level'=> Constant::user_level_client,
         ];
 
         if (Auth::attempt($credentials)) {
-            return redirect("/"); // Go to home
+            return redirect("/");
         } else {
             return back()->with('notification', 'ERROR: Email or password is wrong');
         }
@@ -104,17 +105,17 @@ class AccountController extends Controller
         }
     }
 
-    public function orderDetail($id)
+    public function orderDetail($id, Request $request)
     {
         $order = $this->orderService->find($id);
 
-        // Tính toán subtotal và vat từ đơn hàng
-        $subtotal = array_sum(array_column($order->orderDetails->toArray(), 'total'));
+        $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
-        $total = $subtotal + $vatAmount;
+        $shippingFee = $request->session()->get('shipping_fee', 0);
+        $total = $request->session()->get('total', $subtotal + $vatAmount + $shippingFee);
 
-        return view("front.account.my-order.detail", compact('order', 'subtotal', 'vatAmount', 'total'));
+        return view("front.account.my-order.detail", compact('order', 'subtotal', 'vatAmount', 'total', 'shippingFee'));
     }
 
 }
