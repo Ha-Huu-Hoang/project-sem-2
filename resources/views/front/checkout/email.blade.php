@@ -366,7 +366,7 @@
                                         {{ $orderDetail->product->name }}
                                     </td>
                                     <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 18px; vertical-align: top; padding: 10px 0">
-                                        <small>MH792AM/A</small>
+                                        <small>{{$orderDetail->product->sku}}</small>
                                     </td>
                                     <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 18px; vertical-align: top; padding: 10px 0" align="center">
                                         {{ $orderDetail->qty}}
