@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Support\Str;
 
 class CreateOrdersTable extends Migration
 {
@@ -31,6 +32,8 @@ class CreateOrdersTable extends Migration
             $table->decimal("total",14,2);
             $table->string("payment_method",20);
             $table->string("shipping_method",20);
+
+            $table->string('order_code')->unique();
 
             $table->boolean("is_paid")->default(false);
             $table->tinyInteger("status")->default(0);

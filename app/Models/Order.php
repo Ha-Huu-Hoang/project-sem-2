@@ -24,6 +24,7 @@ class Order extends Model
         'phone',
         'email',
         'total',
+        'order_code',
         'payment_method',
         'shipping_method',
         "status",

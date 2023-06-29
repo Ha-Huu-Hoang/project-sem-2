@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Order;
 use App\Repositories\User\UserRepositoryInterface;
 use App\Service\Order\OrderServiceInterface;
 use App\Utilities\Constant;
@@ -105,9 +106,10 @@ class AccountController extends Controller
         }
     }
 
-    public function orderDetail($id, Request $request)
+    public function orderDetail($orderCode, Request $request)
     {
-        $order = $this->orderService->find($id);
+//        $order = $this->orderService->find($id);
+        $order = Order::where('order_code', $orderCode)->firstOrFail();
 
         $subtotal = 0;
         $vatRate = 0.1;

@@ -28,6 +28,7 @@ class CreateProductsTable extends Migration
             $table->string('sku')->nullable();
             $table->boolean('featured');
             $table->string('tag')->nullable();
+            $table->string("slug")->unique();
 
             $table->timestamps();
         });

@@ -13,6 +13,7 @@ use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Str;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Illuminate\Support\Facades\Session;
 
@@ -109,6 +110,8 @@ class CheckoutController extends Controller
 //        dd($shippingFee);
         $total = $request->session()->get('total', $subtotal + $vatAmount + $shippingFee);
 
+        $orderCode = Str::random(8);
+
         // Create order
         $order = Order::create([
             "first_name" => $request->input("first_name"),
@@ -121,6 +124,7 @@ class CheckoutController extends Controller
             "phone" => $request->input("phone"),
             "email" => $request->input("email"),
             "total" => $total,
+            "order_code" => $orderCode,
             "payment_method" => $request->get("payment_method"),
             "shipping_method" => $request->get("shipping_method"),
             "user_id" => $request->input("user_id"),
@@ -183,11 +187,11 @@ class CheckoutController extends Controller
             $secretKey = 'at67qH6mk8w5Y1nAyMoYKMWACiEi2bsa';
             $orderInfo = "Thanh toán đơn đặt hàng - Shop Runner";
             $amount = $total * 23000;
-            $orderId = time() . "";
+            $orderId = $order->order_code;
             $redirectUrl = "http://127.0.0.1:8000/checkout/thank-you/";
             $ipnUrl = "http://127.0.0.1:8000/checkout/thank-you/";
             $extraData = "";
-            $requestId = $order->id;
+            $requestId = $order->order_code;
 //            dd($requestId);
             $requestType = "payWithATM";
 //            $extraData = ($_POST["extraData"] ? $_POST["extraData"] : "");
@@ -242,7 +246,7 @@ class CheckoutController extends Controller
     public function thankYou(Request $request) {
         $status = $request->input('resultCode');
         $requestId = $request->input('requestId');
-        $order = Order::where('id', $requestId)->first();
+        $order = Order::where('order_code', $requestId)->first();
 
         if ($status == '0' ) {
             // Update order status
@@ -275,7 +279,7 @@ class CheckoutController extends Controller
             function ($message) use ($email_to, $order, $shippingFee) {
                 $message->from('sonnmth2205010@fpt.edu.vn', 'Shop Runner');
                 $message->to($email_to, $email_to);
-                $message->subject('Order Notification - #' . $order->id);
+                $message->subject('Order Notification - ' . $order->order_code);
             }
         );
     }

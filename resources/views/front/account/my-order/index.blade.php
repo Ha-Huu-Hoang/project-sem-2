@@ -75,7 +75,7 @@
                                             @case(5)<span class="text text-danger">Cancel</span>@break
                                         @endswitch
                                     </td>
-                                <td><a href="/account/my-order/{{$order->id}}" class="btn btn-primary"><i class="fa fa-info-circle"></i></a></td>
+                                <td><a href="/account/my-order/{{$order->order_code}}" class="btn btn-primary"><i class="fa fa-info-circle"></i></a></td>
                             </tr>
                             @endforeach
                         </tbody>

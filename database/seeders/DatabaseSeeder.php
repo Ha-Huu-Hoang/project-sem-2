@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Str;
 
 class DatabaseSeeder extends Seeder
 {
@@ -169,9 +170,10 @@ class DatabaseSeeder extends Seeder
                 'brand_id' => 1,
                 'product_category_id' => 2,
                 'name' => 'Adidas Kaptir',
+                'slug' => Str::slug('Adidas Kaptir'),
                 'description' => 'Lorem ipsum dolor sit amet, consectetur ing elit, sed do eiusmod tempor sum dolor sit amet, consectetur adipisicing elit, sed do mod tempor',
                 'content' => '',
-                'price' => 59.99,
+                'price' => 59.00,
                 'qty' => 20,
                 'discount' => 62,
                 'weight' => 1.3,
@@ -184,6 +186,7 @@ class DatabaseSeeder extends Seeder
                 'brand_id' => 2,
                 'product_category_id' => 2,
                 'name' => 'Adidas Unisex-Child',
+                'slug' => Str::slug('Adidas Unisex-Child'),
                 'description' => null,
                 'content' => null,
                 'price' => 35,
@@ -199,6 +202,7 @@ class DatabaseSeeder extends Seeder
                 'brand_id' => 3,
                 'product_category_id' => 2,
                 'name' => 'Nike Kids Backpack',
+                'slug' => Str::slug('Nike Kids Backpack'),
                 'description' => null,
                 'content' => null,
                 'price' => 12,
@@ -214,6 +218,7 @@ class DatabaseSeeder extends Seeder
                 'brand_id' => 4,
                 'product_category_id' => 1,
                 'name' => 'Adidas Ultraboost 22',
+                'slug' => Str::slug('Adidas Ultraboost 22'),
                 'description' => null,
                 'content' => null,
                 'price' => 64,
@@ -229,6 +234,7 @@ class DatabaseSeeder extends Seeder
                 'brand_id' => 1,
                 'product_category_id' => 3,
                 'name' => "Badge Of Sport Motion",
+                'slug' => Str::slug('Badge Of Sport Motion'),
                 'description' => null,
                 'content' => null,
                 'price' => 19,
@@ -244,6 +250,7 @@ class DatabaseSeeder extends Seeder
                 'brand_id' => 1,
                 'product_category_id' => 2,
                 'name' => 'Adidas Unisex Accuracy',
+                'slug' => Str::slug('Adidas Unisex Accuracy'),
                 'description' => null,
                 'content' => null,
                 'price' => 35,
@@ -259,6 +266,7 @@ class DatabaseSeeder extends Seeder
                 'brand_id' => 1,
                 'product_category_id' => 1,
                 'name' => 'Pastel thermos bottle',
+                'slug' => Str::slug('Pastel thermos bottle'),
                 'description' => null,
                 'content' => null,
                 'price' => 7,
@@ -274,6 +282,7 @@ class DatabaseSeeder extends Seeder
                 'brand_id' => 1,
                 'product_category_id' => 1,
                 'name' => 'Adidas Courtjam Control',
+                'slug' => Str::slug('Adidas Courtjam Control'),
                 'description' => null,
                 'content' => null,
                 'price' => 69,
@@ -289,6 +298,7 @@ class DatabaseSeeder extends Seeder
                 'brand_id' => 1,
                 'product_category_id' => 1,
                 'name' => 'Bag Power',
+                'slug' => Str::slug('Bag Power'),
                 'description' => null,
                 'content' => null,
                 'price' => 35,

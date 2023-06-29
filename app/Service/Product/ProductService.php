@@ -15,7 +15,13 @@ class ProductService extends BaseService implements ProductServiceInterface
 
     public function find($id)
     {
-       $product = $this->repository->find($id);
+        if (is_numeric($id)) {
+            // Tìm kiếm bằng id nếu giá trị truyền vào là số nguyên
+            $product = $this->repository->find($id);
+        } else {
+            // Tìm kiếm bằng slug nếu giá trị truyền vào không phải số nguyên
+            $product = $this->repository->findBySlug($id);
+        }
 
         $sumRating = 0;
         $countRating = 0;
@@ -27,8 +33,10 @@ class ProductService extends BaseService implements ProductServiceInterface
         }
         $avgRating = $countRating != 0 ? $sumRating / $countRating : 0;
         $product->avgRating = $avgRating;
-       return $product;
+
+        return $product;
     }
+
 
     public function getRelatedProducts($product, $limit =4)
     {

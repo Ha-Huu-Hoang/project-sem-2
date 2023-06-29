@@ -84,7 +84,7 @@
                                     </div>
                                     <div class="product__item__text">
                                         <h6>{{$pr->name}}</h6>
-                                        <a href="{{url("/shop/product/{$pr->id}")}}" class="add-cart">{{$pr->name}}</a>
+                                        <a href="{{url("/shop/product/{$pr->slug}")}}" class="add-cart">{{$pr->name}}</a>
                                         <div class="rating">
                                             <i class="fa fa-star-o"></i>
                                             <i class="fa fa-star-o"></i>

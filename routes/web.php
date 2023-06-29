@@ -28,9 +28,9 @@ use App\Http\Controllers\Front\ShopController;
 Route::get('/',[\App\Http\Controllers\Front\HomeController::class,'index']);
 
 //sản phẩm chi tiết
-Route::get('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'show']);
+Route::get('shop/product/{slug}',[\App\Http\Controllers\Front\ShopController::class,'show']);
 //đăng comment
-Route::post('shop/product/{id}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
+Route::post('shop/product/{slug}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
 //trang sản phẩm
 Route::get('shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
 Route::get('shop/category/{categoryName}',[\App\Http\Controllers\Front\ShopController::class,'category']);
@@ -70,7 +70,7 @@ Route::prefix('account')->group(function () {
 
     Route::prefix('my-order')->group(function (){
         Route::get('/',[\App\Http\Controllers\Front\AccountController::class,'myOrder']);
-        Route::get('/{id}',[\App\Http\Controllers\Front\AccountController::class,'orderDetail']);
+        Route::get('/{orderCode}',[\App\Http\Controllers\Front\AccountController::class,'orderDetail']);
     });
 });
 

@@ -44,4 +44,9 @@ abstract class BaseRepositories implements RepositoriesInterface
         return $object->update();
         // TODO: Implement delete() method.
     }
+
+    public function findBySlug($slug)
+    {
+        return $this->model->where('slug', $slug)->firstOrFail();
+    }
 }
