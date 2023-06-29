@@ -267,9 +267,9 @@ class CheckoutController extends Controller
         $shippingFee = $request->session()->get('shipping_fee', 0);
         $total = $request->session()->get('total', 0);
 
-        $request->session()->forget('subtotal');
-        $request->session()->forget('vatAmount');
-        $request->session()->forget('total');
+        $request->session()->put('subtotal');
+        $request->session()->put('vatAmount');
+        $request->session()->put('total');
 
         Mail::send("front.checkout.email", compact("order", "carts", "subtotal", "total", "vatAmount", "shippingFee"),
             function ($message) use ($email_to, $order, $shippingFee) {

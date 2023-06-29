@@ -136,14 +136,14 @@
                                     @foreach($order->orderDetails as $orderDetail)
                                         <li>
                                             {{ $orderDetail->product->name }} x{{ $orderDetail->qty }}
-                                            <span>${{$orderDetail->total}}</span>
+                                            <span>${{ number_format($orderDetail->total, 2, '.', '') }}</span>
                                         </li>
                                     @endforeach
                                 </ul>
                                 <ul class="checkout__total__all">
                                     <li>Subtotal <span>${{ number_format($subtotal, 2, '.', '') }}</span></li>
                                     <li>VAT 10% <span>${{ number_format($vatAmount, 2, '.', '') }}</span></li>
-                                    <li>Shipping <span id="shipping_fee">${{number_format($shippingFee, 2, '.', '') }}</span></li>
+                                    <li>Shipping <span>${{ number_format($shippingFee, 2, '.', '') }}</span></li>
                                     <li>Total <span>${{ number_format($total, 2, '.', '') }}</span></li>
                                 </ul>
                                 <div class="checkout__input__checkbox">

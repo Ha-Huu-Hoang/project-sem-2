@@ -109,11 +109,19 @@ class AccountController extends Controller
     {
         $order = $this->orderService->find($id);
 
-        $subtotal = str_replace(',', '', Cart::subtotal());
+        $subtotal = 0;
         $vatRate = 0.1;
+        $vatAmount = 0;
+        $shippingFee = 0;
+        $total = 0;
+
+        foreach ($order->orderDetails as $orderDetail) {
+            $subtotal += $orderDetail->total;
+        }
+
         $vatAmount = $subtotal * $vatRate;
         $shippingFee = $request->session()->get('shipping_fee', 0);
-        $total = $request->session()->get('total', $subtotal + $vatAmount + $shippingFee);
+        $total = $subtotal + $vatAmount + $shippingFee;
 
         return view("front.account.my-order.detail", compact('order', 'subtotal', 'vatAmount', 'total', 'shippingFee'));
     }
