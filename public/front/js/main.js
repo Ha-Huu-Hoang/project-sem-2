@@ -285,27 +285,29 @@
                  '                                </tr>';
              row_tbody.append(newItem);
          }
-             var alertMsg = 'Add successful!\nProduct: ' + response['cart'].name;
+             var alertMsg = 'Add to cart successfully!';
              showAlert(alertMsg);
 
-             console.log(response);
+             // console.log(response);
          },
          error: function(response) {
              showAlert('Add failed');
 
-             console.log(response);
+             // console.log(response);
          },
      });
  }
+
 function showAlert(message) {
-    var alert = $('<div class="alert alert-success">').addClass('alert').text(message);
-    $('body').append(alert);
+    var alertContainer = document.getElementById('alert-container');
+    var alertMessage = document.querySelector('.alert-message');
+
+    alertMessage.textContent = message;
+    alertContainer.classList.remove('hide');
 
     setTimeout(function() {
-        alert.fadeOut(function() {
-            alert.remove();
-        });
-    }, 3000); // Thời gian hiển thị là 3 giây (3000 milliseconds)
+        alertContainer.classList.add('hide');
+    }, 3000);
 }
 
 function removeCart(rowId){
@@ -334,10 +336,10 @@ function removeCart(rowId){
             var subtotal = response['subtotal'];
             var vatAmount = calculateVAT(subtotal, vatRate);
 
-// Tính giá trị total bằng cách cộng subtotal, vatAmount và giá trị VAT mới
+            // Tính giá trị total bằng cách cộng subtotal, vatAmount và giá trị VAT mới
             var total = parseFloat(subtotal) + parseFloat(vatAmount);
 
-// Cập nhật giá trị total trong phần tổng của giỏ hàng
+            // Cập nhật giá trị total trong phần tổng của giỏ hàng
             $('.cart__total ul li:last-child span').text('$' + total.toFixed(2));
 
             $('.cart__total ul li:nth-child(2) span').text('$' + vatAmount.toFixed(2));
@@ -350,12 +352,10 @@ function removeCart(rowId){
         },
         error:function (response){
             alert('Delete failed');
-            console.log(response);
+            // console.log(response);
         },
     });
 }
-
-
 
 function calculateVAT(subtotal, vatRate) {
     var vatAmount = (subtotal * vatRate) / 100;
@@ -375,7 +375,6 @@ $('.quantity-input').on('keydown', function(e) {
         updateCart(rowId, qty);
     }
 });
-
 
 function updateCart(rowId,qty){
     $.ajax({
@@ -410,16 +409,13 @@ function updateCart(rowId,qty){
             var subtotal = response['subtotal'];
             var vatAmount = calculateVAT(subtotal, vatRate);
 
-// Tính giá trị total bằng cách cộng subtotal, vatAmount và giá trị VAT mới
+            // Tính giá trị total bằng cách cộng subtotal, vatAmount và giá trị VAT mới
             var total = parseFloat(subtotal) + parseFloat(vatAmount);
 
-// Cập nhật giá trị total trong phần tổng của giỏ hàng
+            // Cập nhật giá trị total trong phần tổng của giỏ hàng
             $('.cart__total ul li:last-child span').text('$' + total.toFixed(2));
 
             $('.cart__total ul li:nth-child(2) span').text('$' + vatAmount.toFixed(2));
-
-
-
 
             var cartCount = parseInt(response['count']);
             if (cartCount === 0) {
@@ -429,7 +425,7 @@ function updateCart(rowId,qty){
         },
         error:function (response){
             alert('Update failed');
-            console.log(response);
+            // console.log(response);
         },
     });
 }
@@ -473,7 +469,6 @@ function scrollToTop() {
         behavior: 'smooth'
     });
 }
-
 
 //Shipping
 document.addEventListener('DOMContentLoaded', function() {

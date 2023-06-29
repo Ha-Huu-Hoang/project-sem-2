@@ -22,7 +22,6 @@
     <!-- Shop Section Begin -->
     <section class="shop spad">
         <div class="container">
-
             <div class="row">
                 <div class="col-lg-3">
                     <div class="shop__sidebar">
@@ -108,9 +107,18 @@
                 </div>
             </div>
 
+            <div id="alert-container" class="hide">
+                <div id="alert-content">
+                    <div class="alert-icon">
+                        <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52">
+                            <circle class="checkmark-circle" cx="26" cy="26" r="25" fill="none"/>
+                            <path class="checkmark-check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/>
+                        </svg>
+                    </div>
+                    <div class="alert-message"></div>
+                </div>
+            </div>
         </div>
     </section>
     <!-- Shop Section End -->
-
-
 @endsection

@@ -4348,16 +4348,6 @@ edit
     background: #333;
     color: #fff;
 }
-.alert {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    padding: 10px 20px;
-
-    font-size: 16px;
-
-    z-index: 9999;
-}
 
 /*=== Shipping method ===*/
 .shipping.shipping-note {
@@ -4445,4 +4435,82 @@ edit
 .custom-input input[type="radio"]:not(:checked) + label .check-mark::after {
     content: "";
     opacity: 0;
+}
+
+/*ádjkldjkldjkldjkldjkldjkl*/
+#alert-container {
+    position: fixed;
+    top: 67px;
+    right: 20px;
+    z-index: 9999;
+}
+
+#alert-content {
+    width: 242px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-radius: 4px;
+    background: linear-gradient(to bottom right, #d4edda, #d4edda 50%, #fff 50%);
+    color: #155724;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.alert-icon {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.checkmark-circle {
+    stroke-width: 4px;
+    stroke: #155724;
+    fill: none;
+    stroke-dasharray: 166;
+    stroke-dashoffset: 166;
+    stroke-linecap: round;
+    animation: checkmark-circle-anim 0.6s ease-in-out forwards;
+}
+
+.checkmark-check {
+    transform-origin: 50% 50%;
+    stroke-width: 4px;
+    stroke: #155724;
+    rotate: -45deg;
+    fill: none;
+    stroke-dasharray: 48;
+    stroke-dashoffset: 48;
+    animation: checkmark-check-anim 0.3s ease-in-out 0.6s forwards;
+}
+
+.alert-message {
+    font-weight: bold;
+    color: #155724;
+}
+
+@keyframes checkmark-circle-anim {
+    0% {
+        stroke-dashoffset: 166;
+    }
+    100% {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes checkmark-check-anim {
+    0% {
+        stroke-dashoffset: 48;
+        transform: rotate(45deg) scale(0);
+    }
+    100% {
+        stroke-dashoffset: 0;
+        transform: rotate(45deg) scale(1);
+    }
+}
+
+.hide {
+    display: none;
 }
