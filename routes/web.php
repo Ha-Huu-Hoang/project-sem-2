@@ -54,7 +54,10 @@ Route::prefix('/checkout')->group(function (){
 });
 
 //trang blog
-Route::get('blog',[\App\Http\Controllers\Front\BlogController::class,'index']);
+Route::prefix('/blog')->group(function () {
+    Route::get('/',[\App\Http\Controllers\Front\BlogController::class,'index']);
+    Route::get('/detail/{slug}',[\App\Http\Controllers\Front\BlogController::class,'blogDetail']);
+});
 
 //trang contacts
 Route::get('contact',[\App\Http\Controllers\Front\ContactsController::class,'index']);

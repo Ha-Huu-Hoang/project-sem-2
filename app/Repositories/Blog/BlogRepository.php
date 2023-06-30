@@ -13,11 +13,11 @@ class BlogRepository extends BaseRepositories implements BlogRepositoryInterface
     {
        return Blog::class;
     }
-    public function getLatestBlogs($limit = 3)
+    public function getLatestBlogs($perPage = 6)
     {
-        return $this->model->orderBy('id','desc')
-            ->limit(3)
-            ->get();
+        return $this->model->orderBy('created_at', 'desc')
+            ->paginate($perPage);
     }
+
 
 }
