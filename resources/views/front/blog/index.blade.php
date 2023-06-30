@@ -25,7 +25,7 @@
                             <div class="blog__item__text">
                                 <span><img src="front/img/icon/calendar.png" alt=""> {{ $blog->created_at }}</span>
                                 <h5>{{ $blog->title }}</h5>
-                                <a href="{{url("/blog/detail/{$blog->slug}")}}">Read More</a>
+                                <a href="{{url("/blog/{$blog->slug}")}}">Read More</a>
                             </div>
                         </div>
                     </div>
