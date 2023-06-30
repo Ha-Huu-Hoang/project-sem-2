@@ -118,10 +118,11 @@
                                 <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
                                 <li><a href="cart/add/{{$product->id}}"><img src="front/img/icon/cart.png" alt=""></a></li>
                             </ul>
+                            <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
                         </div>
                         <div class="product__item__text">
                             <h6>{{$product->name}}</h6>
-                            <a href="#" class="add-cart">{{$product->name}}</a>
+                            <a href="{{ url("/shop/product/{$product->slug}") }}" class="add-cart">{{$product->name}}</a>
                             <div class="rating">
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
@@ -130,7 +131,6 @@
                                 <i class="fa fa-star-o"></i>
                             </div>
                             <h5>${{$product->price}}</h5>
-
                         </div>
                     </div>
                 </div>
@@ -146,10 +146,11 @@
                                         <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
                                         <li><a href="cart/add/{{$product->id}}"><img src="front/img/icon/cart.png" alt=""></a></li>
                                     </ul>
+                                    <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
                                 </div>
                                 <div class="product__item__text">
                                     <h6>{{$product->name}}</h6>
-                                    <a href="#" class="add-cart">{{$product->name}}</a>
+                                    <a href="{{ url("/shop/product/{$product->slug}") }}" class="add-cart">{{$product->name}}</a>
                                     <div class="rating">
                                         <i class="fa fa-star-o"></i>
                                         <i class="fa fa-star-o"></i>
@@ -158,12 +159,10 @@
                                         <i class="fa fa-star-o"></i>
                                     </div>
                                     <h5>${{$product->price}}</h5>
-
                                 </div>
                             </div>
                         </div>
                     @endforeach
-
             </div>
         </div>
     </section>
@@ -175,7 +174,7 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="categories__text">
-                        <h2>Clothings Hot <br /> <span>Shoe Collection</span> <br /> Accessories</h2>
+                        <h2>Clothings Hot <br /> <span>Bag Collection</span> <br /> Accessories</h2>
                     </div>
                 </div>
                 <div class="col-lg-4">
@@ -236,7 +235,7 @@
                         <h2>Instagram</h2>
                         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut
                         labore et dolore magna aliqua.</p>
-                        <h3>#Male_Fashion</h3>
+                        <h3>#Shop Runner</h3>
                     </div>
                 </div>
             </div>

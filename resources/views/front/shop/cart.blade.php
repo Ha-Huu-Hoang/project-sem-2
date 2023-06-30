@@ -42,12 +42,11 @@
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
                                             @if(isset($cart->options['images']) && count($cart->options['images']) > 0)
-                                                <img src="{{$cart->options['images'][0]->path}}" alt="" style="width: 90px;height: 90px; object-fit: cover">
+                                                <a href="{{url("/shop/product/{$cart->slug}")}}"><img src="{{$cart->options['images'][0]->path}}" alt="{{$cart->name}}" style="width: 90px;height: 90px; object-fit: cover"></a>
                                             @endif
-
                                         </div>
                                         <div class="product__cart__item__text">
-                                            <h6>{{$cart->name}}</h6>
+                                            <a href="{{url("/shop/product/{$cart->slug}")}}"><h6>{{$cart->name}}</h6></a>
                                             <h5>${{number_format($cart->price  ,2)}}</h5>
                                         </div>
                                     </td>

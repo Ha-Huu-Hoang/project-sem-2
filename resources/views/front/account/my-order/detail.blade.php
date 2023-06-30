@@ -135,7 +135,7 @@
                                 <ul class="checkout__total__products">
                                     @foreach($order->orderDetails as $orderDetail)
                                         <li>
-                                            {{ $orderDetail->product->name }} x{{ $orderDetail->qty }}
+                                            <a class="my-order__name" href="{{url("/shop/product/{$orderDetail->product->slug}")}}">{{ $orderDetail->product->name }} x{{ $orderDetail->qty }}</a>
                                             <span>${{ number_format($orderDetail->total, 2, '.', '') }}</span>
                                         </li>
                                     @endforeach

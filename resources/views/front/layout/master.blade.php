@@ -113,7 +113,7 @@
                         <li class="{{ request()->is('shop') ? 'active' : '' }}"><a href="{{ url('/shop') }}">Shop</a></li>
                         <li class="{{ request()->is('blog') ? 'active' : '' }}"><a href="{{ url('/blog') }}">Blog</a></li>
                         <li class="{{ request()->is('contact') ? 'active' : '' }}"><a href="{{ url('/contact') }}">Contacts</a></li>
-                        <li><a href="#!">Pages</a>
+                        <li><a>Pages</a>
                             <ul class="dropdown">
                                 <li><a href="{{url("/account/my-order")}}">My Order</a></li>
                                 <li><a href="{{url("/cart")}}">Shopping Cart</a></li>

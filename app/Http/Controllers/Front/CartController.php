@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Front;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Service\Product\ProductServiceInterface;
 use Illuminate\Http\Request;
 use Gloudemans\Shoppingcart\Facades\Cart;
@@ -27,6 +28,11 @@ class CartController extends Controller
         $subtotal = number_format($subtotal, 2, '.', '');
         $vatAmount = number_format($vatAmount, 2, '.', '');
         $total = number_format($total, 2, '.', '');
+
+        foreach ($carts as $cart) {
+            $product = Product::where('id', $cart->id)->first();
+            $cart->slug = $product->slug;
+        }
 
         return view('front.shop.cart', compact('carts', 'total', 'subtotal', 'vatAmount', 'vatRate'));
     }

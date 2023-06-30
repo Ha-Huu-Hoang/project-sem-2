@@ -108,21 +108,24 @@ class AccountController extends Controller
 
     public function orderDetail($orderCode, Request $request)
     {
-//        $order = $this->orderService->find($id);
         $order = Order::where('order_code', $orderCode)->firstOrFail();
 
         $subtotal = 0;
         $vatRate = 0.1;
-        $vatAmount = 0;
         $shippingFee = 0;
-        $total = 0;
 
         foreach ($order->orderDetails as $orderDetail) {
             $subtotal += $orderDetail->total;
         }
 
         $vatAmount = $subtotal * $vatRate;
-        $shippingFee = $request->session()->get('shipping_fee', 0);
+
+        if ($order->shipping_method == 'Standard Shipping') {
+            $shippingFee = 10;
+        } elseif ($order->shipping_method == 'Express Shipping') {
+            $shippingFee = 30;
+        }
+
         $total = $subtotal + $vatAmount + $shippingFee;
 
         return view("front.account.my-order.detail", compact('order', 'subtotal', 'vatAmount', 'total', 'shippingFee'));

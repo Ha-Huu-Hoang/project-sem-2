@@ -33,13 +33,13 @@
                         <form action="#">
                             <div class="row">
                                 <div class="col-lg-6">
-                                    <input type="text" name="name" placeholder="Name">
+                                    <input type="text" name="name" placeholder="Name" required>
                                 </div>
                                 <div class="col-lg-6">
-                                    <input type="email" name="email" placeholder="Email">
+                                    <input type="email" name="email" placeholder="Email" required>
                                 </div>
                                 <div class="col-lg-12">
-                                    <textarea placeholder="Message" name="message"></textarea>
+                                    <textarea placeholder="Message" name="message" required></textarea>
                                     <button type="submit" class="site-btn">Send Message</button>
                                 </div>
                             </div>
