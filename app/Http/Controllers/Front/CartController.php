@@ -74,17 +74,19 @@ class CartController extends Controller
     }
 
 
-    public function update(Request $request) {
+    public function update(Request $request)
+    {
         if ($request->ajax()) {
             $response['cart'] = Cart::update($request->rowId, $request->qty);
 
             $response['count'] = Cart::count();
-            $response['total'] = floatval(str_replace(',', '', Cart::total()));
-            $response['subtotal'] = floatval(str_replace(',', '', Cart::subtotal()));
+            $response['total'] = number_format(floatval(str_replace(',', '', Cart::total())), 2, '.', '');
+            $response['subtotal'] = number_format(floatval(str_replace(',', '', Cart::subtotal())), 2, '.', '');
 
             return $response;
         }
     }
+
 
 
 

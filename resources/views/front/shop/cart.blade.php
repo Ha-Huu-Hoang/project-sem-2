@@ -88,7 +88,7 @@
                     <div class="cart__total">
                         <h6>Cart total</h6>
                         <ul>
-                            <li>Subtotal <span>${{$subtotal}}</span></li>
+                            <li>Subtotal <span>${{ number_format($subtotal, 2, '.', '') }}</span></li>
                             <li>VAT 10% <span>${{ number_format($vatAmount, 2, '.', '') }}</span></li>
                             <li>Total <span>${{ number_format($total, 2, '.', '') }}</span></li>
                         </ul>
