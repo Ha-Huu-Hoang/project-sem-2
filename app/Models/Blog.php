@@ -11,6 +11,15 @@ class Blog extends Model
     protected $table ='blogs';
     protected $primaryKey = 'id';
     protected $guarded = [];
+    protected $fillable = [
+        'user_id',
+        'title',
+        'slug',
+        'subtitle',
+        'image',
+        'category',
+        'content',
+    ];
 
     public function blogComments()
     {

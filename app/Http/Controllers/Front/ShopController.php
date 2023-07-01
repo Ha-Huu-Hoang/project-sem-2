@@ -46,8 +46,8 @@ class ShopController extends Controller
         $category = $this->productCategoryService->all();
         $brands = $this->brandService->all();
         $product = $this->productService->getProductOnIndex($request);
-        $title = 'Shop';
-        return view('front.shop.index', compact('category','product','brands', 'title'));
+        $search = $request->input('search');
+        return view('front.shop.index', compact('category', 'product', 'brands', 'search'));
     }
 
 

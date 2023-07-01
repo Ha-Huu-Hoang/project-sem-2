@@ -97,9 +97,10 @@ class DatabaseSeeder extends Seeder
         DB::table('blogs')->insert([
             [
                 'user_id' => 3,
-                'title' => 'The Personality Trait That Makes People Happier',
+                'title' => 'Hello everyone. My name is Phung Vu!',
+                'slug' => Str::slug('Hello everyone. My name is Phung Vu!'),
                 'subtitle' =>'hhh',
-                'image' => 'blog-1.jpg',
+                'image' => 'https://i.ibb.co/X2yZMXh/Phung-Vu-Blog.jpg',
                 'category' => 'TRAVEL',
                 'content' => '',
                 'created_at' => now(),
@@ -108,6 +109,7 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => 3,
                 'title' => 'This was one of our first days in Hawaii last week.',
+                'slug' => Str::slug('This was one of our first days in Hawaii last week'),
                 'subtitle' =>'hhh',
                 'image' => 'blog-2.jpg',
                 'category' => 'CodeOneMin',
@@ -117,7 +119,8 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'user_id' => 3,
-                'title' => 'Last week I had my first work trip of the year to Sonoma Valley',
+                'title' => 'Last week I had my first work trip of the year to Sonoma Valley.',
+                'slug' => Str::slug('Last week I had my first work trip of the year to Sonoma Valley'),
                 'subtitle' =>'hhh',
                 'image' => 'blog-3.jpg',
                 'category' => 'TRAVEL',
@@ -127,7 +130,8 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'user_id' => 3,
-                'title' => 'Happppppy New Year! I know I am a little late on this post',
+                'title' => 'Happy New Year! I know I am a little late on this post.',
+                'slug' => Str::slug('Happy New Year! I know I am a little late on this post'),
                 'subtitle' =>'hhh',
                 'image' => 'blog-4.jpg',
                 'category' => 'CodeOneMin',
@@ -138,6 +142,7 @@ class DatabaseSeeder extends Seeder
             [
                 'user_id' => 3,
                 'title' => 'Absolue collection. The Lancome team has been one…',
+                'slug' => Str::slug('Absolue collection. The Lancome team has been one'),
                 'subtitle' =>'hhh',
                 'image' => 'blog-5.jpg',
                 'category' => 'MODEL',
@@ -147,7 +152,8 @@ class DatabaseSeeder extends Seeder
             ],
             [
                 'user_id' => 3,
-                'title' => 'Writing has always been kind of therapeutic for me',
+                'title' => 'Writing has always been kind of therapeutic for me.',
+                'slug' => Str::slug('Writing has always been kind of therapeutic for me'),
                 'subtitle' =>'hhh',
                 'image' => 'blog-6.jpg',
                 'category' => 'CodeOneMin',
