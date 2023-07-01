@@ -468,20 +468,27 @@ function scrollToTop() {
     });
 }
 
-//Shipping
+// Shipping
 document.addEventListener('DOMContentLoaded', function() {
-    const subtotalElement = document.getElementById('subtotal');
-    const vatAmountElement = document.getElementById('vatAmount');
-    const shippingFeeElement = document.getElementById('shipping_fee');
-    const totalElement = document.getElementById('total');
-    const radioButtons = document.querySelectorAll('input[name="shipping_method"]');
+    const subtotalGet = document.getElementById('subtotal');
+    const vatAmountGet = document.getElementById('vatAmount');
+    const shippingFeeGet = document.getElementById('shipping_fee');
+    const totalGet = document.getElementById('total');
+    const radioChecked = document.querySelectorAll('input[name="shipping_method"]');
+
+    const shippingPrices = {
+        'Standard Shipping': 10,
+        'Express Shipping': 30
+    };
 
     function updateTotal() {
-        const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
-        const vatAmount = parseFloat(vatAmountElement.textContent.replace('$', ''));
-        const shippingPrice = parseFloat(shippingFeeElement.textContent.replace('$', ''));
+        const subtotal = parseFloat(subtotalGet.textContent.replace('$', ''));
+        const vatAmount = parseFloat(vatAmountGet.textContent.replace('$', ''));
+        const checkedShipping = document.querySelector('input[name="shipping_method"]:checked').value;
+        const shippingPrice = shippingPrices[checkedShipping];
         const total = subtotal + vatAmount + shippingPrice;
-        totalElement.textContent = '$' + total.toFixed(2);
+        totalGet.textContent = '$' + total.toFixed(2);
+        shippingFeeGet.textContent = '$' + shippingPrice.toFixed(2);
 
         const data = {
             shipping_fee: shippingPrice,
@@ -493,31 +500,20 @@ document.addEventListener('DOMContentLoaded', function() {
             url: '/checkout/update-total',
             method: 'POST',
             data: data,
-            // success: function(response) {
-            //     console.log(response);
-            // },
-            // error: function(error) {
-            //     console.error(error);
-            // }
         });
     }
 
-    radioButtons.forEach(function(radio) {
+    radioChecked.forEach(function(radio) {
         radio.addEventListener('change', function() {
-            const shippingPrice = parseFloat(this.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
-            shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
             updateTotal();
         });
     });
 
     const defaultShippingMethod = document.querySelector('input[name="shipping_method"]:checked');
     if (defaultShippingMethod) {
-        const shippingPrice = parseFloat(defaultShippingMethod.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
-        shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
         updateTotal();
     }
 });
-
 
 //Sticky checkout order
 window.addEventListener("scroll", function() {

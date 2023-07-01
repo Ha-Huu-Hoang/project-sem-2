@@ -110,6 +110,78 @@
                             </div>
                             <h6 class="shipping__title">Shipping Method</h6>
                             <p class="shipping shipping-note">NOTE: Delivery times may vary due to location and other factors. Thank you, we hope you understand.</p>
+{{--                            <div class="row">--}}
+{{--                                <div class="col-lg-6">--}}
+{{--                                    <div class="checkout__input">--}}
+{{--                                        <div class="custom-input">--}}
+{{--                                            <input type="radio" id="radio" name="shipping_method" value="Standard Shipping" checked />--}}
+{{--                                            <label for="radio">--}}
+{{--                                                <span class="check-mark"></span>--}}
+{{--                                                <div class="content">--}}
+{{--                                                    <div class="text-container">--}}
+{{--                                                        <div class="title">Standard Shipping</div>--}}
+{{--                                                        <div class="description">Estimated delivery in 3-5 business days</div>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="shipping-price"></div>--}}
+{{--                                                </div>--}}
+{{--                                            </label>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-lg-6">--}}
+{{--                                    <div class="checkout__input">--}}
+{{--                                        <div class="custom-input">--}}
+{{--                                            <input type="radio" id="option" value="Express Shipping" name="shipping_method" />--}}
+{{--                                            <label for="option">--}}
+{{--                                                <span class="check-mark"></span>--}}
+{{--                                                <div class="content">--}}
+{{--                                                    <div class="text-container">--}}
+{{--                                                        <div class="title">Express Shipping</div>--}}
+{{--                                                        <div class="description">Estimated delivery in 1-2 business days</div>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="shipping-price"></div>--}}
+{{--                                                </div>--}}
+{{--                                            </label>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
+{{--                            <div class="row">--}}
+{{--                                <div class="col-lg-6">--}}
+{{--                                    <div class="checkout__input">--}}
+{{--                                        <div class="custom-input">--}}
+{{--                                            <input type="radio" id="radio" name="shipping_method" value="Standard Shipping" checked />--}}
+{{--                                            <label for="radio">--}}
+{{--                                                <span class="check-mark"></span>--}}
+{{--                                                <div class="content">--}}
+{{--                                                    <div class="text-container">--}}
+{{--                                                        <div class="title">Standard Shipping</div>--}}
+{{--                                                        <div class="description">Estimated delivery in 3-5 business days</div>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="shipping-price" data-price="10">$10</div>--}}
+{{--                                                </div>--}}
+{{--                                            </label>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                                <div class="col-lg-6">--}}
+{{--                                    <div class="checkout__input">--}}
+{{--                                        <div class="custom-input">--}}
+{{--                                            <input type="radio" id="option" value="Express Shipping" name="shipping_method" />--}}
+{{--                                            <label for="option">--}}
+{{--                                                <span class="check-mark"></span>--}}
+{{--                                                <div class="content">--}}
+{{--                                                    <div class="text-container">--}}
+{{--                                                        <div class="title">Express Shipping</div>--}}
+{{--                                                        <div class="description">Estimated delivery in 1-2 business days</div>--}}
+{{--                                                    </div>--}}
+{{--                                                    <div class="shipping-price" data-price="30">$30</div>--}}
+{{--                                                </div>--}}
+{{--                                            </label>--}}
+{{--                                        </div>--}}
+{{--                                    </div>--}}
+{{--                                </div>--}}
+{{--                            </div>--}}
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">
@@ -146,6 +218,7 @@
                                     </div>
                                 </div>
                             </div>
+
                         </div>
                         <div class="col-lg-4 col-md-6">
                             <div class="checkout__order">
