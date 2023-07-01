@@ -107,7 +107,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <a href="{{url("/shop")}}" title="Shopping now!"><img src="front/img/empty-cart.png" width="200" alt=""></a>
+                                <a href="{{url("/shop")}}" title="Shopping now!"><img src="front/img/empty-cart.png" width="200" alt="There are no products in the cart. Shopping now!"></a>
                             </div>
                         </div>
                         <div class="row">
