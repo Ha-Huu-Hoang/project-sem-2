@@ -21,9 +21,9 @@ class CreateProductsTable extends Migration
             $table->string('name');
             $table->text('description')->nullable();
             $table->text('content')->nullable();
-            $table->decimal('price');
+            $table->decimal('price', 14,2);
             $table->integer('qty');
-            $table->double('discount')->nullable();
+            $table->decimal('discount',14,2)->nullable();
             $table->double('weight')->nullable();
             $table->string('sku')->unique();
             $table->boolean('featured');

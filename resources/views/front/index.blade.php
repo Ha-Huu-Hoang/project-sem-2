@@ -63,7 +63,7 @@
                         </div>
                         <div class="banner__item__text">
                             <h2>Clothing Collections 2023</h2>
-                            <a href="#">Shop now</a>
+                            <a href="{{url("/shop?price_min=%2410&price_max=%24999&tag=Clothing")}}">Shop now</a>
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@
                         </div>
                         <div class="banner__item__text">
                             <h2>Accessories</h2>
-                            <a href="#">Shop now</a>
+                            <a href="{{url("/shop?price_min=%2410&price_max=%24999&tag=Accessories")}}">Shop now</a>
                         </div>
                     </div>
                 </div>
@@ -85,7 +85,7 @@
                         </div>
                         <div class="banner__item__text">
                             <h2>Shoes Spring 2023</h2>
-                            <a href="#">Shop now</a>
+                            <a href="{{url("/shop?price_min=%2410&price_max=%24999&tag=Shoes")}}">Shop now</a>
                         </div>
                     </div>
                 </div>
@@ -111,6 +111,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="{{$product->productImages[0]->path}}">
+                            <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
                             @if($product->discount !=0)
                                 <span class="label">Sale</span>
                             @endif
@@ -118,7 +119,6 @@
                                 <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
                                 <li><a href="cart/add/{{$product->id}}"><img src="front/img/icon/cart.png" alt=""></a></li>
                             </ul>
-                            <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
                         </div>
                         <div class="product__item__text">
                             <h6>{{$product->name}}</h6>
@@ -139,6 +139,7 @@
                         <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
                             <div class="product__item">
                                 <div class="product__item__pic set-bg" data-setbg="{{$product->productImages[0]->path}}">
+                                    <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
                                     @if($product->discount !=0)
                                         <span class="label">Sale</span>
                                     @endif
@@ -146,7 +147,6 @@
                                         <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
                                         <li><a href="cart/add/{{$product->id}}"><img src="front/img/icon/cart.png" alt=""></a></li>
                                     </ul>
-                                    <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
                                 </div>
                                 <div class="product__item__text">
                                     <h6>{{$product->name}}</h6>
@@ -262,7 +262,7 @@
                         <div class="blog__item__text">
                             <span><img src="front/img/icon/calendar.png" alt="">{{date('M d,Y',strtotime($blog->created_at))}}</span>
                             <h5>{{$blog->title}}</h5>
-                            <a href="#">Read More</a>
+                            <a href="{{url("/blog/{$blog->slug}")}}">Read More</a>
                         </div>
                     </div>
                 </div>
@@ -271,7 +271,4 @@
         </div>
     </section>
     <!-- Latest Blog Section End -->
-
-    <!-- Footer Section Begin -->
-
 @endsection

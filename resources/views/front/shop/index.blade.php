@@ -1,11 +1,5 @@
 @extends('front.layout.master')
-@section('title')
-    @if($search)
-        {{ "Search: ".$search }}
-    @else
-        Shop
-    @endif
-@endsection
+@section('title', $title)
 
 @section('body')
     <!-- Breadcrumb Section Begin -->
@@ -67,7 +61,6 @@
                                 <div class="shop__product__option__right">
                                     <p>Show :</p>
                                     <select name="show" onchange="this.form.submit();" class="p-show">
-                                        <option {{request('show') == '3' ? 'selected' : ''}} value="3">3</option>
                                         <option {{request('show') == '9' ? 'selected' : ''}} value="9">9</option>
                                         <option {{request('show') == '15' ? 'selected' : ''}} value="15">15</option>
                                     </select>

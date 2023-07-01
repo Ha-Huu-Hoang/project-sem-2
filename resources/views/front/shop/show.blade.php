@@ -52,7 +52,7 @@
                                 <span> | {{count($product->productComment)}} Reviews</span>
                             </div>
                             @if($product->discount != null)
-                                <h3>${{$product->discount}} <span>{{$product->price}}</span></h3>
+                                <h3>${{$product->price}} <span>{{$product->discount}}</span></h3>
                             @else
                                 <h3>${{$product->price}}</h3>
                             @endif
@@ -73,7 +73,7 @@
                                     <div class="pro-qty">
                                         <input type="text" value="1">
                                     </div>
-                                    <p>20 products are available</p>
+                                    <p>{{$product->qty}} products are available</p>
                                 </div>
                                 <div class="product__details__btns__option">
                                     <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
@@ -273,15 +273,15 @@
                             @if($product->discount !=0)
                             <span class="label">Sale</span>
                             @endif
-                            <ul class="product__hover">
+                                <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
+                                <ul class="product__hover">
                                 <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
-                                <li><a href="#"><img src="front/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                                <li><a href="#"><img src="front/img/icon/search.png" alt=""></a></li>
+                                <li><a href="#"><img src="front/img/icon/cart.png" alt=""></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
                             <h6>{{$product->name}}</h6>
-                            <a href="shop/product/{{$product->id}}" class="add-cart">{{$product->name}}</a>
+                            <a href="shop/product/{{$product->slug}}" class="add-cart">{{$product->name}}</a>
                             <div class="rating">
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>
