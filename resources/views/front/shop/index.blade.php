@@ -28,7 +28,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <a href="{{url("/shop")}}" title="Shopping now!"><img src="front/img/no-result-found.png" width="200" alt="No results were found."></a>
+                                <a href="{{url("/shop")}}" title="Try again!"><img src="front/img/no-result-found.png" width="200" alt="No results were found."></a>
                             </div>
                         </div>
                         <div class="row">
