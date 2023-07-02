@@ -27,19 +27,22 @@ use App\Http\Controllers\Front\ShopController;
 // trang chủ
 Route::get('/',[\App\Http\Controllers\Front\HomeController::class,'index']);
 
-//sản phẩm chi tiết
-Route::get('shop/product/{slug}',[\App\Http\Controllers\Front\ShopController::class,'show']);
-//đăng comment
-Route::post('shop/product/{slug}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
-//trang sản phẩm
-Route::get('shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
-Route::get('shop/category/{categoryName}',[\App\Http\Controllers\Front\ShopController::class,'category']);
+
+Route::prefix("/shop")->group(function () {
+    Route::get('/',[\App\Http\Controllers\Front\ShopController::class,'index']);
+    Route::get('/product/{slug}',[\App\Http\Controllers\Front\ShopController::class,'show']);
+    Route::post('/product/{slug}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
+    Route::get('/category/{categoryName}',[\App\Http\Controllers\Front\ShopController::class,'category']);
+});
+
+
 //trang shop cart
 Route::prefix('/cart')->group(function (){
     Route::get('/',[\App\Http\Controllers\Front\CartController::class,'index']);
-    Route::get('add',[\App\Http\Controllers\Front\CartController::class,'add']);
-    Route::get('delete',[\App\Http\Controllers\Front\CartController::class,'delete']);
+//    Route::get('add',[\App\Http\Controllers\Front\CartController::class,'add']);
+    Route::get('add', [\App\Http\Controllers\Front\CartController::class, 'add'])->name('cart.add');
 
+    Route::get('delete',[\App\Http\Controllers\Front\CartController::class,'delete']);
     Route::get('update',[\App\Http\Controllers\Front\CartController::class,'update']);
 });
 

@@ -1,5 +1,5 @@
 @extends('front.layout.master')
-@section('title','Product')
+@section('title', $title)
 @section('body')
     <!-- Shop Details Section Begin -->
     <section class="shop-details">
@@ -57,30 +57,43 @@
                                 <h3>${{$product->price}}</h3>
                             @endif
                             <p>{{$product->content}}</p>
-                            <div class="product__details__option">
-                                <div class="product__details__option__size">
-                                    <span>Size:</span>
-                                    @foreach(array_unique(array_column($product->productDetails->toArray(),'size')) as $productSize)
-                                        <label class="" for="{{$productSize}}">{{$productSize}}
-                                            <input type="radio" id="{{$productSize}}">
-                                        </label>
 
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="product__details__cart__option">
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
+                            <form action="{{ url('/cart/add') }}" method="get">
+
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                                @if (!$product->productDetails->isEmpty())
+                                    <div class="product__details__option">
+                                        <div class="product__details__option__size">
+                                            <span>Size:</span>
+                                            @foreach (array_unique(array_column($product->productDetails->toArray(), 'size')) as $index => $productSize)
+                                                <input type="radio" name="size" id="{{$productSize}}" value="{{$productSize}}"
+                                                       @if ($productSize === $defaultSize) checked @endif>
+                                                <label for="{{$productSize}}">{{$productSize}}</label>
+                                            @endforeach
+                                        </div>
                                     </div>
-                                    <p>{{$product->qty}} products are available</p>
+                                @endif
+{{--                                <select name="size" id="size">--}}
+{{--                                    @foreach ($product->productDetails as $detail)--}}
+{{--                                        <option value="{{ $detail->size }}">{{ $detail->size }}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+                                <div class="product__details__cart__option">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" value="1">
+                                        </div>
+                                        <p>{{$product->qty}} products are available</p>
+                                    </div>
+                                    <div class="product__details__btns__option">
+                                        <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
+                                    </div>
                                 </div>
-                                <div class="product__details__btns__option">
-                                    <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
-                                </div>
-
-                            </div>
-                            <a href="#" class="primary-btn btn-detail">add to cart</a>
+{{--                                <a href="javascript:addCart({{ $product->id }})" class="primary-btn btn-detail">add to cart</a>--}}
+                                <button type="submit" class="primary-btn btn-detail">add to cart</button>
+                            </form>
                             <div class="product__details__last__option">
                                 <ul class="d-flex justify-content-center" style="column-gap: 20px">
                                     <li><span>SKU:</span> {{$product->sku}}</li>
@@ -225,8 +238,8 @@
                                             <tr>
                                                 <td class="p-category">Weight</td>
                                                 <td>
-                                                    <div class="p-weight">{{$product->weight}}kg
-                                                    </div></td>
+                                                    <div class="p-weight">{{$product->weight}}kg</div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="p-category">Size</td>

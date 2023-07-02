@@ -117,7 +117,7 @@
                             @endif
                             <ul class="product__hover">
                                 <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
-                                <li><a href="cart/add/{{$product->id}}"><img src="front/img/icon/cart.png" alt=""></a></li>
+                                <li><a href="javascript:addCart({{ $product->id }})"><img src="front/img/icon/cart.png" alt=""></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
@@ -145,7 +145,7 @@
                                     @endif
                                     <ul class="product__hover">
                                         <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
-                                        <li><a href="cart/add/{{$product->id}}"><img src="front/img/icon/cart.png" alt=""></a></li>
+                                        <li><a href="javascript:addCart({{ $product->id }})"><img src="front/img/icon/cart.png" alt=""></a></li>
                                     </ul>
                                 </div>
                                 <div class="product__item__text">

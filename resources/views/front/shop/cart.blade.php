@@ -46,8 +46,20 @@
                                             @endif
                                         </div>
                                         <div class="product__cart__item__text">
-                                            <a href="{{url("/shop/product/{$cart->slug}")}}"><h6>{{$cart->name}}</h6></a>
-                                            <h5>${{number_format($cart->price  ,2)}}</h5>
+                                            <a href="{{ url("/shop/product/{$cart->slug}") }}"><h6>{{ $cart->name }}</h6></a>
+                                            <h5>${{ number_format($cart->price, 2) }}</h5>
+                                            <div class="size-select">
+                                                @if ($cart->productDetails && $cart->productDetails->count() > 0)
+                                                <p>Size :</p>
+                                                    <select class="cart-item-size">
+                                                        @foreach ($cart->productDetails as $detail)
+                                                            <option value="{{ $detail->size }}">
+                                                                {{ $detail->size }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="quantity__item">

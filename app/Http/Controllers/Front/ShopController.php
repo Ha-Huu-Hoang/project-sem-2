@@ -31,10 +31,19 @@ class ShopController extends Controller
 
     public function show($id)
     {
-        $product = $this ->productService->find($id);
-        $pro = $this ->productService->getRelatedProducts($product);
-        return view('front.shop.show',compact('product','pro'));
+        $product = $this->productService->find($id);
+        $pro = $this->productService->getRelatedProducts($product);
+        $title = $product->name;
+
+        if (empty($product->productDetails)) {
+            $defaultSize = null;
+        } else {
+            $defaultSize = $product->productDetails[0]->size ?? null;
+        }
+
+        return view('front.shop.show', compact('product', 'pro', 'defaultSize', 'title'));
     }
+
     public function postComment(Request $request)
     {
         $this->productCommentService->create($request->all());
