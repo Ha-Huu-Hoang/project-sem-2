@@ -33,7 +33,6 @@ class CartController extends Controller
             $product = Product::where('id', $cart->id)->first();
             $cart->slug = $product->slug;
 
-            $cart->defaultSize = $cart->options['size'];
             $cart->productDetails = $product->productDetails;
         }
 
