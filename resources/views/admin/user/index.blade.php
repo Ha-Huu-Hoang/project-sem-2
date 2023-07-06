@@ -7,26 +7,45 @@
             <div class="col-12">
               <div class="row align-items-center my-4">
                 <div class="col">
-                  <h2 class="h3 mb-0 page-title">Contacts</h2>
+                  <h2 class="h3 mb-0 page-title">User List</h2>
                 </div>
                 <div class="col-auto">
-                  <button type="button" class="btn btn-secondary"><span class="fe fe-trash fe-12 mr-2"></span>Delete</button>
+
                     <a href="./admin/user/create" class="btn btn-primary"><span class="fe fe-filter fe-12 mr-2"></span>Create</a>
                 </div>
               </div>
+
               <!-- table -->
+                @if(session('status'))
+                    <div class="alert alert-warning">
+                        {{session('status')}}
+                    </div>
+                @endif
+
               <div class="card shadow">
                 <div class="card-body">
-                  <table class="table table-borderless table-hover">
+                    <div class="analytic">
+                        <a href="{{request()->fullUrlWithQuery(['status'=>'active'])}}" class="text-primary" >Activated<span class="text-muted">({{$count[0]}})</span></a>|
+                        <a href="{{request()->fullUrlWithQuery(['status'=>'trash'])}}" class="text-primary">Disable<span class="text-muted">({{$count[1]}})</span></a>
+
+                    </div>
+                    <form  method="POST" action="{{url('admin/user/action')}}">
+                        @csrf
+                        @method('POST')
+                    <div class="form-action form-inline py-3">
+                        <select class="form-control mr-1" name="act">
+                            <option>Select</option>
+                            @foreach($list_act as $k => $act)
+                            <option value="{{$k}}">{{$act}}</option>
+                            @endforeach
+                        </select>
+                        <input type="submit" name="btn-search" value="Apply" class="btn btn-primary">
+                    </div>
+                  <table class="table table-borderless table-hover table-checkall">
                     <thead>
                       <tr>
-                        <th>
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="all2">
-                            <label class="custom-control-label" for="all2"></label>
-                          </div>
-                        </th>
-                        <th>Avatar</th>
+                        <th><input type="checkbox" name="checkall"></th>
+                        <th>#</th>
                         <th>User</th>
                         <th>Phone</th>
                         <th>Level</th>
@@ -35,17 +54,13 @@
                       </tr>
                     </thead>
                     <tbody>
+                    @if($users->total()>0)
                     @foreach($users as $user)
                       <tr>
-                        <td>
-                          <div class="custom-control custom-checkbox">
-                            <input type="checkbox" class="custom-control-input" id="2472">
-                            <label class="custom-control-label" for="2472"></label>
-                          </div>
-                        </td>
+                        <td><input type="checkbox" name="list_check[]" value="{{$user->id}}"></td>
                         <td>
                           <div class="avatar avatar-sm">
-                            <img src="{{$user->avatar}}" alt="..." class="avatar-img rounded-circle">
+                              <p class="mb-0 text-muted">{{$user->id}}</p>
                           </div>
                         </td>
                         <td>
@@ -60,22 +75,41 @@
                           <p class="mb-0 text-muted"><a href="#" class="text-muted">{{\App\Utilities\Constant::$user_level[$user->level]}}</a></p>
 
                         </td>
-                        <td class="text-muted">2013/09/20</td>
-                        <td><button class="btn btn-sm dropdown-toggle more-horizontal" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <td class="text-muted">{{date('M d, Y',strtotime($user->created_at))}}</td>
+                        <td>
                             <span class="text-muted sr-only">Action</span>
-                          </button>
-                          <div class="dropdown-menu dropdown-menu-right">
-                            <a class="dropdown-item" href="./admin/user/{{$user->id}}">Details</a>
-                            <a class="dropdown-item" href="#"></a>
-                            <a class="dropdown-item" href="#">Remove</a>
-                          </div>
+
+                            <a href="{{route('user.show',$user->id)}}"
+                               class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
+                                Details
+                            </a>
+                            <a href="{{route('user.edit',$user->id)}}" data-toggle="tooltip" title="Edit"
+                               data-placement="bottom" class="btn btn-outline-warning border-0 btn-sm">
+                                                        <span class="btn-icon-wrapper opacity-8">
+                                                            <i class="fa fa-edit fa-w-20"></i>
+                                                        </span>
+                            </a>
+                            @if(Auth::id() != $user->id)
+                                @if($status !== 'trash')
+                                    <a href="{{route('delete_user',$user->id)}}" class="btn btn-danger btn-sm rounded-0 text-white"  onclick="return confirm('Are you sure you want to delete ?')" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                @endif
+                            @endif
                         </td>
                       </tr>
                     @endforeach
+                    @else
+                        <tr>
+                            <td colspan="7"> <p class="alert alert-warning">Search results are empty</p></td>
+                        </tr>
+
+                    @endif
                     </tbody>
                   </table>
+                    </form>
+
                 </div>
               </div>
+
               <nav aria-label="Table Paging" class="my-3">
                 <ul class="pagination justify-content-end mb-0">
                     {!! $users->appends(app("request")->input())->links("pagination::bootstrap-4") !!}

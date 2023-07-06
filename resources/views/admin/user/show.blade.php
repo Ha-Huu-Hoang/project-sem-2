@@ -2,26 +2,27 @@
 @section('title','User')
 @section('body')
       <main role="main" class="main-content">
+          <div class="col">
+              <h2 class="h3 mb-0 page-title">User Show</h2>
+          </div>
           <div class="app-main__inner">
               <ul class="body-tabs body-tabs-layout tabs-animated body-tabs-animated nav">
                   <li class="nav-item">
-                      <a href="./user-edit.html" class="nav-link">
+                      <a href="{{route('user.edit',$user->id)}}" class="nav-link">
                         <span class="btn-icon-wrapper pr-2 opacity-8">
                             <i class="fa fa-edit fa-w-20"></i>
                         </span>
                           <span>Edit</span>
                       </a>
                   </li>
+
                   <li class="nav-item delete">
-                      <form action="" method="post">
-                          <button class="nav-link btn" type="submit"
-                                  onclick="return confirm('Do you really want to delete this item?')">
-                            <span class="btn-icon-wrapper pr-2 opacity-8">
-                                <i class="fa fa-trash fa-w-20"></i>
-                            </span>
-                              <span>Delete</span>
-                          </button>
-                      </form>
+                      <a href="./admin/user" class="nav-link" style="color: #f81414">
+                        <span class="btn-icon-wrapper pr-2 opacity-8">
+                             <i class="fa fa-trash fa-w-20"></i>
+                        </span>
+                          <span>Cancel</span>
+                      </a>
                   </li>
               </ul>
 
@@ -29,16 +30,6 @@
                   <div class="col-md-12">
                       <div class="main-card mb-3 card">
                           <div class="card-body display_data">
-                              <div class="position-relative row form-group">
-                                  <label for="image" class="col-md-3 text-md-right col-form-label">Avatar</label>
-                                  <div class="col-md-9 col-xl-8">
-                                      <p>
-                                          <img style="height: 200px;" class="rounded-circle" data-toggle="tooltip"
-                                               title="Avatar" data-placement="bottom"
-                                               src="dashboard/assets/avatars/default-user.png" alt="Avatar">
-                                      </p>
-                                  </div>
-                              </div>
 
                               <div class="position-relative row form-group">
                                   <label for="name" class="col-md-3 text-md-right col-form-label">

@@ -32,6 +32,8 @@ class CartController extends Controller
         foreach ($carts as $cart) {
             $product = Product::where('id', $cart->id)->first();
             $cart->slug = $product->slug;
+
+            $cart->productDetails = $product->productDetails;
         }
 
         return view('front.shop.cart', compact('carts', 'total', 'subtotal', 'vatAmount', 'vatRate'));
@@ -41,22 +43,22 @@ class CartController extends Controller
 
     public function add(Request $request){
 
-           if ($request->ajax()){
-               $product = $this->productService->find($request->productId);
-               $response['cart']= Cart::add([
-                   'id' => $product->id,
-                   'name'=>$product->name,
-                   'qty'=>1,
-                   'price'=>  $product-> price,
-                   'weight'=> $product -> weight ?? 0 ,
-                   'options'=> [
-                       'images'=>$product->productImages,
-                   ],
-               ]);
-               $response['count'] = Cart::count();
-               $response['total'] = Cart::total();
-               return $response;
-           }
+        if ($request->ajax()){
+            $product = $this->productService->find($request->productId);
+            $response['cart']= Cart::add([
+                'id' => $product->id,
+                'name'=>$product->name,
+                'qty'=>1,
+                'price'=>  $product-> price,
+                'weight'=> $product -> weight ?? 0 ,
+                'options'=> [
+                    'images'=>$product->productImages,
+                ],
+            ]);
+            $response['count'] = Cart::count();
+            $response['total'] = Cart::total();
+            return $response;
+        }
 
         return back();
     }
@@ -86,9 +88,6 @@ class CartController extends Controller
             return $response;
         }
     }
-
-
-
 
 }
 

@@ -19,6 +19,7 @@ class CreateOrderDetailsTable extends Migration
             $table->integer('order_id')->unsigned();
             $table->integer('product_id')->unsigned();
             $table->integer('qty');
+            $table->string('size')->nullable();
             $table->decimal("amount",14,2);
             $table->decimal("total",14,2);
 
