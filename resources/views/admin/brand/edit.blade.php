@@ -3,7 +3,6 @@
 @section('body')
     <main role="main" class="main-content">
         <div class="container-fluid">
-
             <div class="row justify-content-center">
                 <div class="col-12 col-lg-10 col-xl-8">
                     <div class="app-page-title">
@@ -13,25 +12,25 @@
                                     <i class="pe-7s-ticket icon-gradient bg-mean-fruit"></i>
                                 </div>
                                 <div class="col">
-                                    <h2 class="h3 mb-0 page-title">Brand Create</h2>
+                                    <h2 class="h3 mb-0 page-title">Brand Edit</h2>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="my-4">
-                        <form method="POST" action="{{url('admin/category/store')}}">
+                        <form method="POST" action="{{route('brand.update',$brand->id)}}">
                             @csrf
                             @include('admin.components.notification')
                             <hr class="my-4">
                             <div class="form-group ">
                                 <label for="name">Name</label>
-                                <input type="text" id="name" name="name" class="form-control" placeholder="">
+                                <input type="text" id="name" value="{{$brand->name}}" name="name" class="form-control" placeholder="">
                                 @error('name')
                                 <small class="form-text text-danger">{{$message}}</small>
                                 @enderror
                             </div>
 
-                            <a type="submit" href="./admin/category" class="btn btn-primary" style="background: #f61e1e">Cancel</a>
+                            <a type="submit" href="./admin/brand" class="btn btn-primary" style="background: #f61e1e">Cancel</a>
                             <button type="submit" value="Save Change" class="btn btn-add btn-primary">Save Change</button>
 
                         </form>

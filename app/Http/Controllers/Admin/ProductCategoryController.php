@@ -55,11 +55,6 @@ class ProductCategoryController extends Controller
     public function action(Request $request){
         $list_check =$request->input('list_check');
         if ($list_check){
-//            foreach ($list_check as $k => $id){
-//                if (ProductCategory::find($id)) {
-//                    unset($list_check[$k]);
-//                }
-//            }
             if (!empty($list_check)){
                 $act =$request->input('act');
                 if ($act == 'delete'){

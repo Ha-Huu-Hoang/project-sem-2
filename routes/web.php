@@ -106,7 +106,16 @@ Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
         Route::get('delete/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'delete'])->name('delete_category');
 
     });
-
+//xử lý Brand
+    Route::prefix('brand')->group(function (){
+        Route::get('',[\App\Http\Controllers\Admin\BrandController::class,'index']);
+        Route::get('create',[\App\Http\Controllers\Admin\BrandController::class,'create']);
+        Route::post('store',[\App\Http\Controllers\Admin\BrandController::class,'store']);
+        Route::post('action',[\App\Http\Controllers\Admin\BrandController::class,'action']);
+        Route::get('edit/{id}',[\App\Http\Controllers\Admin\BrandController::class,'edit'])->name('brand.edit');
+        Route::post('edit/update/{id}',[\App\Http\Controllers\Admin\BrandController::class,'update'])->name('brand.update');
+        Route::get('delete/{id}',[\App\Http\Controllers\Admin\BrandController::class,'delete'])->name('delete_brand');
+    });
 //xử lý route user
     Route::prefix('user')->group(function (){
         Route::get('',[\App\Http\Controllers\Admin\UsersController::class,'index']);

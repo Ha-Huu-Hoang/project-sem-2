@@ -19,7 +19,7 @@
                         </div>
                     </div>
                     <div class="my-4">
-                        <form method="POST" action="{{url('admin/category/store')}}">
+                        <form method="POST" action="{{url('admin/brand/store')}}">
                             @csrf
                             @include('admin.components.notification')
                             <hr class="my-4">
@@ -31,7 +31,7 @@
                                 @enderror
                             </div>
 
-                            <a type="submit" href="./admin/category" class="btn btn-primary" style="background: #f61e1e">Cancel</a>
+                            <a type="submit" href="./admin/brand" class="btn btn-primary" style="background: #f61e1e">Cancel</a>
                             <button type="submit" value="Save Change" class="btn btn-add btn-primary">Save Change</button>
 
                         </form>
