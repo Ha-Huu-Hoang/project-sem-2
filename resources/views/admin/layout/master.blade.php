@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="dashboard/css/jquery.steps.css">
     <link rel="stylesheet" href="dashboard/css/jquery.timepicker.css">
     <link rel="stylesheet" href="dashboard/css/quill.snow.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Date Range Picker CSS -->
     <link rel="stylesheet" href="dashboard/css/daterangepicker.css">
@@ -35,7 +36,11 @@
             <i class="fe fe-menu navbar-toggler-icon"></i>
         </button>
         <form class="form-inline mr-auto searchform text-muted">
-            <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" type="search" placeholder="Type something..." aria-label="Search">
+            <input class="form-control mr-sm-2 bg-transparent border-0 pl-4 text-muted" value="{{request()->input('search')}}" name="search" type="search" placeholder="Type something..." aria-label="Search">
+            <button type="submit"
+                    class="btn-shadow btn-hover-shine btn btn-primary">
+                <span>Search</span>
+            </button>
         </form>
         <ul class="nav">
             <li class="nav-item">
@@ -48,23 +53,23 @@
                     <span class="fe fe-grid fe-16"></span>
                 </a>
             </li>
-            <li class="nav-item nav-notif">
-                <a class="nav-link text-muted my-2" href="./#" data-toggle="modal" data-target=".modal-notif">
-                    <span class="fe fe-bell fe-16"></span>
-                    <span class="dot dot-md bg-success"></span>
-                </a>
-            </li>
+
             <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text-muted pr-0" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <span class="avatar avatar-sm mt-2">
-                <img src="./dashboard/assets/avatars/face-1.jpg" alt="..." class="avatar-img rounded-circle">
+               <p>{{Auth::user()->name ?? ''}}</p>
+                  <span>{{Auth::user()->email ?? ''}}</span>
               </span>
                 </a>
-                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">
-                    <a class="dropdown-item" href="#">Profile</a>
-                    <a class="dropdown-item" href="#">Settings</a>
-                    <a class="dropdown-item" href="#">Activities</a>
-                </div>
+{{--                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownMenuLink">--}}
+{{--                    <a class="dropdown-item" href="#">Profile</a>--}}
+{{--                    <a class="dropdown-item" href="#">Settings</a>--}}
+{{--                    <a class="dropdown-item" href="#">Activities</a>--}}
+{{--                </div>--}}
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-muted my-2" href="./admin/logout" >
+                    <span class="fe fe-log-out"></span>
+                </a>
             </li>
         </ul>
     </nav>
@@ -107,17 +112,17 @@
                 <li class="nav-item dropdown">
                     <a href="#tables" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle nav-link">
                         <i class="fe fe-grid fe-16"></i>
-                        <span class="ml-3 item-text">Tables</span>
+                        <span class="ml-3 item-text">Product</span>
                     </a>
                     <ul class="collapse list-unstyled pl-4 w-100" id="tables">
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="./table_basic.html"><span class="ml-1 item-text">Basic Tables</span></a>
+                            <a class="nav-link pl-3" href="./table_basic.html"><span class="ml-1 item-text">Thêm Mới</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="./table_advanced.html"><span class="ml-1 item-text">Advanced Tables</span></a>
+                            <a class="nav-link pl-3" href="./admin/category"><span class="ml-1 item-text">Category</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="./table_datatables.html"><span class="ml-1 item-text">Data Tables</span></a>
+                            <a class="nav-link pl-3" href="./table_datatables.html"><span class="ml-1 item-text">Brand</span></a>
                         </li>
                     </ul>
                 </li>
@@ -293,6 +298,9 @@
 <script src="dashboard/js/datamaps-zoomto.js"></script>
 <script src="dashboard/js/datamaps.custom.js"></script>
 <script src="dashboard/js/Chart.min.js"></script>
+{{--<script src="dashboard/js/jquery-3.2.1.min.js"></script>--}}
+{{--<script type="text/javascript" src="dashboard/js/main.js"></script>--}}
+{{--<script type="text/javascript" src="dashboard/js/my_script.js"></script>--}}
 <script>
     /* defind global options */
     Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;
@@ -525,6 +533,22 @@
     }
     gtag('js', new Date());
     gtag('config', 'UA-56159088-1');
+</script>
+<script>
+    $(document).ready(function() {
+        $('.nav-link.active .sub-menu').slideDown();
+        // $("p").slideUp();
+
+        $('#sidebar-menu .arrow').click(function() {
+            $(this).parents('li').children('.sub-menu').slideToggle();
+            $(this).toggleClass('fa-angle-right fa-angle-down');
+        });
+
+        $("input[name='checkall']").click(function() {
+            var checked = $(this).is(':checked');
+            $('.table-checkall tbody tr td input:checkbox').prop('checked', checked);
+        });
+    });
 </script>
 </body>
 </html>
