@@ -1,5 +1,5 @@
 @extends('front.layout.master')
-@section('title','Product')
+@section('title', $title)
 @section('body')
     <!-- Shop Details Section Begin -->
     <section class="shop-details">
@@ -52,35 +52,48 @@
                                 <span> | {{count($product->productComment)}} Reviews</span>
                             </div>
                             @if($product->discount != null)
-                                <h3>${{$product->discount}} <span>{{$product->price}}</span></h3>
+                                <h3>${{$product->price}} <span>{{$product->discount}}</span></h3>
                             @else
                                 <h3>${{$product->price}}</h3>
                             @endif
                             <p>{{$product->content}}</p>
-                            <div class="product__details__option">
-                                <div class="product__details__option__size">
-                                    <span>Size:</span>
-                                    @foreach(array_unique(array_column($product->productDetails->toArray(),'size')) as $productSize)
-                                        <label class="" for="{{$productSize}}">{{$productSize}}
-                                            <input type="radio" id="{{$productSize}}">
-                                        </label>
 
-                                    @endforeach
-                                </div>
-                            </div>
-                            <div class="product__details__cart__option">
-                                <div class="quantity">
-                                    <div class="pro-qty">
-                                        <input type="text" value="1">
+                            <form action="{{ url('/cart/add') }}" method="get">
+
+                                @csrf
+                                <input type="hidden" name="product_id" value="{{ $product->id }}">
+
+                                @if (!$product->productDetails->isEmpty())
+                                    <div class="product__details__option">
+                                        <div class="product__details__option__size">
+                                            <span>Size:</span>
+                                            @foreach (array_unique(array_column($product->productDetails->toArray(), 'size')) as $index => $productSize)
+                                                <input type="radio" name="size" id="{{$productSize}}" value="{{$productSize}}"
+                                                       @if ($productSize === $defaultSize) checked @endif>
+                                                <label for="{{$productSize}}">{{$productSize}}</label>
+                                            @endforeach
+                                        </div>
                                     </div>
-                                    <p>20 products are available</p>
+                                @endif
+{{--                                <select name="size" id="size">--}}
+{{--                                    @foreach ($product->productDetails as $detail)--}}
+{{--                                        <option value="{{ $detail->size }}">{{ $detail->size }}</option>--}}
+{{--                                    @endforeach--}}
+{{--                                </select>--}}
+                                <div class="product__details__cart__option">
+                                    <div class="quantity">
+                                        <div class="pro-qty">
+                                            <input type="text" value="1">
+                                        </div>
+                                        <p>{{$product->qty}} products are available</p>
+                                    </div>
+                                    <div class="product__details__btns__option">
+                                        <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
+                                    </div>
                                 </div>
-                                <div class="product__details__btns__option">
-                                    <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
-                                </div>
-
-                            </div>
-                            <a href="#" class="primary-btn btn-detail">add to cart</a>
+{{--                                <a href="javascript:addCart({{ $product->id }})" class="primary-btn btn-detail">add to cart</a>--}}
+                                <button type="submit" class="primary-btn btn-detail">add to cart</button>
+                            </form>
                             <div class="product__details__last__option">
                                 <ul class="d-flex justify-content-center" style="column-gap: 20px">
                                     <li><span>SKU:</span> {{$product->sku}}</li>
@@ -225,8 +238,8 @@
                                             <tr>
                                                 <td class="p-category">Weight</td>
                                                 <td>
-                                                    <div class="p-weight">{{$product->weight}}kg
-                                                    </div></td>
+                                                    <div class="p-weight">{{$product->weight}}kg</div>
+                                                </td>
                                             </tr>
                                             <tr>
                                                 <td class="p-category">Size</td>
@@ -273,15 +286,15 @@
                             @if($product->discount !=0)
                             <span class="label">Sale</span>
                             @endif
-                            <ul class="product__hover">
+                                <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
+                                <ul class="product__hover">
                                 <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
-                                <li><a href="#"><img src="front/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
-                                <li><a href="#"><img src="front/img/icon/search.png" alt=""></a></li>
+                                <li><a href="#"><img src="front/img/icon/cart.png" alt=""></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
                             <h6>{{$product->name}}</h6>
-                            <a href="shop/product/{{$product->id}}" class="add-cart">{{$product->name}}</a>
+                            <a href="shop/product/{{$product->slug}}" class="add-cart">{{$product->name}}</a>
                             <div class="rating">
                                 <i class="fa fa-star-o"></i>
                                 <i class="fa fa-star-o"></i>

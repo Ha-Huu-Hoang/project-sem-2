@@ -27,17 +27,14 @@ use App\Http\Controllers\Front\ShopController;
 // trang chủ
 Route::get('/',[\App\Http\Controllers\Front\HomeController::class,'index']);
 
-
-//trang shop cart
-Route::prefix('shop')->group(function (){
-    //sản phẩm chi tiết
-    Route::get('product/{slug}',[\App\Http\Controllers\Front\ShopController::class,'show']);
+//sản phẩm chi tiết
+Route::get('shop/product/{slug}',[\App\Http\Controllers\Front\ShopController::class,'show']);
 //đăng comment
-    Route::post('product/{slug}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
+Route::post('shop/product/{slug}',[\App\Http\Controllers\Front\ShopController::class,'postComment']);
 //trang sản phẩm
-    Route::get('',[\App\Http\Controllers\Front\ShopController::class,'index']);
-    Route::get('category/{categoryName}',[\App\Http\Controllers\Front\ShopController::class,'category']);
-});
+Route::get('shop',[\App\Http\Controllers\Front\ShopController::class,'index']);
+Route::get('shop/category/{categoryName}',[\App\Http\Controllers\Front\ShopController::class,'category']);
+//trang shop cart
 Route::prefix('/cart')->group(function (){
     Route::get('/',[\App\Http\Controllers\Front\CartController::class,'index']);
     Route::get('add',[\App\Http\Controllers\Front\CartController::class,'add']);
@@ -81,41 +78,6 @@ Route::prefix('account')->group(function () {
 });
 
 //dashboard(Admin)
-Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
-    Route::redirect('','admin/dashboard');
-
-//xử lý route category
-    Route::prefix('category')->group(function (){
-        Route::get('',[\App\Http\Controllers\Admin\ProductCategoryController::class,'index']);
-        Route::get('create',[\App\Http\Controllers\Admin\ProductCategoryController::class,'create']);
-        Route::post('store',[\App\Http\Controllers\Admin\ProductCategoryController::class,'store']);
-        Route::post('action',[\App\Http\Controllers\Admin\ProductCategoryController::class,'action']);
-        Route::get('edit/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'edit'])->name('category.edit');
-        Route::post('edit/update/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'update'])->name('category.update');
-        Route::get('delete/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'delete'])->name('delete_category');
-
-    });
-
-//xử lý route user
-    Route::prefix('user')->group(function (){
-        Route::get('',[\App\Http\Controllers\Admin\UsersController::class,'index']);
-        Route::get('show/{id}',[\App\Http\Controllers\Admin\UsersController::class,'show'])->name('user.show');
-        Route::get('create',[\App\Http\Controllers\Admin\UsersController::class,'create']);
-        Route::post('store',[\App\Http\Controllers\Admin\UsersController::class,'store']);
-        Route::post('action',[\App\Http\Controllers\Admin\UsersController::class,'action']);
-        Route::get('edit/{id}',[\App\Http\Controllers\Admin\UsersController::class,'edit'])->name('user.edit');
-        Route::post('edit/update/{id}',[\App\Http\Controllers\Admin\UsersController::class,'update'])->name('user.update');
-        Route::get('delete/{id}',[\App\Http\Controllers\Admin\UsersController::class,'delete'])->name('delete_user');
-    });
-
-    Route::get('dashboard',[\App\Http\Controllers\Admin\DashboardController::class,'index']);
-    Route::get('orders',[\App\Http\Controllers\Admin\OrdersController::class,'index']);
-
-// xử lý route login
-    Route::prefix('login')->group(function (){
-        Route::get('',[\App\Http\Controllers\Admin\HomeController::class,'getLogin'])->withoutMiddleware('CheckAdminLogin');
-        Route::post('',[\App\Http\Controllers\Admin\HomeController::class,'postLogin'])->withoutMiddleware('CheckAdminLogin');
-    });
-    Route::get('logout',[\App\Http\Controllers\Admin\HomeController::class,'logout']);
+Route::prefix('/admin')->group(function (){
+    Route::resource('user',\App\Http\Controllers\Admin\UserController::class);
 });
-

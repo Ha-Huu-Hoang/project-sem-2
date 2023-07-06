@@ -1640,28 +1640,38 @@ ol {
     margin-right: 10px;
 }
 
-.product__details__option__size label {
+.product__details__option__size > label {
     color: #111111;
     font-size: 15px;
     font-weight: 700;
+    width: 35px;
+    text-align: center;
+    height: 35px;
+    border-radius: 50%;
     text-transform: uppercase;
     display: inline-block;
     border: 1px solid #e5e5e5;
-    padding: 6px 15px;
+    padding: 6px;
     margin-bottom: 0;
     margin-right: 5px;
     cursor: pointer;
+    transition: all 0.3s;
 }
 
+.product__details__option__size > input[type="radio"] {
+    display: none;
+}
+
+.product__details__option__size > input[type="radio"]:checked + label,
+.product__details__option__size > label:hover,
 .product__details__option__size label.active {
     background: #111111;
     color: #ffffff;
     border-color: #111111;
-}
-
-.product__details__option__size label input {
-    position: absolute;
-    visibility: hidden;
+}{
+    background: #111111;
+    color: #ffffff;
+    border-color: #111111;
 }
 
 .product__details__option__color {
@@ -2319,20 +2329,22 @@ ol {
 }
 
 .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text {
-    overflow: hidden;
-    padding-top: 21px;
+    /*overflow: hidden;*/
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
 .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text h6 {
     color: #111111;
     font-size: 15px;
     font-weight: 600;
-    margin-bottom: 10px;
 }
 
 .shopping__cart__table table tbody tr td.product__cart__item .product__cart__item__text h5 {
     color: #0d0d0d;
     font-weight: 700;
+    margin: 15px 0;
 }
 
 .shopping__cart__table table tbody tr td.quantity__item {
@@ -4511,4 +4523,30 @@ edit
 .shop-image__link {
     position: absolute;
     inset: 0;
+}
+
+/*=== Cart size ===*/
+.product__cart__item__text .cart-item-size {
+    width: 50px;
+    border: none;
+    height: 20px;
+    line-height: 20px;
+    padding-left: 10px;
+}
+.size-select {
+    display: flex;
+    align-items: center;
+    line-height: 0;
+}
+
+.size-select p {
+    margin-bottom: 0;
+}
+
+.cart-item-size {
+    width: 100%;
+    border: none;
+    height: 30px;
+    line-height: 30px;
+    padding-left: 10px;
 }

@@ -241,60 +241,60 @@
 
 })(jQuery);
 
- function addCart(productId) {
-     $.ajax({
-         type: "GET",
-         url:"cart/add",
-         data:{productId: productId},
-         success: function (response){
-         $('.cart-count').text(response['count']);
-         $('.price').text('$' + response['total']);
+function addCart(productId) {
+    $.ajax({
+        type: "GET",
+        url:"cart/add",
+        data:{productId: productId},
+        success: function (response){
+            $('.cart-count').text(response['count']);
+            $('.price').text('$' + response['total']);
 
-         var row_tbody = $('.shopping__cart__table tbody');
-         var row_exitstItem = row_tbody.find("tr[data-rowId='"+ response['cart'].rowId +"']");
+            var row_tbody = $('.shopping__cart__table tbody');
+            var row_exitstItem = row_tbody.find("tr[data-rowId='"+ response['cart'].rowId +"']");
 
-         if (row_exitstItem.length){
-             row_exitstItem.find('.product__cart__item__text h5').text('$'+response['cart'].price.toFixed(2));
+            if (row_exitstItem.length){
+                row_exitstItem.find('.product__cart__item__text h5').text('$'+response['cart'].price.toFixed(2));
 
-         }else {
-             var newItem =
-                 '                                   <tr data-rowId="'+ response['cart'].rowId +'">\n' +
-                 '                                    <td class="product__cart__item">\n' +
-                 '                                        <div class="product__cart__item__pic">\n' +
-                 '                                            @if(isset($cart->options[\'images\']) && count($cart->options[\'images\']) > 0)\n' +
-                 '                                                <img src="'+ response['cart'].options.images[0].path +'" alt="" style="width: 90px;height: 90px; object-fit: cover">\n' +
-                 '                                            @endif\n' +
-                 '\n' +
-                 '                                        </div>\n' +
-                 '                                        <div class="product__cart__item__text">\n' +
-                 '                                            <h6>'+ response['cart'].name+'</h6>\n' +
-                 '                                            <h5>$'+ response['cart'].price.toFixed(2)+'</h5>\n' +
-                 '                                        </div>\n' +
-                 '                                    </td>\n' +
-                 '                                    <td class="quantity__item">\n' +
-                 '                                        <div class="quantity">\n' +
-                 '                                            <div class="pro-qty-2">\n' +
-                 '                                                <input type="text" value="{{$cart->qty}}">\n' +
-                 '                                            </div>\n' +
-                 '                                        </div>\n' +
-                 '                                    </td>\n' +
-                 '                                    <td class="cart__price">$\'+ response[\'cart\'].price.toFixed(2)+</td>\n' +
-                 '                                    <td class="cart__close"><i onclick="removeCart(\''+ response['cart'] +'\')" class="fa fa-close"></i></td>\n' +
-                 '                                </tr>';
-             row_tbody.append(newItem);
-         }
-             var alertMsg = 'Add to cart successfully!';
-             showAlert(alertMsg);
+            }else {
+                var newItem =
+                    '                                   <tr data-rowId="'+ response['cart'].rowId +'">\n' +
+                    '                                    <td class="product__cart__item">\n' +
+                    '                                        <div class="product__cart__item__pic">\n' +
+                    '                                            @if(isset($cart->options[\'images\']) && count($cart->options[\'images\']) > 0)\n' +
+                    '                                                <img src="'+ response['cart'].options.images[0].path +'" alt="" style="width: 90px;height: 90px; object-fit: cover">\n' +
+                    '                                            @endif\n' +
+                    '\n' +
+                    '                                        </div>\n' +
+                    '                                        <div class="product__cart__item__text">\n' +
+                    '                                            <h6>'+ response['cart'].name+'</h6>\n' +
+                    '                                            <h5>$'+ response['cart'].price.toFixed(2)+'</h5>\n' +
+                    '                                        </div>\n' +
+                    '                                    </td>\n' +
+                    '                                    <td class="quantity__item">\n' +
+                    '                                        <div class="quantity">\n' +
+                    '                                            <div class="pro-qty-2">\n' +
+                    '                                                <input type="text" value="{{$cart->qty}}">\n' +
+                    '                                            </div>\n' +
+                    '                                        </div>\n' +
+                    '                                    </td>\n' +
+                    '                                    <td class="cart__price">$\'+ response[\'cart\'].price.toFixed(2)+</td>\n' +
+                    '                                    <td class="cart__close"><i onclick="removeCart(\''+ response['cart'] +'\')" class="fa fa-close"></i></td>\n' +
+                    '                                </tr>';
+                row_tbody.append(newItem);
+            }
+            var alertMsg = 'Add to cart successfully!';
+            showAlert(alertMsg);
 
-             // console.log(response);
-         },
-         error: function(response) {
-             showAlert('Add failed');
+            // console.log(response);
+        },
+        error: function(response) {
+            showAlert('Add failed');
 
-             // console.log(response);
-         },
-     });
- }
+            // console.log(response);
+        },
+    });
+}
 
 function showAlert(message) {
     var alertContainer = document.getElementById('alert-container');
@@ -468,20 +468,27 @@ function scrollToTop() {
     });
 }
 
-//Shipping
+// Shipping
 document.addEventListener('DOMContentLoaded', function() {
-    const subtotalElement = document.getElementById('subtotal');
-    const vatAmountElement = document.getElementById('vatAmount');
-    const shippingFeeElement = document.getElementById('shipping_fee');
-    const totalElement = document.getElementById('total');
-    const radioButtons = document.querySelectorAll('input[name="shipping_method"]');
+    const subtotalGet = document.getElementById('subtotal');
+    const vatAmountGet = document.getElementById('vatAmount');
+    const shippingFeeGet = document.getElementById('shipping_fee');
+    const totalGet = document.getElementById('total');
+    const radioChecked = document.querySelectorAll('input[name="shipping_method"]');
+
+    const shippingPrices = {
+        'Standard Shipping': 10,
+        'Express Shipping': 30
+    };
 
     function updateTotal() {
-        const subtotal = parseFloat(subtotalElement.textContent.replace('$', ''));
-        const vatAmount = parseFloat(vatAmountElement.textContent.replace('$', ''));
-        const shippingPrice = parseFloat(shippingFeeElement.textContent.replace('$', ''));
+        const subtotal = parseFloat(subtotalGet.textContent.replace('$', ''));
+        const vatAmount = parseFloat(vatAmountGet.textContent.replace('$', ''));
+        const checkedShipping = document.querySelector('input[name="shipping_method"]:checked').value;
+        const shippingPrice = shippingPrices[checkedShipping];
         const total = subtotal + vatAmount + shippingPrice;
-        totalElement.textContent = '$' + total.toFixed(2);
+        totalGet.textContent = '$' + total.toFixed(2);
+        shippingFeeGet.textContent = '$' + shippingPrice.toFixed(2);
 
         const data = {
             shipping_fee: shippingPrice,
@@ -493,31 +500,20 @@ document.addEventListener('DOMContentLoaded', function() {
             url: '/checkout/update-total',
             method: 'POST',
             data: data,
-            // success: function(response) {
-            //     console.log(response);
-            // },
-            // error: function(error) {
-            //     console.error(error);
-            // }
         });
     }
 
-    radioButtons.forEach(function(radio) {
+    radioChecked.forEach(function(radio) {
         radio.addEventListener('change', function() {
-            const shippingPrice = parseFloat(this.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
-            shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
             updateTotal();
         });
     });
 
     const defaultShippingMethod = document.querySelector('input[name="shipping_method"]:checked');
     if (defaultShippingMethod) {
-        const shippingPrice = parseFloat(defaultShippingMethod.parentNode.querySelector('.shipping-price').textContent.replace('$', ''));
-        shippingFeeElement.textContent = '$' + shippingPrice.toFixed(2);
         updateTotal();
     }
 });
-
 
 //Sticky checkout order
 window.addEventListener("scroll", function() {
