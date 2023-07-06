@@ -46,8 +46,20 @@
                                             @endif
                                         </div>
                                         <div class="product__cart__item__text">
-                                            <a href="{{url("/shop/product/{$cart->slug}")}}"><h6>{{$cart->name}}</h6></a>
-                                            <h5>${{number_format($cart->price  ,2)}}</h5>
+                                            <a href="{{ url("/shop/product/{$cart->slug}") }}"><h6>{{ $cart->name }}</h6></a>
+                                            <h5>${{ number_format($cart->price, 2) }}</h5>
+                                            <div class="size-select">
+                                                @if ($cart->productDetails && $cart->productDetails->count() > 0)
+                                                <p>Size :</p>
+                                                    <select class="cart-item-size">
+                                                        @foreach ($cart->productDetails as $detail)
+                                                            <option value="{{ $detail->size }}">
+                                                                {{ $detail->size }}
+                                                            </option>
+                                                        @endforeach
+                                                    </select>
+                                                @endif
+                                            </div>
                                         </div>
                                     </td>
                                     <td class="quantity__item">
@@ -107,7 +119,7 @@
                     <div class="col-md-6">
                         <div class="row">
                             <div class="col-md-12 text-center">
-                                <a href="{{url("/shop")}}" title="Shopping now!"><img src="front/img/empty-cart.png" width="200" alt=""></a>
+                                <a href="{{url("/shop")}}" title="Shopping now!"><img src="front/img/empty-cart.png" width="200" alt="There are no products in the cart. Shopping now!"></a>
                             </div>
                         </div>
                         <div class="row">
