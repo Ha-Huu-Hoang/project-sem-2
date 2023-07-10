@@ -75,24 +75,25 @@
                                         </div>
                                     </div>
                                 @endif
-{{--                                <select name="size" id="size">--}}
-{{--                                    @foreach ($product->productDetails as $detail)--}}
-{{--                                        <option value="{{ $detail->size }}">{{ $detail->size }}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
+
                                 <div class="product__details__cart__option">
                                     <div class="quantity">
                                         <div class="pro-qty">
                                             <input type="text" value="1">
                                         </div>
-                                        <p>{{$product->qty}} products are available</p>
+                                        @if($product->qty > 0)
+                                            <p>{{ $product->qty }} products are available</p>
+                                        @else
+                                            <p><strong>Out of stock</strong></p>
+                                        @endif
                                     </div>
                                     <div class="product__details__btns__option">
                                         <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
                                     </div>
                                 </div>
-{{--                                <a href="javascript:addCart({{ $product->id }})" class="primary-btn btn-detail">add to cart</a>--}}
-                                <button type="submit" class="primary-btn btn-detail">add to cart</button>
+                                @if($product->qty > 0)
+                                    <button type="submit" class="primary-btn btn-detail">add to cart</button>
+                                @endif
                             </form>
                             <div class="product__details__last__option">
                                 <ul class="d-flex justify-content-center" style="column-gap: 20px">
@@ -282,12 +283,12 @@
                @foreach($pro as $product)
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="{{$product->productImages[0]->path}}">
-                            @if($product->discount !=0)
-                            <span class="label">Sale</span>
+                        <div class="product__item__pic set-bg" data-setbg="{{ isset($product->productImages[0]) ? $product->productImages[0]->path : 'front/img/hhhh.jpg' }}">
+                            @if($product->discount != 0)
+                                <span class="label">Sale</span>
                             @endif
-                                <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
-                                <ul class="product__hover">
+                            <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
+                            <ul class="product__hover">
                                 <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
                                 <li><a href="#"><img src="front/img/icon/cart.png" alt=""></a></li>
                             </ul>
