@@ -92,7 +92,14 @@
                                     </div>
                                 </div>
 {{--                                <a href="javascript:addCart({{ $product->id }})" class="primary-btn btn-detail">add to cart</a>--}}
-                                <button type="submit" class="primary-btn btn-detail">add to cart</button>
+                                @foreach($pro as $pr)
+                                    <button type="submit" class="primary-btn btn-detail" onclick="addCart({{ $pr->id }})">Add to cart</button>
+                                    <a href="javascript:addCart({{ $pr->id }})"></a>
+                                @endforeach
+
+
+
+
                             </form>
                             <div class="product__details__last__option">
                                 <ul class="d-flex justify-content-center" style="column-gap: 20px">
@@ -288,8 +295,8 @@
                             @endif
                                 <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
                                 <ul class="product__hover">
-                                <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
-                                <li><a href="#"><img src="front/img/icon/cart.png" alt=""></a></li>
+                                    <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
+                                    <li><a href="javascript:addCart({{ $pr->id }})"><img src="front/img/icon/cart.png" alt=""></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
