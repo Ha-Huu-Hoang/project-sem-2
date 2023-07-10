@@ -401,33 +401,62 @@ class DatabaseSeeder extends Seeder
 
         DB::table('product_details')->insert([
             [
-                'product_id' => 1,
+                'product_id' => 3,
                 'size' => '39',
                 'qty' => 5,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'product_id' => 1,
+                'product_id' => 3,
                 'size' => '40',
                 'qty' => 5,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'product_id' => 1,
+                'product_id' => 3,
                 'size' => '41',
                 'qty' => 5,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
             [
-                'product_id' => 1,
+                'product_id' => 3,
                 'size' => '42',
                 'qty' => 5,
                 'created_at' => now(),
                 'updated_at' => now(),
             ],
+            [
+                'product_id' => 4,
+                'size' => '39',
+                'qty' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'product_id' => 4,
+                'size' => '40',
+                'qty' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'product_id' => 4,
+                'size' => '41',
+                'qty' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'product_id' => 4,
+                'size' => '42',
+                'qty' => 5,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+
         ]);
 
 

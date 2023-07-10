@@ -92,10 +92,10 @@
                                     </div>
                                 </div>
 {{--                                <a href="javascript:addCart({{ $product->id }})" class="primary-btn btn-detail">add to cart</a>--}}
-                                @foreach($pro as $pr)
-                                    <button type="submit" class="primary-btn btn-detail" onclick="addCart({{ $pr->id }})">Add to cart</button>
-                                    <a href="javascript:addCart({{ $pr->id }})"></a>
-                                @endforeach
+{{--                                @foreach($pro as $pr)--}}
+                                    <button type="submit" class="primary-btn btn-detail" onclick="addCart({{ $product->id }})">Add to cart</button>
+                                    <a href="javascript:addCart({{ $product->id }})"></a>
+{{--                                @endforeach--}}
 
 
 
@@ -296,7 +296,7 @@
                                 <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
                                 <ul class="product__hover">
                                     <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
-                                    <li><a href="javascript:addCart({{ $pr->id }})"><img src="front/img/icon/cart.png" alt=""></a></li>
+                                    <li><a href="javascript:addCart({{ $product->id }})"><img src="front/img/icon/cart.png" alt=""></a></li>
                             </ul>
                         </div>
                         <div class="product__item__text">
