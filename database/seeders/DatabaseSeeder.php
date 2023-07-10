@@ -43,7 +43,7 @@ class DatabaseSeeder extends Seeder
                 'email' => 'ngomanhson2004txpt@gmail.com',
                 'password' => Hash::make('23102004'),
 
-                'level' => 2,
+                'level' => 1,
                 'description' => null,
 
                 'company_name'=> 'FPT APTECH',
