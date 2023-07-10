@@ -110,7 +110,9 @@
                 @foreach($featuredProducts['women']  as $product)
                 <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix new-arrivals">
                     <div class="product__item">
+                        @if(isset($product->productImages[0]))
                         <div class="product__item__pic set-bg" data-setbg="{{$product->productImages[0]->path}}">
+                            @endif
                             <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
                             @if($product->discount !=0)
                                 <span class="label">Sale</span>
@@ -138,16 +140,21 @@
                 @foreach($featuredProducts['men']  as $product)
                         <div class="col-lg-3 col-md-6 col-sm-6 col-md-6 col-sm-6 mix hot-sales">
                             <div class="product__item">
-                                <div class="product__item__pic set-bg" data-setbg="{{$product->productImages[0]->path}}">
-                                    <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
-                                    @if($product->discount !=0)
-                                        <span class="label">Sale</span>
-                                    @endif
-                                    <ul class="product__hover">
-                                        <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
-                                        <li><a href="javascript:addCart({{ $product->id }})"><img src="front/img/icon/cart.png" alt=""></a></li>
-                                    </ul>
-                                </div>
+
+
+
+                                    <div class="product__item__pic set-bg" data-setbg="{{ isset($product->productImages[0]) ? $product->productImages[0]->path : 'front/img/hhhh.jpg' }}">
+                                        <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
+                                        @if($product->discount !=0)
+                                            <span class="label">Sale</span>
+                                        @endif
+                                        <ul class="product__hover">
+                                            <li><a href="#"><img src="front/img/icon/heart.png" alt=""></a></li>
+                                            <li><a href="javascript:addCart({{ $product->id }})"><img src="front/img/icon/cart.png" alt=""></a></li>
+                                        </ul>
+                                    </div>
+
+
                                 <div class="product__item__text">
                                     <h6>{{$product->name}}</h6>
                                     <a href="{{ url("/shop/product/{$product->slug}") }}" class="add-cart">{{$product->name}}</a>

@@ -106,6 +106,18 @@ Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
         Route::get('delete/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'delete'])->name('delete_category');
 
     });
+    //xử lý product
+    Route::prefix('product')->group(function (){
+        Route::get('',[\App\Http\Controllers\Admin\ProductController::class,'index']);
+        Route::get('create',[\App\Http\Controllers\Admin\ProductController::class,'create']);
+        Route::post('store',[\App\Http\Controllers\Admin\ProductController::class,'store']);
+        Route::get('edit/{id}',[\App\Http\Controllers\Admin\ProductController::class,'edit'])->name('product.edit');
+        Route::post('edit/update/{id}',[\App\Http\Controllers\Admin\ProductController::class,'update'])->name('product.update');
+        Route::get('show/{id}',[\App\Http\Controllers\Admin\ProductController::class,'show'])->name('product.show');
+        Route::post('action',[\App\Http\Controllers\Admin\ProductController::class,'action']);
+
+        Route::get('delete/{id}',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('delete_product');
+    });
 //xử lý Brand
     Route::prefix('brand')->group(function (){
         Route::get('',[\App\Http\Controllers\Admin\BrandController::class,'index']);

@@ -75,28 +75,29 @@
                                         </div>
                                     </div>
                                 @endif
-{{--                                <select name="size" id="size">--}}
-{{--                                    @foreach ($product->productDetails as $detail)--}}
-{{--                                        <option value="{{ $detail->size }}">{{ $detail->size }}</option>--}}
-{{--                                    @endforeach--}}
-{{--                                </select>--}}
+
                                 <div class="product__details__cart__option">
                                     <div class="quantity">
                                         <div class="pro-qty">
                                             <input type="text" value="1">
                                         </div>
-                                        <p>{{$product->qty}} products are available</p>
+                                        @if($product->qty > 0)
+                                            <p>{{ $product->qty }} products are available</p>
+                                        @else
+                                            <p>Out of stock</p>
+                                        @endif
                                     </div>
                                     <div class="product__details__btns__option">
                                         <a href="#"><i class="fa fa-heart"></i> add to wishlist</a>
                                     </div>
                                 </div>
-{{--                                <a href="javascript:addCart({{ $product->id }})" class="primary-btn btn-detail">add to cart</a>--}}
-{{--                                @foreach($pro as $pr)--}}
-                                    <button type="submit" class="primary-btn btn-detail" onclick="addCart({{ $product->id }})">Add to cart</button>
-                                    <a href="javascript:addCart({{ $product->id }})"></a>
-{{--                                @endforeach--}}
 
+                                @if($product->qty > 0)
+                                    @foreach($pro as $pr)
+                                        <button type="submit" class="primary-btn btn-detail" onclick="addCart({{ $product->id }})">Add to cart</button>
+                                        <a href="javascript:addCart({{ $product->id }})"></a>
+                                    @endforeach
+                                @endif
 
 
 
@@ -289,8 +290,7 @@
                @foreach($pro as $product)
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="{{$product->productImages[0]->path}}">
-                            @if($product->discount !=0)
+                        <div class="product__item__pic set-bg" data-setbg="{{ isset($product->productImages[0]) ? $product->productImages[0]->path : 'front/img/hhhh.jpg' }}">                            @if($product->discount !=0)
                             <span class="label">Sale</span>
                             @endif
                                 <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>

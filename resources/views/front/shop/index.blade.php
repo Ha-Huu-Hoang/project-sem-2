@@ -92,13 +92,14 @@
                             @foreach($product as $pr)
                                 <div class="col-lg-4 col-md-6 col-sm-6">
                                     <div class="product__item">
-                                        <div class="product__item__pic set-bg" data-setbg="{{$pr->productImages[0]->path}}">
-                                            <a href="{{ url("/shop/product/{$pr->slug}") }}" class="shop-image__link"></a>
-                                            <ul class="product__hover">
-                                                <li><a href=""><img src="front/img/icon/heart.png" alt=""></a></li>
-                                                <li><a href="javascript:addCart({{ $pr->id }})"><img src="front/img/icon/cart.png" alt=""></a></li>
-                                            </ul>
-                                        </div>
+
+                                            <div class="product__item__pic set-bg" data-setbg="{{ isset($pr->productImages[0]) ? $pr->productImages[0]->path : 'front/img/hhhh.jpg' }}">
+                                                <a href="{{ url("/shop/product/{$pr->slug}") }}" class="shop-image__link"></a>
+                                                <ul class="product__hover">
+                                                    <li><a href=""><img src="front/img/icon/heart.png" alt=""></a></li>
+                                                    <li><a href="javascript:addCart({{ $pr->id }})"><img src="front/img/icon/cart.png" alt=""></a></li>
+                                                </ul>
+                                            </div>
                                         <div class="product__item__text">
                                             <h6>{{$pr->name}}</h6>
                                             <a href="{{url("/shop/product/{$pr->slug}")}}" class="add-cart">{{$pr->name}}</a>

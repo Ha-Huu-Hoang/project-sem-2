@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="dashboard/css/jquery.steps.css">
     <link rel="stylesheet" href="dashboard/css/jquery.timepicker.css">
     <link rel="stylesheet" href="dashboard/css/quill.snow.css">
+    <link rel="stylesheet" href="dashboard/css/main.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
     <!-- Date Range Picker CSS -->
@@ -116,13 +117,13 @@
                     </a>
                     <ul class="collapse list-unstyled pl-4 w-100" id="tables">
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="./table_basic.html"><span class="ml-1 item-text">Thêm Mới</span></a>
+                            <a class="nav-link pl-3" href="./admin/product"><span class="ml-1 item-text">Product</span></a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link pl-3" href="./admin/category"><span class="ml-1 item-text">Category</span></a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link pl-3" href="./table_datatables.html"><span class="ml-1 item-text">Brand</span></a>
+                            <a class="nav-link pl-3" href="./admin/brand"><span class="ml-1 item-text">Brand</span></a>
                         </li>
                     </ul>
                 </li>
