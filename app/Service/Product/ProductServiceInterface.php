@@ -10,5 +10,6 @@ interface ProductServiceInterface extends ServiceInterface
     public function getFeaturedProducts();
     public function getProductOnIndex($request);
     public function getProductByCategory($categoryName,$request);
+    public function updateProductQty($product_id, $qty);
 
 }

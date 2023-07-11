@@ -75,7 +75,7 @@
                                 <img style="height: 60px;"
                                      data-toggle="tooltip" title="Image"
                                      data-placement="bottom"
-                                     src="{{ $products->productImages[0]->path }}" alt="anh loi">
+                                     src="front/img/product/{{$products->productImages[0]->path }}" alt="anh loi">
                             @else
                                 <img style="height: 60px;"
                                      data-toggle="tooltip" title="Image"

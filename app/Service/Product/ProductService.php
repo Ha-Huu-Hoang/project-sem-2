@@ -2,6 +2,7 @@
 
 namespace App\Service\Product;
 
+use App\Models\Product;
 use App\Repositories\Product\ProductRepositoryInterface;
 use App\Service\BaseService;
 
@@ -59,6 +60,15 @@ class ProductService extends BaseService implements ProductServiceInterface
     public function getProductByCategory($categoryName,$request)
     {
         return $this->repository->getProductByCategory($categoryName,$request);
+    }
+    public function updateProductQty($product_id, $qty)
+    {
+        $product = Product::find($product_id);
+
+        if ($product) {
+            $product->qty = $qty;
+            $product->save();
+        }
     }
 
 }

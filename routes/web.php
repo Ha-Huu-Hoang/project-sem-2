@@ -94,6 +94,8 @@ Route::prefix('account')->group(function () {
 //dashboard(Admin)
 Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
     Route::redirect('','admin/dashboard');
+    Route::resource('product/{product_id}/image',\App\Http\Controllers\Admin\ProductImageController::class);
+    Route::resource('product/{product_id}/detail',\App\Http\Controllers\Admin\ProductDetailController::class);
 
 //xử lý route category
     Route::prefix('category')->group(function (){
@@ -115,8 +117,9 @@ Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
         Route::post('edit/update/{id}',[\App\Http\Controllers\Admin\ProductController::class,'update'])->name('product.update');
         Route::get('show/{id}',[\App\Http\Controllers\Admin\ProductController::class,'show'])->name('product.show');
         Route::post('action',[\App\Http\Controllers\Admin\ProductController::class,'action']);
-
         Route::get('delete/{id}',[\App\Http\Controllers\Admin\ProductController::class,'delete'])->name('delete_product');
+        //xử lý ảnh product
+
     });
 //xử lý Brand
     Route::prefix('brand')->group(function (){

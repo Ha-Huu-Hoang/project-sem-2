@@ -299,9 +299,9 @@
 <script src="dashboard/js/datamaps-zoomto.js"></script>
 <script src="dashboard/js/datamaps.custom.js"></script>
 <script src="dashboard/js/Chart.min.js"></script>
-{{--<script src="dashboard/js/jquery-3.2.1.min.js"></script>--}}
+<script src="dashboard/js/jquery-3.2.1.min.js"></script>
 {{--<script type="text/javascript" src="dashboard/js/main.js"></script>--}}
-{{--<script type="text/javascript" src="dashboard/js/my_script.js"></script>--}}
+<script type="text/javascript" src="dashboard/js/my_script.js"></script>
 <script>
     /* defind global options */
     Chart.defaults.global.defaultFontFamily = base.defaultFontFamily;

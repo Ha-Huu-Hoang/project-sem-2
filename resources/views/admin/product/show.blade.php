@@ -33,7 +33,7 @@
                             <ul class="text-nowrap overflow-auto" id="images">
                                 @foreach($product->productImages as $productImage)
                                 <li class="d-inline-block mr-1" style="position: relative;">
-                                    <img style="height: 150px;" src="{{$productImage->path}}"
+                                    <img style="height: 150px;" src="front/img/product/{{$productImage->path}}"
                                          alt="Image">
                                 </li>
                                 @endforeach
@@ -44,7 +44,7 @@
                         <label for="brand_id"
                                class="col-md-3 text-md-right col-form-label">Product Images</label>
                         <div class="col-md-9 col-xl-8">
-                            <p><a href="./product-image.html">Manage images</a></p>
+                            <p><a href="./admin/product/{{$product->id}}/image">Manage images</a></p>
                         </div>
                     </div>
 
@@ -52,7 +52,7 @@
                         <label for="brand_id"
                                class="col-md-3 text-md-right col-form-label">Product Details</label>
                         <div class="col-md-9 col-xl-8">
-                            <p><a href="./product-detail.html">Manage details</a></p>
+                            <p><a href="./admin/product/{{$product->id}}/detail">Manage details</a></p>
                         </div>
                     </div>
 
