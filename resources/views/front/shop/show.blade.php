@@ -93,10 +93,10 @@
                                 </div>
 
                                 @if($product->qty > 0)
-                                    @foreach($pro as $pr)
-                                        <button type="submit" class="primary-btn btn-detail" onclick="addCart({{ $pr->id }})">Add to cart</button>
-                                        <a href="javascript:addCart({{ $pr->id }})"></a>
-                                    @endforeach
+
+                                        <button type="submit" class="primary-btn btn-detail" onclick="addCart({{ $product->id }})">Add to cart</button>
+                                        <a href="javascript:addCart({{ $product->id }})"></a>
+
                                 @endif
 
 
