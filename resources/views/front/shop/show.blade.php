@@ -20,7 +20,7 @@
                             @foreach($product->productImages as $key => $productImages)
                             <li class="nav-item">
                                 <a class="nav-link {{ $loop->first ? 'active' : '' }}" data-toggle="tab" href="#tabs-{{$productImages->id}}" role="tab">
-                                    <div class="product__thumb__pic set-bg" data-setbg="{{$productImages->path}}">
+                                    <div class="product__thumb__pic set-bg" data-setbg="front/img/product/{{$productImages->path}}">
                                     </div>
                                 </a>
                             </li>
@@ -32,7 +32,7 @@
                             @foreach($product->productImages as $key => $productImages)
                             <div class="tab-pane {{ $loop->first ? 'active' : '' }}" id="tabs-{{$productImages->id}}" role="tabpanel" style="width: 555px; height: 555px; overflow: hidden">
                                 <div class="product__details__pic__item">
-                                    <img src="{{$productImages->path}}" alt="" style="width: 555px; height: 555px; object-fit: cover;">
+                                    <img src="front/img/product/{{$productImages->path}}" alt="" style="width: 555px; height: 555px; object-fit: cover;">
                                 </div>
                             </div>
                             @endforeach
@@ -290,7 +290,7 @@
                @foreach($pro as $product)
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                     <div class="product__item">
-                        <div class="product__item__pic set-bg" data-setbg="{{ isset($product->productImages[0]) ? $product->productImages[0]->path : 'front/img/hhhh.jpg' }}">                            @if($product->discount !=0)
+                        <div class="product__item__pic set-bg" data-setbg="front/img/product/{{ isset($product->productImages[0]) ? $product->productImages[0]->path : 'front/img/hhhh.jpg' }}">                            @if($product->discount !=0)
                             <span class="label">Sale</span>
                             @endif
                                 <a href="{{ url("/shop/product/{$product->slug}") }}" class="shop-image__link"></a>
