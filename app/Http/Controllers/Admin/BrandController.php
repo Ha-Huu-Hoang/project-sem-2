@@ -43,8 +43,14 @@ class BrandController extends Controller
     public function delete($id)
     {
         $brand = Brand::find($id);
+
+        if ($brand->products()->count() > 0) {
+            // Có sản phẩm liên quan đến thương hiệu, không thể xóa
+            return redirect('admin/brand')->with('status', 'Cannot delete brand. There are products associated with it.');
+        }
+
         $brand->delete();
-        return redirect('admin/brand')->with('status', 'Deleted member successfully');
+        return redirect('admin/brand')->with('status', 'Deleted brand successfully');
     }
     public function create(){
         return view('admin.brand.create');
@@ -67,28 +73,32 @@ class BrandController extends Controller
     }
     public function action(Request $request){
         $list_check =$request->input('list_check');
-        if ($list_check){
-            if (!empty($list_check)){
-                $act =$request->input('act');
-                if ($act == 'delete'){
+        if ($list_check) {
+            if (!empty($list_check)) {
+                $act = $request->input('act');
+
+                if ($act == 'delete') {
                     Brand::destroy($list_check);
-                    return redirect('admin/brand')->with('status','You have successfully deleted');
-                }
-                if ($act == 'restore'){
+                    return redirect('admin/brand')->with('status', 'You have successfully deleted');
+                } elseif ($act == 'restore') {
                     Brand::withTrashed()
-                        ->whereIn('id',$list_check)
+                        ->whereIn('id', $list_check)
                         ->restore();
-                    return redirect('admin/brand')->with('status','You have successfully recovered');
-                }
-                if ($act == 'forceDelete'){
-                   Brand::withTrashed()
-                        ->whereIn('id',$list_check)
+                    return redirect('admin/brand')->with('status', 'You have successfully recovered');
+                } elseif ($act == 'forceDelete') {
+                    Brand::withTrashed()
+                        ->whereIn('id', $list_check)
                         ->forceDelete();
-                    return redirect('admin/brand')->with('status','You have permanently deleted');
+                    return redirect('admin/brand')->with('status', 'You have permanently deleted');
+                } else {
+                    return redirect('admin/brand')->with('status', 'Invalid action');
                 }
             }
-            return redirect('admin/brand')->with('status','You need to choose to perform');
+
+            return redirect('admin/brand')->with('status', 'You need to choose an action to perform');
         }
+
+        return redirect('admin/brand')->with('status', 'No items selected');
     }
     public function edit($id)
     {

@@ -111,28 +111,32 @@ class ProductController extends Controller
     }
     public function action(Request $request){
         $list_check =$request->input('list_check');
-        if ($list_check){
-            if (!empty($list_check)){
-                $act =$request->input('act');
-                if ($act == 'delete'){
+        if ($list_check) {
+            if (!empty($list_check)) {
+                $act = $request->input('act');
+
+                if ($act == 'delete') {
                     Product::destroy($list_check);
-                    return redirect('admin/product')->with('status','You have successfully deleted');
-                }
-                if ($act == 'restore'){
+                    return redirect('admin/product')->with('status', 'You have successfully deleted');
+                } elseif ($act == 'restore') {
                     Product::withTrashed()
-                        ->whereIn('id',$list_check)
+                        ->whereIn('id', $list_check)
                         ->restore();
-                    return redirect('admin/product')->with('status','You have successfully recovered');
-                }
-                if ($act == 'forceDelete'){
+                    return redirect('admin/product')->with('status', 'You have successfully recovered');
+                } elseif ($act == 'forceDelete') {
                     Product::withTrashed()
-                        ->whereIn('id',$list_check)
+                        ->whereIn('id', $list_check)
                         ->forceDelete();
-                    return redirect('admin/product')->with('status','You have permanently deleted');
+                    return redirect('admin/product')->with('status', 'You have permanently deleted');
+                } else {
+                    return redirect('admin/product')->with('status', 'Invalid action');
                 }
             }
-            return redirect('admin/product')->with('status','You need to choose to perform');
+
+            return redirect('admin/product')->with('status', 'You need to choose an action to perform');
         }
+
+        return redirect('admin/product')->with('status', 'No items selected');
     }
 
 }

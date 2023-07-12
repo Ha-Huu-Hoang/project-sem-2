@@ -47,35 +47,45 @@ class ProductCategoryController extends Controller
     }
     public function delete($id)
     {
-            $productCategory = ProductCategory::find($id);
-            $productCategory->delete();
-            return redirect('admin/category')->with('status', 'Deleted member successfully');
+        $productCategory = ProductCategory::find($id);
+
+        if ($productCategory->products()->count() > 0) {
+            // Có sản phẩm liên quan đến danh mục, không thể xóa
+            return redirect('admin/category')->with('status', 'Cannot delete category. There are products associated with it.');
         }
 
+        $productCategory->delete();
+        return redirect('admin/category')->with('status', 'Deleted category successfully');
+    }
+
     public function action(Request $request){
-        $list_check =$request->input('list_check');
-        if ($list_check){
-            if (!empty($list_check)){
-                $act =$request->input('act');
-                if ($act == 'delete'){
+        $list_check = $request->input('list_check');
+        if ($list_check) {
+            if (!empty($list_check)) {
+                $act = $request->input('act');
+
+                if ($act == 'delete') {
                     ProductCategory::destroy($list_check);
-                    return redirect('admin/category')->with('status','You have successfully deleted');
-                }
-                if ($act == 'restore'){
+                    return redirect('admin/category')->with('status', 'You have successfully deleted');
+                } elseif ($act == 'restore') {
                     ProductCategory::withTrashed()
-                        ->whereIn('id',$list_check)
+                        ->whereIn('id', $list_check)
                         ->restore();
-                    return redirect('admin/category')->with('status','You have successfully recovered');
-                }
-                if ($act == 'forceDelete'){
+                    return redirect('admin/category')->with('status', 'You have successfully recovered');
+                } elseif ($act == 'forceDelete') {
                     ProductCategory::withTrashed()
-                        ->whereIn('id',$list_check)
+                        ->whereIn('id', $list_check)
                         ->forceDelete();
-                    return redirect('admin/category')->with('status','You have permanently deleted');
+                    return redirect('admin/category')->with('status', 'You have permanently deleted');
+                } else {
+                    return redirect('admin/category')->with('status', 'Invalid action');
                 }
             }
-            return redirect('admin/category')->with('status','You need to choose to perform');
+
+            return redirect('admin/category')->with('status', 'You need to choose an action to perform');
         }
+
+        return redirect('admin/category')->with('status', 'No items selected');
     }
     public function create(){
         return view('admin.category.create');
