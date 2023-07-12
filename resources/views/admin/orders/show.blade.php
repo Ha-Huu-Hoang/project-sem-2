@@ -11,7 +11,9 @@
                     </div>
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" onclick="window.print()">Print</button>
-                        <button type="button" class="btn btn-primary">Pay</button>
+                        @if ($order->status != 1)
+                            <button type="button" class="btn btn-primary" onclick="confirmPayment({{ $orderId }})">Confirm</button>
+                        @endif
                     </div>
                 </div>
                 <div class="card shadow">
@@ -227,4 +229,26 @@
         </div>
     </div>
 </main> <!-- main -->
+<script>
+    function confirmPayment(orderId) {
+        // Gửi yêu cầu AJAX đến server
+        $.ajax({
+            url: '{{ route("confirm.payment") }}', // Đường dẫn tới tuyến đường confirm.payment
+            type: 'POST',
+            data: {
+                _token: '{{ csrf_token() }}', // CSRF token
+                orderId: orderId // Truyền orderId
+            },
+            success: function(response) {
+                // Xử lý phản hồi từ server (nếu cần)
+                alert('Order payment confirmed successfully');
+                window.location.href = '{{ url("admin/orders") }}'; // Chuyển về trang 'admin/orders'
+            },
+            error: function(error) {
+                // Xử lý lỗi (nếu có)
+                alert('Error confirming order payment');
+            }
+        });
+    }
+</script>
 @endsection
