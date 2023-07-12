@@ -17,7 +17,7 @@
 
               <!-- table -->
                 @if(session('status'))
-                    <div class="alert alert-warning">
+                    <div class="alert alert-success">
                         {{session('status')}}
                     </div>
                 @endif
@@ -33,7 +33,7 @@
                         @csrf
                         @method('POST')
                     <div class="form-action form-inline py-3">
-                        <select class="form-control mr-1" name="act">
+                        <select class="form-control mr-3" name="act">
                             <option>Select</option>
                             @foreach($list_act as $k => $act)
                             <option value="{{$k}}">{{$act}}</option>
@@ -44,7 +44,13 @@
                   <table class="table table-borderless table-hover table-checkall">
                     <thead>
                       <tr>
-                        <th><input type="checkbox" name="checkall"></th>
+                        <th>
+{{--                            <input type="checkbox" name="checkall">--}}
+                            <label class="input-check">
+                                <input type="checkbox" name="checkall"  />
+                                <span class="checkmark"></span>
+                            </label>
+                        </th>
                         <th>#</th>
                         <th>User</th>
                         <th>Phone</th>
@@ -57,7 +63,13 @@
                     @if($users->total()>0)
                     @foreach($users as $user)
                       <tr>
-                        <td><input type="checkbox" name="list_check[]" value="{{$user->id}}"></td>
+                        <td>
+{{--                            <input type="checkbox" name="list_check[]" value="{{$user->id}}">--}}
+                            <label class="input-check">
+                                <input type="checkbox" name="list_check[]" value="{{$user->slug}}"  />
+                                <span class="checkmark"></span>
+                            </label>
+                        </td>
                         <td>
                           <div class="avatar avatar-sm">
                               <p class="mb-0 text-muted">{{$user->id}}</p>

@@ -120,9 +120,14 @@
                                     <div class="position-relative row form-group">
                                         <label for="featured" class="col-md-3 text-md-right col-form-label">Featured</label>
                                         <div class="col-md-9 col-xl-8">
-                                            <div class="position-relative form-check pt-sm-2">
-                                                <input name="featured" id="featured" type="checkbox" value="1" class="form-check-input" {{$product->featured ? 'checked' : ''}}>
-                                                <label for="featured" class="form-check-label">Featured</label>
+                                            <div class="position-relative form-check pt-sm-1" style="padding-left: 0;">
+{{--                                                <input name="featured" id="featured" type="checkbox" value="1" class="form-check-input" {{$product->featured ? 'checked' : ''}}>--}}
+{{--                                                <label for="featured" class="form-check-label">Featured</label>--}}
+
+                                                <label class="input-check" style="padding-left: 28px; line-height: 1.9">
+                                                    Featured <input type="checkbox" name="featured" value="1" checked="checked" {{$product->featured ? 'checked' : ''}} />
+                                                    <span class="checkmark"></span>
+                                                </label>
                                             </div>
                                         </div>
                                     </div>

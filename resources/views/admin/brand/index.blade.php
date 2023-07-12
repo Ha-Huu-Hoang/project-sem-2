@@ -18,7 +18,7 @@
 
                     <!-- table -->
                     @if(session('status'))
-                        <div class="alert alert-warning">
+                        <div class="alert alert-success">
                             {{session('status')}}
                         </div>
                     @endif
@@ -34,7 +34,7 @@
                                 @csrf
                                 @method('POST')
                                 <div class="form-action form-inline py-3">
-                                    <select class="form-control mr-1" name="act">
+                                    <select class="form-control mr-3" name="act">
                                         <option>Select</option>
                                         @foreach($list_act as $k => $act)
                                             <option value="{{$k}}">{{$act}}</option>
@@ -46,7 +46,13 @@
                                 text-align: center">
                                     <thead>
                                     <tr>
-                                        <th><input type="checkbox" name="checkall"></th>
+                                        <th>
+{{--                                            <input type="checkbox" name="checkall">--}}
+                                            <label class="input-check">
+                                                <input type="checkbox" name="checkall"  />
+                                                <span class="checkmark"></span>
+                                            </label>
+                                        </th>
                                         <th style="width: 1.6rem">#</th>
                                         <th>Name</th>
                                         <th>Action</th>
@@ -56,7 +62,13 @@
                                     @if($brand->total()>0)
                                         @foreach($brand as $brands)
                                             <tr>
-                                                <td><input type="checkbox" name="list_check[]" value="{{$brands->id}}"></td>
+                                                <td>
+{{--                                                    <input type="checkbox" name="list_check[]" value="{{$brands->id}}">--}}
+                                                    <label class="input-check">
+                                                        <input type="checkbox" name="list_check[]" value="{{$brands->id}}"  />
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </td>
                                                 <td>
                                                     <div class="avatar avatar-sm">
                                                         <p class="mb-0 text-muted">{{$brands->id}}</p>
