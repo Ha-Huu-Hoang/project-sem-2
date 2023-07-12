@@ -17,19 +17,20 @@ class OrdersController extends Controller
         $this->orderService=$orderService;
     }
 
-    public function index(Request $request) {
+    public function index(Request $request)
+    {
         $status = $request->input('status');
         $list_act = [
             'delete' => 'Temporary delete'
         ];
+
         if ($status == 'trash') {
             $list_act = [
                 'restore' => 'Restore',
                 'forceDelete' => 'Permanently deleted'
             ];
-            $order = Order::onlyTrashed()->paginate(10);
+            $order = Order::onlyTrashed()->orderBy('status', 'asc')->paginate(10);
         } else {
-
             $search = '';
             if ($request->input('search')) {
                 $search = $request->input('search');
@@ -37,16 +38,19 @@ class OrdersController extends Controller
             $order = Order::where(function ($query) use ($search) {
                 $query->orWhere('first_name', 'LIKE', "%{$search}%")
                     ->orWhere('last_name', 'LIKE', "%{$search}%");
-            })->paginate(10);
+            })->orderBy('status', 'asc')->paginate(10);
         }
+
         $count_user_active = Order::count();
         $count_user_trash = Order::onlyTrashed()->count();
         $count = [$count_user_active, $count_user_trash];
-        return view("admin.orders.index",compact('order', 'count', 'list_act', 'status'));
+
+        return view("admin.orders.index", compact('order', 'count', 'list_act', 'status'));
     }
     public function show($id, Request $request){
 
         $order =Order::find($id);
+        $orderId = $id; // Lấy giá trị của $id và gán cho biến $orderId
         $subtotal = 0;
         $vatRate = 0.1;
         $shippingFee = 0;
@@ -66,11 +70,16 @@ class OrdersController extends Controller
         $total = $subtotal + $vatAmount + $shippingFee;
 
 
-        return view('admin.orders.show',['order' => $order,
-            'subtotal'=>$subtotal,
-            'vatAmount'=>$vatAmount,
-            'total'=>$total,
-            'shippingFee'=>$shippingFee]);
+        return view('admin.orders.show', compact('order', 'orderId', 'subtotal', 'vatAmount', 'total', 'shippingFee'));
+    }
+    public function confirmPayment(Request $request)
+    {
+        $orderId = $request->input('orderId');
+
+        // Gọi phương thức sác nhận đơn hàng từ OrderService
+        $this->orderService->confirmOrderPayment($orderId);
+
+        return redirect('admin/orders')->with('status', 'Order payment confirmed successfully');
     }
 
 }

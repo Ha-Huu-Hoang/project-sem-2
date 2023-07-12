@@ -145,6 +145,8 @@ Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
 
     Route::get('dashboard',[\App\Http\Controllers\Admin\DashboardController::class,'index']);
     Route::get('orders',[\App\Http\Controllers\Admin\OrdersController::class,'index']);
+    Route::post('/confirm-payment', [\App\Http\Controllers\Admin\OrdersController::class, 'confirmPayment'])->name('confirm.payment');
+
     Route::get('orders/show/{id}',[\App\Http\Controllers\Admin\OrdersController::class,'show'])->name('order.show');
 
 
