@@ -42,7 +42,11 @@
                                     <td class="product__cart__item">
                                         <div class="product__cart__item__pic">
                                             @if(isset($cart->options['images']) && count($cart->options['images']) > 0)
-                                                <a href="{{url("/shop/product/{$cart->slug}")}}"><img src="{{$cart->options['images'][0]->path}}" alt="{{$cart->name}}" style="width: 90px;height: 90px; object-fit: cover"></a>
+                                                <a href="{{ url("/shop/product/{$cart->slug}") }}">
+                                                    <img src="{{ 'front/img/product/' . ($cart->options['images'][0]->path ?? 'hhhh.jpg') }}" alt="{{ $cart->name }}" style="width: 90px; height: 90px; object-fit: cover">
+                                                </a>
+                                            @else
+                                                <div class="product__item__pic set-bg" data-setbg="{{ 'front/img/product/' . ($product->productImages[0]->path ?? 'hhhh.jpg') }}"></div>
                                             @endif
                                         </div>
                                         <div class="product__cart__item__text">
