@@ -84,17 +84,31 @@
                     <img src="./dashboard/assets/images/logo.png" alt="Shop Runner">
                 </a>
             </div>
+
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Home</span>
             </p>
             <ul class="navbar-nav flex-fill w-100 mb-2">
                 <li class="nav-item">
-                    <a href="{{url("/admin/dashboard")}}" class="nav-link">
+                    <a href="{{url("/")}}" class="nav-link">
                         <i class="fe fe-home fe-16"></i>
+                        <span class="ml-3 item-text">Home</span>
+                    </a>
+                </li>
+            </ul>
+
+            <p class="text-muted nav-heading mt-1 mb-1">
+                <span>Dashboard</span>
+            </p>
+            <ul class="navbar-nav flex-fill w-100 mb-2">
+                <li class="nav-item">
+                    <a href="{{url("/admin/dashboard")}}" class="nav-link">
+                        <i class="fe fe-pie-chart fe-16"></i>
                         <span class="ml-3 item-text">Dashboard</span>
                     </a>
                 </li>
             </ul>
+
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Components</span>
             </p>
