@@ -177,7 +177,11 @@
             }
         }
         $button.parent().find('input').val(newVal);
+        // Cập nhật giỏ hàng
+        var rowId = $button.parent().find('input').data('rowid');
+        updateCart(rowId, newVal);
     });
+
 
     var proQty = $('.pro-qty-2');
     proQty.prepend('<span class="fa fa-angle-left dec qtybtn"></span>');
