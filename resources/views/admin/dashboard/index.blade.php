@@ -8,18 +8,18 @@
                 <div class="col-12">
                     <div class="row">
                         <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow bg-primary text-white border-0">
+                            <div class="card shadow border-0">
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-primary-light">
-                            <i class="fe fe-16 fe-shopping-bag text-white mb-0"></i>
-                          </span>
+                                          <span class="circle circle-sm bg-primary">
+                                            <i class="fe fe-16 fe-shopping-cart text-white mb-0"></i>
+                                          </span>
                                         </div>
                                         <div class="col pr-0">
-                                            <p class="small text-muted mb-0">Total Revenue</p>
-                                            <span class="h3 mb-0 text-white">${{$totalRevenue}}</span>
-{{--                                            <span class="small text-muted">+5.5%</span>--}}
+                                            <p class="small text-muted mb-0">Total orders today</p>
+                                            <span class="h3 mb-0">{{$orderDay}}</span>
+{{--                                            <span class="small text-success">Total orders today</span>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -30,40 +30,15 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-primary">
-                            <i class="fe fe-16 fe-shopping-cart text-white mb-0"></i>
-                          </span>
-                                        </div>
-                                        <div class="col pr-0">
-                                            <p class="small text-muted mb-0">Orders</p>
-                                            <span class="h3 mb-0">{{$totalOrders}}</span>
-                                            <span class="small text-success">orders completed</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6 col-xl-3 mb-4">
-                            <div class="card shadow border-0">
-                                <div class="card-body">
-                                    <div class="row align-items-center">
-                                        <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-primary">
-                            <i class="fe fe-16 fe-filter text-white mb-0"></i>
-                          </span>
+                                          <span class="circle circle-sm bg-primary">
+                                            <i class="fe fe-16 fe-filter text-white mb-0"></i>
+                                          </span>
                                         </div>
                                         <div class="col">
-                                            <p class="small text-muted mb-0">Conversion</p>
+                                            <p class="small text-muted mb-0">Total sales today</p>
                                             <div class="row align-items-center no-gutters">
                                                 <div class="col-auto">
-                                                    <span class="h3 mr-2 mb-0"> 86.6% </span>
-                                                </div>
-                                                <div class="col-md-12 col-lg">
-                                                    <div class="progress progress-sm mt-2" style="height:3px">
-                                                        <div class="progress-bar bg-success" role="progressbar"
-                                                             style="width: 87%" aria-valuenow="87" aria-valuemin="0"
-                                                             aria-valuemax="100"></div>
-                                                    </div>
+                                                    <span class="h3 mr-2 mb-0">${{$orderDayTotal}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -76,13 +51,31 @@
                                 <div class="card-body">
                                     <div class="row align-items-center">
                                         <div class="col-3 text-center">
-                          <span class="circle circle-sm bg-primary">
-                            <i class="fe fe-16 fe-activity text-white mb-0"></i>
-                          </span>
+                                          <span class="circle circle-sm bg-primary">
+                                            <i class="fe fe-16 fe-activity text-white mb-0"></i>
+                                          </span>
                                         </div>
                                         <div class="col">
-                                            <p class="small text-muted mb-0">AVG Orders</p>
-                                            <span class="h3 mb-0">$80</span>
+                                            <p class="small text-muted mb-0">Total order completed today</p>
+                                            <span class="h3 mb-0">{{$orderDayCompleted}}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-xl-3 mb-4">
+                            <div class="card shadow border-0">
+                                <div class="card-body">
+                                    <div class="row align-items-center">
+                                        <div class="col-3 text-center">
+                                          <span class="circle circle-sm bg-primary-light">
+                                            <i class="fe fe-16 fe-shopping-bag text-white mb-0"></i>
+                                          </span>
+                                        </div>
+                                        <div class="col pr-0">
+                                            <p class="small text-muted mb-0">Total Revenue</p>
+                                            <span class="h3 mb-0">${{$totalRevenue}}</span>
+                                            {{--                                            <span class="small text-muted">+5.5%</span>--}}
                                         </div>
                                     </div>
                                 </div>
@@ -117,222 +110,54 @@
                         </div> <!-- .col -->
                     </div>
                     <!-- end section -->
-                    <!-- info small box -->
-{{--                    <div class="row">--}}
-{{--                        <div class="col-md-4">--}}
-{{--                            <div class="card shadow mb-4">--}}
-{{--                                <div class="card-body">--}}
-{{--                                    <div class="chart-widget">--}}
-{{--                                        <div id="gradientRadial"></div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col-6 text-center">--}}
-{{--                                            <p class="text-muted mb-0">Yesterday</p>--}}
-{{--                                            <h4 class="mb-1">126</h4>--}}
-{{--                                            <p class="text-muted mb-2">+5.5%</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-6 text-center">--}}
-{{--                                            <p class="text-muted mb-0">Today</p>--}}
-{{--                                            <h4 class="mb-1">86</h4>--}}
-{{--                                            <p class="text-muted mb-2">-5.5%</p>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div> <!-- .card-body -->--}}
-{{--                            </div> <!-- .card -->--}}
-{{--                        </div> <!-- .col -->--}}
-{{--                        <div class="col-md-4">--}}
-{{--                            <div class="card shadow mb-4">--}}
-{{--                                <div class="card-body">--}}
-{{--                                    <div class="chart-widget mb-2">--}}
-{{--                                        <div id="radialbar"></div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="row items-align-center">--}}
-{{--                                        <div class="col-4 text-center">--}}
-{{--                                            <p class="text-muted mb-1">Cost</p>--}}
-{{--                                            <h6 class="mb-1">$1,823</h6>--}}
-{{--                                            <p class="text-muted mb-0">+12%</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-4 text-center">--}}
-{{--                                            <p class="text-muted mb-1">Revenue</p>--}}
-{{--                                            <h6 class="mb-1">$6,830</h6>--}}
-{{--                                            <p class="text-muted mb-0">+8%</p>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-4 text-center">--}}
-{{--                                            <p class="text-muted mb-1">Earning</p>--}}
-{{--                                            <h6 class="mb-1">$4,830</h6>--}}
-{{--                                            <p class="text-muted mb-0">+8%</p>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div> <!-- .card-body -->--}}
-{{--                            </div> <!-- .card -->--}}
-{{--                        </div> <!-- .col -->--}}
-{{--                        <div class="col-md-4">--}}
-{{--                            <div class="card shadow mb-4">--}}
-{{--                                <div class="card-body">--}}
-{{--                                    <p class="mb-0"><strong class="mb-0 text-uppercase text-muted">Today</strong></p>--}}
-{{--                                    <h3 class="mb-0">$2,562.30</h3>--}}
-{{--                                    <p class="text-muted">+18.9% Last week</p>--}}
-{{--                                    <div class="chart-box mt-n5">--}}
-{{--                                        <div id="lineChartWidget"></div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col-4 text-center mt-3">--}}
-{{--                                            <p class="mb-1 text-muted">Completions</p>--}}
-{{--                                            <h6 class="mb-0">26</h6>--}}
-{{--                                            <span class="small text-muted">+20%</span>--}}
-{{--                                            <span class="fe fe-arrow-up text-success fe-12"></span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-4 text-center mt-3">--}}
-{{--                                            <p class="mb-1 text-muted">Goal Value</p>--}}
-{{--                                            <h6 class="mb-0">$260</h6>--}}
-{{--                                            <span class="small text-muted">+6%</span>--}}
-{{--                                            <span class="fe fe-arrow-up text-success fe-12"></span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-4 text-center mt-3">--}}
-{{--                                            <p class="mb-1 text-muted">Conversion</p>--}}
-{{--                                            <h6 class="mb-0">6%</h6>--}}
-{{--                                            <span class="small text-muted">-2%</span>--}}
-{{--                                            <span class="fe fe-arrow-down text-danger fe-12"></span>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div> <!-- .card-body -->--}}
-{{--                            </div> <!-- .card -->--}}
-{{--                        </div> <!-- .col-md -->--}}
-{{--                        <div class="col-md-6">--}}
-{{--                            <div class="card shadow mb-4">--}}
-{{--                                <div class="card-body">--}}
-{{--                                    <div class="card-title">--}}
-{{--                                        <strong>Products</strong>--}}
-{{--                                        <a class="float-right small text-muted" href="#!">View all</a>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="row">--}}
-{{--                                        <div class="col-md-12">--}}
-{{--                                            <div id="chart-box">--}}
-{{--                                                <div id="donutChartWidget"></div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-md-12">--}}
-{{--                                            <div class="row align-items-center my-3">--}}
-{{--                                                <div class="col">--}}
-{{--                                                    <strong>Cloud Server</strong>--}}
-{{--                                                    <div class="my-0 text-muted small">Global, Services</div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col-auto">--}}
-{{--                                                    <strong>+85%</strong>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col-3">--}}
-{{--                                                    <div class="progress" style="height: 4px;">--}}
-{{--                                                        <div class="progress-bar" role="progressbar" style="width: 85%"--}}
-{{--                                                             aria-valuenow="85" aria-valuemin="0"--}}
-{{--                                                             aria-valuemax="100"></div>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="row align-items-center my-3">--}}
-{{--                                                <div class="col">--}}
-{{--                                                    <strong>CDN</strong>--}}
-{{--                                                    <div class="my-0 text-muted small">Global, Services</div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col-auto">--}}
-{{--                                                    <strong>+75%</strong>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col-3">--}}
-{{--                                                    <div class="progress" style="height: 4px;">--}}
-{{--                                                        <div class="progress-bar" role="progressbar" style="width: 75%"--}}
-{{--                                                             aria-valuenow="75" aria-valuemin="0"--}}
-{{--                                                             aria-valuemax="100"></div>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                            <div class="row align-items-center my-3">--}}
-{{--                                                <div class="col">--}}
-{{--                                                    <strong>Databases</strong>--}}
-{{--                                                    <div class="my-0 text-muted small">Local, DC</div>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col-auto">--}}
-{{--                                                    <strong>+62%</strong>--}}
-{{--                                                </div>--}}
-{{--                                                <div class="col-3">--}}
-{{--                                                    <div class="progress" style="height: 4px;">--}}
-{{--                                                        <div class="progress-bar" role="progressbar" style="width: 62%"--}}
-{{--                                                             aria-valuenow="62" aria-valuemin="0"--}}
-{{--                                                             aria-valuemax="100"></div>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-{{--                                            </div>--}}
-{{--                                        </div> <!-- .col-md-12 -->--}}
-{{--                                    </div> <!-- .row -->--}}
-{{--                                </div> <!-- .card-body -->--}}
-{{--                            </div> <!-- .card -->--}}
-{{--                        </div> <!-- .col-md -->--}}
-{{--                        <div class="col-md-6">--}}
-{{--                            <div class="card shadow mb-4">--}}
-{{--                                <div class="card-body">--}}
-{{--                                    <div class="card-title">--}}
-{{--                                        <strong>Region</strong>--}}
-{{--                                        <a class="float-right small text-muted" href="#!">View all</a>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="map-box"--}}
-{{--                                         style="position: relative; width: 350px; min-height: 130px; margin:0 auto;">--}}
-{{--                                        <div id="dataMapUSA"></div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="row align-items-center h-100 my-2">--}}
-{{--                                        <div class="col">--}}
-{{--                                            <p class="mb-0">France</p>--}}
-{{--                                            <span class="my-0 text-muted small">+10%</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-auto text-right">--}}
-{{--                                            <span>118</span><br/>--}}
-{{--                                            <div class="progress mt-2" style="height: 4px;">--}}
-{{--                                                <div class="progress-bar" role="progressbar" style="width: 85%"--}}
-{{--                                                     aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="row align-items-center my-2">--}}
-{{--                                        <div class="col">--}}
-{{--                                            <p class="mb-0">Netherlands</p>--}}
-{{--                                            <span class="my-0 text-muted small">+0.6%</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-auto text-right">--}}
-{{--                                            <span>1008</span><br/>--}}
-{{--                                            <div class="progress mt-2" style="height: 4px;">--}}
-{{--                                                <div class="progress-bar" role="progressbar" style="width: 85%"--}}
-{{--                                                     aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="row align-items-center my-2">--}}
-{{--                                        <div class="col">--}}
-{{--                                            <p class="mb-0">Italy</p>--}}
-{{--                                            <span class="my-0 text-muted small">+1.6%</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-auto text-right">--}}
-{{--                                            <span>67</span><br/>--}}
-{{--                                            <div class="progress mt-2" style="height: 4px;">--}}
-{{--                                                <div class="progress-bar" role="progressbar" style="width: 85%"--}}
-{{--                                                     aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                    <div class="row align-items-center my-2">--}}
-{{--                                        <div class="col">--}}
-{{--                                            <p class="mb-0">Spain</p>--}}
-{{--                                            <span class="my-0 text-muted small">+118%</span>--}}
-{{--                                        </div>--}}
-{{--                                        <div class="col-auto text-right">--}}
-{{--                                            <span>186</span><br/>--}}
-{{--                                            <div class="progress mt-2" style="height: 4px;">--}}
-{{--                                                <div class="progress-bar" role="progressbar" style="width: 85%"--}}
-{{--                                                     aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>--}}
-{{--                                            </div>--}}
-{{--                                        </div>--}}
-{{--                                    </div>--}}
-{{--                                </div>--}}
-{{--                            </div>--}}
-{{--                        </div> <!-- .col -->--}}
-{{--                    </div> --}}
-{{--                    <div class="row">--}}
+
+
+                    {{-- Charts 2 --}}
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-body">
+                                    <p class="pl-3" ><strong class="mb-0 text-uppercase card-title">Statistics of the last 7 days</strong></p>
+                                    <h3 class="pt-3 pl-3">${{$total7Days}}</h3>
+                                    <div class="chart-box pt-4">
+                                        <div id="line" style="padding-bottom: 36px"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="card shadow mb-4">
+                                <div class="card-header">
+                                    <strong class="card-title" style="margin-top: 1rem;">Featured products</strong>
+                                </div>
+                                <div class="card-body">
+                                    <div class="list-group list-group-flush p-1">
+                                        @foreach($featured as $productFeatured)
+                                            <div class="list-group-item">
+                                                <div class="row align-items-center">
+                                                    <div class="col-3 col-md-2">
+                                                        <img src="front/img/product/{{ isset($productFeatured->productImages[0]) ? $productFeatured->productImages[0]->path : 'front/img/hhhh.jpg' }}" alt="{{$productFeatured->name}}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover">
+                                                    </div>
+                                                    <div class="col">
+                                                        <strong>{{$productFeatured->name}}</strong>
+                                                        <div class="my-0 text-muted small">{{$productFeatured->brand->name}}</div>
+                                                    </div>
+                                                    <div class="col-auto">
+                                                        <a href="{{url('/admin/product/show/'.$productFeatured->id)}}" class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">Details</a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        @endforeach
+                                    </div> <!-- / .list-group -->
+                                </div> <!-- / .card-body -->
+                            </div> <!-- .card -->
+                        </div>
+                    </div>
+
+                    {{-- End Charts 2 --}}
+
+                    <div class="row">
                         <!-- Recent orders -->
                         <div class="col-md-12">
                             <h6 class="mb-3">Last orders</h6>
@@ -514,11 +339,11 @@
                                 </tr>
                                 </tbody>
                             </table>
-                        </div> <!-- / .col-md-3 -->
-                    </div> <!-- end section -->
+                        </div>
+                    </div>
                 </div>
-            </div> <!-- .row -->
-        </div> <!-- .container-fluid -->
+            </div>
+        </div>
         <div class="modal fade modal-notif modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel"
              aria-hidden="true">
             <div class="modal-dialog modal-sm" role="document">
@@ -580,8 +405,8 @@
                                         <small class="badge badge-pill badge-light text-muted">1h ago</small>
                                     </div>
                                 </div>
-                            </div> <!-- / .row -->
-                        </div> <!-- / .list-group -->
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary btn-block" data-dismiss="modal">Clear All
@@ -647,6 +472,6 @@
                 </div>
             </div>
         </div>
-    </main> <!-- main -->
+    </main>
 
 @endsection
