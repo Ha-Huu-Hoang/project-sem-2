@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
 
         $totalRevenue = Order::where("status", 4)->sum("total");
@@ -31,8 +31,54 @@ class DashboardController extends Controller
             ->get();
 //        dd($productFeatured);
 
+//        Order
+        $status = $request->input('status');
+        $list_act = [
+            'delete' => 'Temporary delete'
+        ];
+
+        if ($status == 'trash') {
+            $list_act = [
+                'restore' => 'Restore',
+                'forceDelete' => 'Permanently deleted'
+            ];
+            $order = Order::where('status', 0)
+
+                ->orderBy('status', 'asc')
+                ->paginate(10);
+            $count_user_trash = Order::where('status', 0)->count();
+        } elseif ($status == 'delete') {
+            $list_act = [
+                'restore' => 'Restore',
+                'forceDelete' => 'Permanently deleted'
+            ];
+            $order = Order::onlyTrashed()
+                ->orderBy('status', 'asc')
+                ->paginate(10);
+        } else {
+            $search = '';
+            if ($request->input('search')) {
+                $search = $request->input('search');
+            }
+            $order = Order::where(function ($query) use ($search) {
+                $query->orWhere('first_name', 'LIKE', "%{$search}%")
+                    ->orWhere('last_name', 'LIKE', "%{$search}%");
+            })
+                ->orderBy('status', 'asc')
+                ->paginate(10);
+            // Số lượng đơn hàng có trạng thái 0 sẽ là 0
+            $count_user_trash = Order::where('status', 0)->count();
+        }
+
+        $count_user_active = Order::count();
+
+        $count = [$count_user_active, $count_user_trash];
+
         return view('admin.dashboard.index',
-            compact('totalRevenue', 'orderDay', 'orderDayTotal', 'orderDayCompleted', 'total7Days', 'featured'));
+            compact(
+                'totalRevenue', 'orderDay', 'orderDayTotal', 'orderDayCompleted', 'total7Days', 'featured',
+                'order', 'count', 'list_act', 'status'
+            ));
     }
 
     public function statistical()
