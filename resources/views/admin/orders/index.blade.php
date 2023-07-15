@@ -10,10 +10,14 @@
                         <div class="col-md">
                             <ul class="nav nav-pills justify-content-start">
                                 <li class="nav-item">
-                                    <a class="nav-link active bg-transparent pr-2 pl-0 text-primary" href="#">All <span class="badge badge-pill bg-primary text-white ml-2">164</span></a>
+                                    <a class="nav-link{{ $status == 'active' ? ' active bg-transparent pr-2 pl-0 text-primary' : 'text-muted px-2' }}" href="{{ request()->fullUrlWithQuery(['status' => 'active']) }}">
+                                        All <span class="badge badge-pill{{ $status == 'active' ? ' bg-primary text-white' : ' bg-white border text-muted' }} ml-2">({{ $count[0] }})</span>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-muted px-2" href="#">Pending <span class="badge badge-pill bg-white border text-muted ml-2">64</span></a>
+                                    <a class="nav-link{{ $status == 'trash' ? ' active bg-transparent pr-2 pl-0 text-primary' : ' text-muted px-2' }}" href="{{ request()->fullUrlWithQuery(['status' => 'trash']) }}">
+                                        Pending <span class="badge badge-pill{{ $status == 'trash' ? ' bg-primary text-white' : ' bg-white border text-muted' }} ml-2">({{ $count[1] }})</span>
+                                    </a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link text-muted px-2" href="#">Processing <span class="badge badge-pill bg-white border text-muted ml-2">48</span></a>
@@ -151,6 +155,7 @@
                         </tr>
                         </thead>
                         <tbody>
+                        @if($order->total()>0)
                         @foreach($order as $orders)
                         <tr>
                             <td class="align-center">
@@ -185,12 +190,15 @@
                                    class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
                                     Details
                                 </a>
-
                                     <a href="" class="btn btn-danger btn-sm rounded-0 text-white"  onclick="return confirm('Are you sure you want to delete ?')" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
-
                             </td>
                         </tr>
                         @endforeach
+                        @else
+                            <tr>
+                                <td colspan="10"> <p class="alert alert-warning">Search results are empty</p></td>
+                            </tr>
+                        @endif
                         </tbody>
                     </table>
                     <nav aria-label="Table Paging" class="my-3">

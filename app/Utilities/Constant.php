@@ -14,10 +14,12 @@ class Constant
     ];
     const order_status_unfinished=0;
     const order_status_finish=1;
+    const order_status_completed=4;
 
     public static $order_status =[
       self::order_status_unfinished=>'unfinished' ,
-      self::order_status_finish=>'finish'
+      self::order_status_finish=>'finish',
+        self::order_status_completed=>'completed'
     ];
 
 
