@@ -288,9 +288,6 @@ class CheckoutController extends Controller
             // Send Email
             $this->sendEmail($request, $order);
         }
-        else {
-            $notification = "Failed! Error during checkout";
-        }
 //        dd($request->all());
         return view("front.checkout.thank-you", compact("notification"));
     }
