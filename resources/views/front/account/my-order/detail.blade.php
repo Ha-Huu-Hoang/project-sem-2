@@ -146,12 +146,23 @@
                                             <tr>
                                                 <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #5b5b5b; line-height: 20px; vertical-align: top">
                                                     Payment Method: {{$order->payment_method}}<br />
-                                                    Order Status: @switch($order->status) @case(0)<span class="text text-secondary">Pending</span>@break @case(1)<span
-                                                        class="text text-success"
-                                                    >Confirmed</span
-                                                    >@break @case(2)<span class="text text-primary">Shipping</span>@break @case(3)<span class="text text-primary">Shipped</span
-                                                    >@break @case(4)<span class="text text-success">Completed</span>@break @case(5)<span class="text text-danger">Cancel</span
-                                                    >@break @endswitch
+                                                    Order Status: @switch($order->status)
+                                                        @case(0)<span class="text text-secondary">Pending</span>
+                                                        @break
+
+                                                        @case(1)<span class="text text-success">Confirmed</span>
+                                                        @break
+
+                                                        @case(2)<span class="text text-primary">Shipping</span>
+                                                        @break
+
+                                                        @case(3)<span class="text text-primary">Shipped</span>
+                                                        @break
+
+                                                        @case(4)<span class="text text-success">Completed</span>@break @case(5)<span class="text text-danger">Cancel</span>
+                                                        @break
+
+                                                    @endswitch
                                                     <br />
                                                     Payment Status: @switch($order->is_paid) @case(0)<span class="text text-secondary">Unpaid</span>@break @case(1)<span
                                                         class="text text-success"
@@ -258,7 +269,7 @@
                                             style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #ff0000; line-height: 18px; vertical-align: top; padding: 10px 0"
                                             class="article"
                                         >
-                                            {{ $orderDetail->product->name }}
+                                            <a href="{{ url("/shop/product/".$orderDetail->product->slug) }}" style="color: #ff0000">{{ $orderDetail->product->name }}</a>
                                         </td>
                                         <td style="font-size: 12px; font-family: 'Open Sans', sans-serif; color: #646a6e; line-height: 18px; vertical-align: top; padding: 10px 0">
                                             <small>{{$orderDetail->product->sku}}</small>
