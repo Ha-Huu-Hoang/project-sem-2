@@ -36,6 +36,11 @@
                             <h6 class="coupon__code"><span class="icon_tag_alt"></span> Have a coupon? <a href="{{url("/cart")}}" style="color: #1da1f2">Click
                                     here</a> to enter your code</h6>
                             <h6 class="checkout__title">Billing Details</h6>
+                            @if(session('error'))
+                                <div class="alert alert-warning text-small">
+                                    {{session('error')}}
+                                </div>
+                            @endif
                             <div class="row">
                                 <div class="col-lg-6">
                                     <div class="checkout__input">

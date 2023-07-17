@@ -145,6 +145,35 @@ class CheckoutController extends Controller
             $this->orderDetailService->create($data);
         }
 
+        // Check if the number of products is enough to buy or not
+        $canProceed = true;
+        $insufficientProducts = [];
+        foreach ($carts as $cart) {
+            $product = Product::find($cart->id);
+            if ($product) {
+                if ($cart->qty > $product->qty) {
+                    $canProceed = false;
+                    $insufficientProducts[] = $product->name;
+                }
+            }
+        }
+
+        if (!$canProceed) {
+            $errorMessage = "The following products are not in stock: " . implode(", ", $insufficientProducts);
+             return back()->with('error', $errorMessage);
+        }
+
+        foreach ($carts as $cart) {
+            $product = Product::find($cart->id);
+            if ($product) {
+                $product->qty -= $cart->qty;
+                if ($product->qty < 0) {
+                    $product->qty = 0;
+                }
+                $product->save();
+            }
+        }
+
         // Clear the cart
         Cart::destroy();
 
