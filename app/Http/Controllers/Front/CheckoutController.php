@@ -250,12 +250,12 @@ class CheckoutController extends Controller
 
 //            dd($order->all());
             //Just a example, please check more in there
-            return redirect()->to($jsonResult['payUrl']);
+            return redirect()->to($jsonResult['payUrl'])->with("notification","Success! You will pay on delivery. Please check your mail.");
         }
 
         // Send Email
         $this->sendEmail($request ,$order);
-        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail.");
+        return redirect("/checkout/thank-you/")->with("notification","Success! You have successfully paid for your order. Please check your email.");
     }
 
     //PayPal
@@ -278,6 +278,9 @@ class CheckoutController extends Controller
 //        $requestId = $request->input('requestId');
         $order = Order::where('order_code', $requestId)->first();
 
+        $notification = session("notification");
+
+
         if ($status == '0' ) {
             // Update order status
             $order->update(["is_paid" => true, "status" => 1]);
@@ -285,7 +288,9 @@ class CheckoutController extends Controller
             // Send Email
             $this->sendEmail($request, $order);
         }
-        $notification = session("notification");
+        else {
+            $notification = "Failed! Error during checkout";
+        }
 //        dd($request->all());
         return view("front.checkout.thank-you", compact("notification"));
     }
