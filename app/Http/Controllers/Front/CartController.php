@@ -36,8 +36,10 @@ class CartController extends Controller
             $cart->productDetails = $product->productDetails;
         }
 
+
         return view('front.shop.cart', compact('carts', 'total', 'subtotal', 'vatAmount', 'vatRate'));
     }
+
 
 
 

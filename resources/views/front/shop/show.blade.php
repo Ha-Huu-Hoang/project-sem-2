@@ -79,7 +79,7 @@
                                 <div class="product__details__cart__option">
                                     <div class="quantity">
                                         <div class="pro-qty">
-                                            <input type="text" value="1">
+                                            <input class="quantity-input-2" type="text" value="1" data-rowid="{{$product->rowId}}" data-qty="1" >
                                         </div>
                                         @if($product->qty > 0)
                                             <p>{{ $product->qty }} products are available</p>
