@@ -30,7 +30,7 @@ class DashboardController extends Controller
             ->with('product')
             ->groupBy('product_id')
             ->orderBy('quantity', 'desc')
-            ->take(6)
+            ->limit(6)
             ->get();
 //        dd($topSelling);
 
