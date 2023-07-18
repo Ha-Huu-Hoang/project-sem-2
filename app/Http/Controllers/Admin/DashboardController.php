@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Order;
+use App\Models\OrderDetail;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Illuminate\Http\Request;
@@ -14,10 +15,10 @@ class DashboardController extends Controller
     public function index(Request $request)
     {
 
-        $totalRevenue = Order::where("status", 4)->sum("total");
-//        dd($totalRevenue, $totalOrders);
 
         $orderDay = Order::whereDay('created_at', now())->count();
+        $totalRevenue = Order::whereDay('created_at', now())->sum('total');
+//        dd($totalRevenue);
         $orderDayTotal = Order::whereDay('updated_at', now())->where('status', 4)->sum('total');
         $orderDayCompleted = Order::whereDay('updated_at', now())->where('status', 4)->count();
 //        dd($orderDayCompleted);
@@ -25,11 +26,13 @@ class DashboardController extends Controller
         $total7Days = Order::where('status', 4)->whereDate('updated_at', '>=', now()->subDays(6))->sum('total');
 //        dd($total7Days);
 
-        $featured = Product::where('featured', true)
-            ->with('productImages')
-            ->limit(6)
+        $topSelling = OrderDetail::select('product_id', DB::raw('SUM(qty) as quantity'))
+            ->with('product')
+            ->groupBy('product_id')
+            ->orderBy('quantity', 'desc')
+            ->take(6)
             ->get();
-//        dd($productFeatured);
+//        dd($topSelling);
 
 //        Order
         $status = $request->input('status');
@@ -43,7 +46,6 @@ class DashboardController extends Controller
                 'forceDelete' => 'Permanently deleted'
             ];
             $order = Order::where('status', 0)
-
                 ->orderBy('status', 'asc')
                 ->paginate(10);
             $count_user_trash = Order::where('status', 0)->count();
@@ -66,17 +68,14 @@ class DashboardController extends Controller
             })
                 ->orderBy('status', 'asc')
                 ->paginate(10);
-            // Số lượng đơn hàng có trạng thái 0 sẽ là 0
             $count_user_trash = Order::where('status', 0)->count();
         }
 
         $count_user_active = Order::count();
-
         $count = [$count_user_active, $count_user_trash];
 
         return view('admin.dashboard.index',
-            compact(
-                'totalRevenue', 'orderDay', 'orderDayTotal', 'orderDayCompleted', 'total7Days', 'featured',
+            compact( 'orderDay', 'totalRevenue','orderDayTotal', 'orderDayCompleted', 'total7Days', 'topSelling',
                 'order', 'count', 'list_act', 'status'
             ));
     }

@@ -35,10 +35,10 @@
                                           </span>
                                         </div>
                                         <div class="col">
-                                            <p class="small text-muted mb-0">Total sales today</p>
+                                            <p class="small text-muted mb-0">Total Revenue</p>
                                             <div class="row align-items-center no-gutters">
                                                 <div class="col-auto">
-                                                    <span class="h3 mr-2 mb-0">${{$orderDayTotal}}</span>
+                                                    <span class="h3 mr-2 mb-0">${{$totalRevenue}}</span>
                                                 </div>
                                             </div>
                                         </div>
@@ -73,8 +73,8 @@
                                           </span>
                                         </div>
                                         <div class="col pr-0">
-                                            <p class="small text-muted mb-0">Total Revenue</p>
-                                            <span class="h3 mb-0">${{$totalRevenue}}</span>
+                                            <p class="small text-muted mb-0">Total sales today</p>
+                                            <span class="h3 mb-0">${{$orderDayTotal}}</span>
                                             {{--                                            <span class="small text-muted">+5.5%</span>--}}
                                         </div>
                                     </div>
@@ -129,22 +129,22 @@
                         <div class="col-md-6">
                             <div class="card shadow mb-4">
                                 <div class="card-header">
-                                    <strong class="card-title" style="margin-top: 1rem;">Featured products</strong>
+                                    <strong class="card-title" style="margin-top: 1rem;">Top Selling</strong>
                                 </div>
                                 <div class="card-body">
                                     <div class="list-group list-group-flush p-1">
-                                        @foreach($featured as $productFeatured)
+                                        @foreach ($topSelling as $productFeatured)
                                             <div class="list-group-item">
                                                 <div class="row align-items-center">
                                                     <div class="col-3 col-md-2">
-                                                        <img src="front/img/product/{{ isset($productFeatured->productImages[0]) ? $productFeatured->productImages[0]->path : 'front/img/hhhh.jpg' }}" alt="{{$productFeatured->name}}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover">
+                                                        <img src="/front/img/product/{{ isset($productFeatured->product->productImages[0]) ? $productFeatured->product->productImages[0]->path : 'hhhh.jpg' }}" alt="{{ $productFeatured->product->name }}" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover">
                                                     </div>
                                                     <div class="col">
-                                                        <strong>{{$productFeatured->name}}</strong>
-                                                        <div class="my-0 text-muted small">{{$productFeatured->brand->name}}</div>
+                                                        <strong>{{ $productFeatured->product->name }}</strong>
+                                                        <div class="my-0 text-muted small">{{ $productFeatured->product->brand->name }}</div>
                                                     </div>
                                                     <div class="col-auto">
-                                                        <a href="{{url('/admin/product/show/'.$productFeatured->id)}}" class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">Details</a>
+                                                        <a href="{{ url('/admin/product/show/' . $productFeatured->product_id) }}" class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">Details</a>
                                                     </div>
                                                 </div>
                                             </div>
