@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Role;
 use App\Models\User;
 use App\Service\User\UserServiceInterface;
 use Illuminate\Http\Request;
@@ -49,12 +50,19 @@ class UsersController extends Controller
         return view('admin.user.show',['user' => $user]);
     }
     public function edit($id){
+        $roles =Role::all();
         $user =User::find($id);
-        return view('admin.user.edit',['user' => $user]);
+        return view('admin.user.edit',[
+            'roles'=>$roles,
+            'user' => $user]);
     }
 
     public function create(){
-        return view('admin.user.create');
+        $user =User::all();
+        $roles =Role::all();
+        return view('admin.user.create',[
+            'roles'=>$roles,
+            'user' => $user]);
     }
     public function store(Request $request){
         $request->validate([
@@ -68,7 +76,7 @@ class UsersController extends Controller
                 'phone'=>'required',
                 'town_city'=>'required',
                 'postcode_zip'=>'required',
-                'level'=>'required'
+
             ]
         );
         // Kiểm tra số điện thoại đã tồn tại trong bảng người dùng chưa
@@ -86,6 +94,7 @@ class UsersController extends Controller
         $data =$request->all();
         $data['password'] = bcrypt($request->get('password'));
         $users =$this->userService->create($data);
+
         return redirect('admin/user/show/' . $users->id);
     }
     public function delete($id)
@@ -162,8 +171,9 @@ class UsersController extends Controller
         }
 
         // Cập nhật dữ liệu người dùng
-        $user->update($data);
 
+        $user->update($data);
+        $user->roles()->sync($request->input('roles'));
         return redirect('admin/user/show/' . $user->id);
 
     }

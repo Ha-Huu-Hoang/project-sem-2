@@ -23,7 +23,8 @@ class OrdersController extends Controller
         $list_act = [
             'delete' => 'Temporary delete'
         ];
-
+        $count_user_trash = 0;
+        $count_user_cancel = 0;
         if ($status == 'trash') {
             $list_act = [
                 'restore' => 'Restore',
@@ -34,14 +35,19 @@ class OrdersController extends Controller
                 ->orderBy('status', 'asc')
                 ->paginate(10);
             $count_user_trash = Order::where('status', 0)->count();
-        } elseif ($status == 'delete') {
+            $count_user_cancel = Order::where('status', 5)->count();
+
+        } elseif ($status == 'cancel') {
             $list_act = [
                 'restore' => 'Restore',
                 'forceDelete' => 'Permanently deleted'
             ];
-            $order = Order::onlyTrashed()
+            $order = Order::where('status',5)
                 ->orderBy('status', 'asc')
                 ->paginate(10);
+            $count_user_cancel = Order::where('status', 5)->count();
+            $count_user_trash = Order::where('status', 0)->count();
+
         } else {
             $search = '';
             if ($request->input('search')) {
@@ -55,11 +61,14 @@ class OrdersController extends Controller
                 ->paginate(10);
             // Số lượng đơn hàng có trạng thái 0 sẽ là 0
             $count_user_trash = Order::where('status', 0)->count();
+            $count_user_cancel = Order::where('status', 5)->count();
+
+
         }
 
         $count_user_active = Order::count();
 
-        $count = [$count_user_active, $count_user_trash];
+        $count = [$count_user_active, $count_user_trash,$count_user_cancel];
 
         return view("admin.orders.index", compact('order', 'count', 'list_act', 'status'));
     }
@@ -96,6 +105,18 @@ class OrdersController extends Controller
         $this->orderService->confirmOrderPayment($orderId);
 
         return redirect('admin/orders')->with('status', 'Order payment confirmed successfully');
+    }
+    public function cancelOrder(Request $request, $orderId)
+    {
+        // Kiểm tra và cập nhật trạng thái của đơn hàng
+        $order = Order::find($orderId);
+        if ($order) {
+            $order->status = 5; // Chuyển trạng thái sang 5 (CANCELLED)
+            $order->save();
+        }
+
+        // Redirect hoặc trả về phản hồi tương ứng
+        return redirect('admin/orders')->with('status', 'Order payment confirmed successfully'); // Ví dụ: Chuyển hướng trở lại trang trước đó
     }
 
 }

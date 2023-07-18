@@ -22,7 +22,7 @@ class CreateUsersTable extends Migration
             $table->rememberToken();
 
             $table->string('avatar')->nullable();
-            $table->tinyInteger('level');
+            $table->tinyInteger('level')->nullable();
             $table->text('description')->nullable();
 
             $table->string('company_name')->nullable();

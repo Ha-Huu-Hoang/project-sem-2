@@ -11,9 +11,14 @@
                     </div>
                     <div class="col-auto">
                         <button type="button" class="btn btn-secondary" onclick="window.print()">Print</button>
-                        @if ($order->status != 1)
+                        @if ($order->status == 0)
                             <button type="button" class="btn btn-primary" onclick="confirmPayment({{ $orderId }})">Confirm</button>
+                            <form action="admin/orders/{{ $orderId }}/cancel" method="POST">
+                                @csrf
+                                <button type="submit" class="btn btn-primary" style="background: red">CANCEL</button>
+                            </form>
                         @endif
+
                     </div>
                 </div>
                 <div class="card shadow">
@@ -250,5 +255,19 @@
             }
         });
     }
+    document.getElementById('cancelButton').addEventListener('click', function() {
+        // Gửi yêu cầu AJAX để cập nhật trạng thái sang 5
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/update-status', true);
+        xhr.setRequestHeader('Content-type', 'application/json');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                // Xử lý phản hồi từ máy chủ (nếu cần)
+                console.log(xhr.responseText);
+            }
+        };
+        xhr.send(JSON.stringify({ status: 5, orderId: '{{ $orderId }}' }));
+    });
 </script>
+
 @endsection

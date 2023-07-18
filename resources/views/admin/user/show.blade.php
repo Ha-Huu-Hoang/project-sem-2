@@ -95,12 +95,12 @@
                                   </div>
                               </div>
 
-                              <div class="position-relative row form-group">
-                                  <label for="level" class="col-md-3 text-md-right col-form-label">Level</label>
-                                  <div class="col-md-9 col-xl-8">
-                                      <p>{{\App\Utilities\Constant::$user_level[$user->level]}}</p>
-                                  </div>
-                              </div>
+{{--                              <div class="position-relative row form-group">--}}
+{{--                                  <label for="level" class="col-md-3 text-md-right col-form-label">Level</label>--}}
+{{--                                  <div class="col-md-9 col-xl-8">--}}
+{{--                                      <p>{{\App\Utilities\Constant::$user_level[$user->level]}}</p>--}}
+{{--                                  </div>--}}
+{{--                              </div>--}}
 
                               <div class="position-relative row form-group">
                                   <label for="description"

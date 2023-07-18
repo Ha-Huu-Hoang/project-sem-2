@@ -97,6 +97,25 @@ Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
     Route::resource('product/{product_id}/image',\App\Http\Controllers\Admin\ProductImageController::class);
     Route::resource('product/{product_id}/detail',\App\Http\Controllers\Admin\ProductDetailController::class);
 
+    //xử lý phân quyền nâng cao
+    Route::get('/permission/add',[\App\Http\Controllers\Admin\PermissionController::class,'add'])->name('permission.add');
+    Route::post('/permission/store',[\App\Http\Controllers\Admin\PermissionController::class,'store'])->name('permission.store');
+    Route::get('/permission/edit/{id}',[\App\Http\Controllers\Admin\PermissionController::class,'edit'])->name('permission.edit');
+    Route::post('/permission/update/{id}',[\App\Http\Controllers\Admin\PermissionController::class,'update'])->name('permission.update');
+    Route::get('/permission/delete/{id}',[\App\Http\Controllers\Admin\PermissionController::class,'delete'])->name('permission.delete');
+
+    Route::get('/role',[\App\Http\Controllers\Admin\RoleController::class,'index'])->name('role.index');
+    Route::get('/role/add',[\App\Http\Controllers\Admin\RoleController::class,'add'])->name('role.add');
+    Route::post('/role/store',[\App\Http\Controllers\Admin\RoleController::class,'store'])->name('role.store');
+    Route::get('/role/edit/{role}',[\App\Http\Controllers\Admin\RoleController::class,'edit'])->name('role.edit');
+    Route::post('/role/update/{role}',[\App\Http\Controllers\Admin\RoleController::class,'update'])->name('role.update');
+    Route::get('/role/delete/{role}',[\App\Http\Controllers\Admin\RoleController::class,'delete'])->name('role.delete');
+
+
+
+
+
+
 //xử lý route category
     Route::prefix('category')->group(function (){
         Route::get('',[\App\Http\Controllers\Admin\ProductCategoryController::class,'index']);
@@ -147,6 +166,7 @@ Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
     Route::get('/statistical',[\App\Http\Controllers\Admin\DashboardController::class,'statistical']);
     Route::get('orders',[\App\Http\Controllers\Admin\OrdersController::class,'index']);
     Route::post('/confirm-payment', [\App\Http\Controllers\Admin\OrdersController::class, 'confirmPayment'])->name('confirm.payment');
+    Route::post('/orders/{orderId}/cancel', [\App\Http\Controllers\Admin\OrdersController::class,'cancelOrder']);
 
     Route::get('orders/show/{id}',[\App\Http\Controllers\Admin\OrdersController::class,'show'])->name('order.show');
 

@@ -84,8 +84,10 @@
                           <small class="mb-0 text-muted">{{$user->email}}</small>
                         </td>
                         <td>
-                          <p class="mb-0 text-muted"><a href="#" class="text-muted">{{\App\Utilities\Constant::$user_level[$user->level]}}</a></p>
-
+                            @foreach($user->roles as $role)
+                                <span class="badge badge-warning">{{$role->name}}</span>
+                            @endforeach
+{{--                          <p class="mb-0 text-muted"><a href="#" class="text-muted">{{\App\Utilities\Constant::$user_level[$user->level]}}</a></p>--}}
                         </td>
                         <td class="text-muted">{{date('M d, Y',strtotime($user->created_at))}}</td>
                         <td>

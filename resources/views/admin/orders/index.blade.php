@@ -6,8 +6,10 @@
             <div class="row justify-content-center">
                 <div class="col-12">
                     <h2 class="h3 mb-3 page-title">Orders</h2>
+
                     <div class="row mb-4 items-align-center">
                         <div class="col-md">
+
                             <ul class="nav nav-pills justify-content-start">
                                 <li class="nav-item">
                                     <a class="nav-link{{ $status == 'active' ? ' active bg-transparent pr-2 pl-0 text-primary' : 'text-muted px-2' }}" href="{{ request()->fullUrlWithQuery(['status' => 'active']) }}">
@@ -23,7 +25,7 @@
                                     <a class="nav-link text-muted px-2" href="#">Processing <span class="badge badge-pill bg-white border text-muted ml-2">48</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-muted px-2" href="#">Completed <span class="badge badge-pill bg-white border text-muted ml-2">52</span></a>
+                                    <a class="nav-link{{ $status == 'cancel' ? ' active bg-transparent pr-2 pl-0 text-primary' : ' text-muted px-2' }}" href="{{ request()->fullUrlWithQuery(['status' => 'cancel']) }}">Cancel <span class="badge badge-pill{{ $status == 'cancel' ? ' bg-primary text-white' : ' bg-white border text-muted' }} ml-2">{{$count[2]}}</span></a>
                                 </li>
                             </ul>
                         </div>
@@ -41,6 +43,11 @@
                         </div>
                     </div>
                     <!-- Slide Modal -->
+                    @if(session('status'))
+                        <div class="alert alert-success">
+                            {{session('status')}}
+                        </div>
+                    @endif
                     <div class="modal fade modal-slide" tabindex="-1" role="dialog" aria-labelledby="defaultModalLabel" aria-hidden="true">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
@@ -182,6 +189,8 @@
                                     <span class="dot dot-lg bg-warning mr-2"></span>
                                 @elseif ($orders->status == 1)
                                     <span class="dot dot-lg bg-success mr-2"></span>
+                                @else ($orders->status == 5)
+                                    <span class="dot dot-lg  mr-2" style="background: red"></span>
                                 @endif
                                 {{ \App\Utilities\Constant::$order_status[$orders->status] }}
                             </td>

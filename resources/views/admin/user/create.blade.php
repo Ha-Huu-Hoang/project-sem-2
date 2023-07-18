@@ -22,6 +22,7 @@
                     @csrf
                     @include('admin.components.notification')
                   <hr class="my-4">
+
                     <div class="form-group ">
                       <label for="name">Name</label>
                       <input type="text" id="name" name="name" class="form-control" placeholder="">
@@ -80,6 +81,7 @@
                         <small class="form-text text-danger">{{$message}}</small>
                         @enderror
                     </div>
+
                   <div class="form-row">
                     <div class="form-group col-md-6">
                       <label for="town_city">Town City</label>
@@ -88,15 +90,23 @@
                         <small class="form-text text-danger">{{$message}}</small>
                         @enderror
                     </div>
-                    <div class="form-group col-md-4">
-                      <label for="level">State</label>
-                      <select id="level" name="level" class="form-control">
-                        <option selected="" value="">--Lever--</option>
-                          @foreach(\App\Utilities\Constant::$user_level as $key => $value)
-                        <option value={{$key}}>{{$value}}</option>
-                          @endforeach
-                      </select>
-                    </div>
+
+{{--                      <div class="position-relative row form-group">--}}
+{{--                          <label for="level"--}}
+{{--                                 class="col-md-3 text-md-right col-form-label">Level</label>--}}
+
+{{--                          <div class="col-md-9 col-xl-8">--}}
+{{--                              @php--}}
+{{--                                  $options = [];--}}
+
+{{--                                  if ($roles) {--}}
+{{--                                      $options = $roles->pluck('name', 'id')->toArray();--}}
+{{--                                  }--}}
+{{--                              @endphp--}}
+
+{{--                              {{ Form::select('roles[]', $options, null,['id' => 'roles', 'class' => 'form-control', 'multiple' => true]) }}--}}
+{{--                          </div>--}}
+{{--                      </div>--}}
                     <div class="form-group col-md-2">
                       <label for="postcode_zip">Zip</label>
                       <input type="text" name="postcode_zip" class="form-control" id="postcode_zip" placeholder="98232">

@@ -169,6 +169,28 @@
                     </a>
                 </li>
             </ul>
+            <p class="text-muted nav-heading mt-1 mb-1">
+                <span>Decentralization</span>
+            </p>
+
+            <li class="navbar-nav flex-fill w-100 mb-2">
+                <a href="{{route('permission.add')}}"  class=" nav-link">
+                    <i class="fe fe-credit-card fe-16"></i>
+                    <span class="ml-3 item-text">Decentralization</span>
+                </a>
+                <ul class=" list-unstyled pl-4 w-100" >
+                    <li class="nav-item">
+                        <a class="nav-link pl-3" href="{{route('permission.add')}}"><span class="ml-1 item-text">Permission</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pl-3" href="{{route('role.index')}}"><span class="ml-1 item-text">More roles</span></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link pl-3" href="{{route('role.add')}}"><span class="ml-1 item-text">List of roles</span></a>
+                    </li>
+
+                </ul>
+            </li>
 
             <ul class="navbar-nav flex-fill w-100 mb-2">
                 <li class="nav-item">
