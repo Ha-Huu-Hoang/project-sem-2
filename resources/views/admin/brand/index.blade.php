@@ -23,6 +23,12 @@
                         </div>
                     @endif
 
+                    @if(session('warning'))
+                        <div class="alert alert-warning">
+                            {{session('warning')}}
+                        </div>
+                    @endif
+
                     <div class="card shadow">
                         <div class="card-body">
                             <div class="analytic">

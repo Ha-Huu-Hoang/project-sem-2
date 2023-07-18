@@ -51,7 +51,7 @@ class ProductCategoryController extends Controller
 
         if ($productCategory->products()->count() > 0) {
             // Có sản phẩm liên quan đến danh mục, không thể xóa
-            return redirect('admin/category')->with('status', 'Cannot delete category. There are products associated with it.');
+            return redirect('admin/category')->with('warning', 'Cannot delete category. There are products associated with it.');
         }
 
         $productCategory->delete();

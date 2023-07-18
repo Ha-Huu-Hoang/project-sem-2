@@ -46,7 +46,7 @@ class BrandController extends Controller
 
         if ($brand->products()->count() > 0) {
             // Có sản phẩm liên quan đến thương hiệu, không thể xóa
-            return redirect('admin/brand')->with('status', 'Cannot delete brand. There are products associated with it.');
+            return redirect('admin/brand')->with('warning', 'Cannot delete brand. There are products associated with it.');
         }
 
         $brand->delete();

@@ -47,13 +47,12 @@ $.ajax({
                 width: 2,
                 colors: ['transparent']
             },
+            title: {
+                text: 'Monthly statistics',
+                align: 'left'
+            },
             xaxis: {
                 categories: months,
-            },
-            yaxis: {
-                title: {
-                    text: 'Shop Runner'
-                },
             },
             fill: {
                 opacity: 1
@@ -74,7 +73,68 @@ $.ajax({
         var chart = new ApexCharts(document.querySelector("#columnChart"), options);
         chart.render();
     },
-    // error: function(error) {
-    //     console.log(error);
-    // }
 });
+
+// Chart 7 days
+
+$.ajax({
+    url: 'admin/order7Days',
+    method: 'GET',
+    success: function(response) {
+        var days = response.map(function(item) {
+            return item.day + '/' + item.month + '/' + item.year;
+        });
+
+        var ordersData = response.map(function(item) {
+            return {
+                x: item.day + '/' + item.month + '/' + item.year,
+                y: item.total_orders
+            };
+        });
+
+        var totalData = response.map(function(item) {
+            return {
+                x: item.day + '/' + item.month + '/' + item.year,
+                y: item.total_amount
+            };
+        });
+
+        var options = {
+            series: [{
+                name: 'Orders',
+                data: ordersData
+            }, {
+                name: 'Total',
+                data: totalData
+            }],
+            chart: {
+                height: 350,
+                type: 'area'
+            },
+            dataLabels: {
+                enabled: false
+            },
+            stroke: {
+                curve: 'smooth'
+            },
+            xaxis: {
+                categories: days,
+            },
+            tooltip: {
+                y: {
+                    formatter: function (val, {seriesIndex, dataPointIndex}) {
+                        if (seriesIndex === 0) {
+                            return val.toString();
+                        } else {
+                            return "$" + val;
+                        }
+                    }
+                }
+            }
+        };
+
+        var chart = new ApexCharts(document.querySelector("#line"), options);
+        chart.render();
+    },
+});
+

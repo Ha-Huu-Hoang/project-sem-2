@@ -363,6 +363,21 @@ function calculateVAT(subtotal, vatRate) {
     var vatAmount = (subtotal * vatRate) / 100;
     return parseFloat(vatAmount.toFixed(2));
 }
+$('.quantity-input-2').on('change', function() {
+    var rowId = $(this).data('rowid');
+    var qty = $(this).val();
+    updateCart(rowId, qty);
+});
+
+$('.quantity-input-2').on('keydown', function(e) {
+    if (e.keyCode === 13) {
+        e.preventDefault();
+        var rowId = $(this).data('rowid');
+        var qty = $(this).val();
+        updateCart(rowId, qty);
+    }
+});
+
 $('.quantity-input').on('change', function() {
     var rowId = $(this).data('rowid');
     var qty = $(this).val();
@@ -407,7 +422,7 @@ function updateCart(rowId,qty){
 
             $('.cart__total ul li:first-child span').text('$' + response['subtotal']);
 
-            var vatRate = 10; // Đặt tỷ lệ VAT tùy thuộc vào yêu cầu của bạn
+            var vatRate = 10; // Đặt tỷ lệ VAT tùy thuộc vào yêu cầu
             var subtotal = response['subtotal'];
             var vatAmount = calculateVAT(subtotal, vatRate);
 

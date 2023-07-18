@@ -41,9 +41,9 @@
                                 <td style="width: 18%">
                                     @if(isset($order->orderDetails) && count($order->orderDetails) > 0)
                                         @foreach($order->orderDetails as $orderDetail)
-                                            @if(isset($orderDetail->product) && isset($orderDetail->product->productImages) && count($orderDetail->product->productImages) > 0)
+                                            @if(isset($orderDetail->product) && $orderDetail->product->productImages()->count() > 0)
                                                 <a href="{{url("/shop/product/{$orderDetail->product->slug}")}}">
-                                                    <img src="{{$orderDetail->product->productImages[0]->path}}" alt="..." class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover">
+                                                    <img src="{{ asset('front/img/product/'. $orderDetail->product->productImages()->first()->path) }}" alt="{{$orderDetail->product->name}}" class="img-thumbnail" style="width: 100px; height: 100px; object-fit: cover">
                                                 </a>
                                                 @break
                                             @endif

@@ -145,6 +145,35 @@ class CheckoutController extends Controller
             $this->orderDetailService->create($data);
         }
 
+        // Check if the number of products is enough to buy or not
+        $canProceed = true;
+        $insufficientProducts = [];
+        foreach ($carts as $cart) {
+            $product = Product::find($cart->id);
+            if ($product) {
+                if ($cart->qty > $product->qty) {
+                    $canProceed = false;
+                    $insufficientProducts[] = $product->name;
+                }
+            }
+        }
+
+        if (!$canProceed) {
+            $errorMessage = "The following products are not in stock: " . implode(", ", $insufficientProducts);
+             return back()->with('error', $errorMessage);
+        }
+
+        foreach ($carts as $cart) {
+            $product = Product::find($cart->id);
+            if ($product) {
+                $product->qty -= $cart->qty;
+                if ($product->qty < 0) {
+                    $product->qty = 0;
+                }
+                $product->save();
+            }
+        }
+
         // Clear the cart
         Cart::destroy();
 
@@ -221,12 +250,12 @@ class CheckoutController extends Controller
 
 //            dd($order->all());
             //Just a example, please check more in there
-            return redirect()->to($jsonResult['payUrl']);
+            return redirect()->to($jsonResult['payUrl'])->with("notification","Success! You will pay on delivery. Please check your mail.");
         }
 
         // Send Email
         $this->sendEmail($request ,$order);
-        return redirect("/checkout/thank-you/")->with("notification","Success! You will pay on delivery. Please check your mail.");
+        return redirect("/checkout/thank-you/")->with("notification","Success! You have successfully paid for your order. Please check your email.");
     }
 
     //PayPal
@@ -249,6 +278,9 @@ class CheckoutController extends Controller
 //        $requestId = $request->input('requestId');
         $order = Order::where('order_code', $requestId)->first();
 
+        $notification = session("notification");
+
+
         if ($status == '0' ) {
             // Update order status
             $order->update(["is_paid" => true, "status" => 1]);
@@ -256,7 +288,6 @@ class CheckoutController extends Controller
             // Send Email
             $this->sendEmail($request, $order);
         }
-        $notification = session("notification");
 //        dd($request->all());
         return view("front.checkout.thank-you", compact("notification"));
     }
