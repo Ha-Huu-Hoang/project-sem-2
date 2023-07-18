@@ -19,7 +19,6 @@ class UsersController extends Controller
 
     public function index(Request $request)
     {
-
         $status =$request->input('status');
         $list_act =[
             'delete'=>'Temporary delete'
