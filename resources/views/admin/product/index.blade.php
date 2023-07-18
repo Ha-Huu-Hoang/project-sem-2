@@ -66,7 +66,7 @@
                                                 <td>
                                                     {{--                                                    <input type="checkbox" name="list_check[]" value="{{$products->id}}" class="" />--}}
                                                     <label class="input-check">
-                                                        <input type="checkbox" name="list_check[]" value="{{$products->slug}}"  />
+                                                        <input type="checkbox" name="list_check[]" value="{{$products->id}}"  />
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </td>
