@@ -109,7 +109,7 @@
                     </a>
                 </li>
             </ul>
-
+            @canany(['user.view','user.edit','user.edit','user.delete'])
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Components</span>
             </p>
@@ -121,7 +121,8 @@
                     </a>
                 </li>
             </ul>
-
+            @endcanany
+            @canany(['orders.view','orders.edit','orders.edit','orders.delete'])
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Orders</span>
             </p>
@@ -134,7 +135,8 @@
                     </a>
                 </li>
             </ul>
-
+            @endcanany
+            @canany(['product.view','product.edit','product.edit','product.delete'])
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Products</span>
             </p>
@@ -146,7 +148,8 @@
                     </a>
                 </li>
             </ul>
-
+            @endcanany
+{{--            @canany(['category.view','category.edit','category.edit','category.delete'])--}}
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Category</span>
             </p>
@@ -158,7 +161,8 @@
                     </a>
                 </li>
             </ul>
-
+{{--            @endcanany--}}
+{{--            @canany(['brand.view','brand.edit','brand.edit','brand.delete'])--}}
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Brand</span>
             </p>
@@ -170,10 +174,12 @@
                     </a>
                 </li>
             </ul>
+{{--            @endcanany--}}
+            @canany(['role.view','role.edit','role.edit','role.delete'])
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Decentralization</span>
             </p>
-            @canany(['role.view','role.edit','role.edit','role.delete'])
+
             <li class="navbar-nav flex-fill w-100 mb-2">
                 <a href="{{route('permission.add')}}"  class=" nav-link">
                     <i class="fe fe-credit-card fe-16"></i>
