@@ -6,10 +6,25 @@ use App\Http\Controllers\Controller;
 use App\Models\Permission;
 use App\Models\Role;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Gate;
 
 class RoleController extends Controller
 {
     function index(){
+//        dd(Auth::user()->roles);
+//        return Auth::user()->permissions;
+//         return Auth::user()->hasPermission('role.view');
+//        if (Auth::user()->hasPermission('role.edit')) {
+//            dd('oki'); // Nếu có quyền 'role.edit', hiển thị 'oki'
+//        } else {
+//            dd('ko oki'); // Nếu không có quyền 'role.edit', hiển thị 'ko oki'
+//        }
+//      return  Gate::allows('role.view');
+//      if (!Gate::allows('role.view')){
+//          abort(403);
+//      }
+
         $roles=Role::all();
         return view('admin.role.index',compact('roles'));
     }

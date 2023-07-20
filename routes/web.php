@@ -104,12 +104,12 @@ Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
     Route::post('/permission/update/{id}',[\App\Http\Controllers\Admin\PermissionController::class,'update'])->name('permission.update');
     Route::get('/permission/delete/{id}',[\App\Http\Controllers\Admin\PermissionController::class,'delete'])->name('permission.delete');
 
-    Route::get('/role',[\App\Http\Controllers\Admin\RoleController::class,'index'])->name('role.index');
-    Route::get('/role/add',[\App\Http\Controllers\Admin\RoleController::class,'add'])->name('role.add');
-    Route::post('/role/store',[\App\Http\Controllers\Admin\RoleController::class,'store'])->name('role.store');
-    Route::get('/role/edit/{role}',[\App\Http\Controllers\Admin\RoleController::class,'edit'])->name('role.edit');
-    Route::post('/role/update/{role}',[\App\Http\Controllers\Admin\RoleController::class,'update'])->name('role.update');
-    Route::get('/role/delete/{role}',[\App\Http\Controllers\Admin\RoleController::class,'delete'])->name('role.delete');
+    Route::get('/role',[\App\Http\Controllers\Admin\RoleController::class,'index'])->name('role.index')->can('role.view');
+    Route::get('/role/add',[\App\Http\Controllers\Admin\RoleController::class,'add'])->name('role.add')->can('role.add');
+    Route::post('/role/store',[\App\Http\Controllers\Admin\RoleController::class,'store'])->name('role.store')->can('role.add');
+    Route::get('/role/edit/{role}',[\App\Http\Controllers\Admin\RoleController::class,'edit'])->name('role.edit')->can('role.edit');
+    Route::post('/role/update/{role}',[\App\Http\Controllers\Admin\RoleController::class,'update'])->name('role.update')->can('role.edit');
+    Route::get('/role/delete/{role}',[\App\Http\Controllers\Admin\RoleController::class,'delete'])->name('role.delete')->can('role.delete');
 
 
 

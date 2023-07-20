@@ -9,6 +9,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
+
 class User extends Authenticatable
 {
     use HasApiTokens, HasFactory, Notifiable;
@@ -55,8 +56,31 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+    /**
+     * @var mixed
+     */
+
+
     public  function roles(){
         return $this->belongsToMany(Role::class,'user_role');
+    }
+    public function permissions(): \Illuminate\Database\Eloquent\Relations\BelongsToMany
+    {
+        return $this->belongsToMany(Permission::class, 'role_permission', 'role_id', 'permission_id')
+            ->leftJoin('roles', 'roles.id', '=', 'role_permission.role_id');
+    }
+
+
+    public function hasPermission($permissionSlug)
+    {
+        foreach ($this->permissions as $perm) {
+            // Kiểm tra xem quyền có slug nhất định có trong danh sách quyền của người dùng đăng nhập không
+            if ($perm->slug === $permissionSlug) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
