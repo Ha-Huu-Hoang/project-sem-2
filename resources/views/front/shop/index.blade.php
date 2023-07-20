@@ -118,7 +118,71 @@
                         </div>
                         <div class="row">
                             <div class="col-lg-12">
-                                {!! $product->appends(app("request")->input())->links("pagination::bootstrap-4") !!}
+{{--                                {!! $product->appends(app("request")->input())->links("pagination::bootstrap-4") !!}--}}
+                                @if ($product->lastPage() > 1)
+                                    <ul class="pagination">
+                                        {{-- Nút Previous --}}
+                                        @if ($product->currentPage() > 1)
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $product->url($product->currentPage() - 1) }}" aria-label="Previous">
+                                                    <span aria-hidden="true">Previous</span>
+                                                </a>
+                                            </li>
+                                        @endif
+
+                                        @if ($product->currentPage() == 1)
+                                            <li class="page-item active">
+                                                <span class="page-link">1</span>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $product->url(1) }}">1</a>
+                                            </li>
+                                        @endif
+
+                                        @if ($product->currentPage() > 4)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+
+                                        @for ($i = max(2, $product->currentPage() - 1); $i <= min($product->lastPage() - 1, $product->currentPage() + 1); $i++)
+                                            @if ($product->currentPage() == $i)
+                                                <li class="page-item active">
+                                                    <span class="page-link">{{ $i }}</span>
+                                                </li>
+                                            @else
+                                                <li class="page-item">
+                                                    <a class="page-link" href="{{ $product->url($i) }}">{{ $i }}</a>
+                                                </li>
+                                            @endif
+                                        @endfor
+
+                                        @if ($product->currentPage() < $product->lastPage() - 3)
+                                            <li class="page-item disabled">
+                                                <span class="page-link">...</span>
+                                            </li>
+                                        @endif
+
+                                        @if ($product->currentPage() == $product->lastPage())
+                                            <li class="page-item active">
+                                                <span class="page-link">{{ $product->lastPage() }}</span>
+                                            </li>
+                                        @else
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $product->url($product->lastPage()) }}">{{ $product->lastPage() }}</a>
+                                            </li>
+                                        @endif
+
+                                        @if ($product->currentPage() < $product->lastPage())
+                                            <li class="page-item">
+                                                <a class="page-link" href="{{ $product->url($product->currentPage() + 1) }}" aria-label="Next">
+                                                    <span aria-hidden="true">Next</span>
+                                                </a>
+                                            </li>
+                                        @endif
+                                    </ul>
+                                @endif
                             </div>
                         </div>
                     </div>
