@@ -21,10 +21,10 @@
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link text-muted px-2" href="#">Processing <span class="badge badge-pill bg-white border text-muted ml-2">48</span></a>
+                                    <a class="nav-link{{ $status == 'cancel' ? ' active bg-transparent pr-2 pl-0 text-primary' : ' text-muted px-2' }}" href="{{ request()->fullUrlWithQuery(['status' => 'cancel']) }}">Cancel <span class="badge badge-pill{{ $status == 'cancel' ? ' bg-primary text-white' : ' bg-white border text-muted' }} ml-2">{{$count[2]}}</span></a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link{{ $status == 'cancel' ? ' active bg-transparent pr-2 pl-0 text-primary' : ' text-muted px-2' }}" href="{{ request()->fullUrlWithQuery(['status' => 'cancel']) }}">Cancel <span class="badge badge-pill{{ $status == 'cancel' ? ' bg-primary text-white' : ' bg-white border text-muted' }} ml-2">{{$count[2]}}</span></a>
+
                                 </li>
                             </ul>
                         </div>

@@ -7,18 +7,25 @@
             <div class="col-10 col-lg-8 col-xl-6">
                 <div class="row align-items-center mb-4">
                     <div class="col">
-                        <h2 class="h5 page-title"><small class="text-muted text-uppercase">Invoice</small><br />#{{$order->order_code}}</h2>
+                        <div class="d-flex justify-content-between">
+                            <h2 class="h5 page-title">
+                                <small class="text-muted text-uppercase">Invoice</small><br />#{{$order->order_code}}
+                            </h2>
+                            <div class="order-btn__action">
+                                <div class="d-flex" style="gap: 10px">
+                                    <button type="button" class="btn btn-hover-shine btn-outline-secondary border-0 btn-sm" onclick="window.print()">Print</button>
+                                    @if ($order->status == 0)
+                                        <button type="button" class="btn btn-hover-shine btn-outline-primary border-0 btn-sm" onclick="confirmPayment({{ $orderId }})">Confirm</button>
+                                        <form action="admin/orders/{{ $orderId }}/cancel" method="POST">
+                                            @csrf
+                                            <button type="submit" class="btn btn-hover-shine btn-outline-danger border-0 btn-sm">Cancel</button>
+                                        </form>
+                                    @endif
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="col-auto">
-                        <button type="button" class="btn btn-secondary" onclick="window.print()">Print</button>
-                        @if ($order->status == 0)
-                            <button type="button" class="btn btn-primary" onclick="confirmPayment({{ $orderId }})">Confirm</button>
-                            <form action="admin/orders/{{ $orderId }}/cancel" method="POST">
-                                @csrf
-                                <button type="submit" class="btn btn-primary" style="background: red">CANCEL</button>
-                            </form>
-                        @endif
-                    </div>
+
                 </div>
                 <div class="card shadow">
                     <div class="card-body p-5">
@@ -34,7 +41,7 @@
                                 </div>
                             </div>
                             <div class="row mb-6">
-                                <div class="col-md-7">
+                                <div class="col-md-6">
                                     <p class="small text-muted text-uppercase mb-2">Invoice from</p>
                                     <p class="mb-4">
                                         <strong> Shop Runner</strong><br />
@@ -43,7 +50,7 @@
                                         Phone: 099 999 9999.
                                     </p>
                                 </div>
-                                <div class="col-md-5" style="text-align: right">
+                                <div class="col-md-6" style="text-align: right">
                                     <p class="small text-muted text-uppercase mb-2">Invoice to</p>
                                     <p class="mb-4">
                                         <strong>{{$order->first_name . ' ' . $order->last_name}}</strong> <br />
@@ -84,21 +91,17 @@
 
                             <div class="col-md-5" style="margin-left: auto">
                                 <div class="text-right mr-2">
-                                    <p class="mb-2 h6">
-                                        <span class="text-muted">Subtotal : </span>
-                                        <strong> ${{number_format($subtotal, 2, '.', '') }}</strong>
+                                    <p class="mb-2">Subtotal:
+                                        <span style="font-size: 14px">${{number_format($subtotal, 2, '.', '') }}</span>
                                     </p>
-                                    <p class="mb-2 h6">
-                                        <span class="text-muted">VAT (10%) : </span>
-                                        <strong> ${{number_format($vatAmount, 2, '.', '') }}</strong>
+                                    <p class="mb-2">VAT (10%):
+                                        <span style="font-size: 14px">${{number_format($vatAmount, 2, '.', '') }}</span>
                                     </p>
-                                    <p class="mb-2 h6">
-                                        <span class="text-muted">Shipping : </span>
-                                        <strong> ${{number_format($shippingFee, 2, '.', '') }}</strong>
+                                    <p class="mb-2">Shipping:
+                                        <span style="font-size: 14px">${{number_format($shippingFee, 2, '.', '') }}</span>
                                     </p>
-                                    <p class="mb-2 h6">
-                                        <span class="text-muted">Total : </span>
-                                        <span>  ${{number_format($total, 2, '.', '') }}</span>
+                                    <p class="mb-2">Total:
+                                        <span  style="font-size: 14px"> ${{number_format($total, 2, '.', '') }}</span>
                                     </p>
                                 </div>
                             </div>
