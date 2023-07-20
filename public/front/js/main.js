@@ -378,12 +378,11 @@ $('.quantity-input').on('keydown', function(e) {
         updateCart(rowId, qty);
     }
 });
-
-function updateCart(rowId){
+function updateCart(rowId,qty){
     $.ajax({
         type: "GET",
         url:"cart/update",
-        data:{rowId: rowId},
+        data:{rowId: rowId ,qty: qty},
         success: function (response){
             // xử lý cart trong master.blade,php
             $('.cart-count').text(response['count']);
