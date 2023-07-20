@@ -257,7 +257,7 @@ class DatabaseSeeder extends Seeder
                 'description' => 'AT Dry Freeze technology is an advanced drying method, designed to remove moisture from products without affecting their texture. AT Dry Freezes operating process is based on the use of low pressure and low temperature to separate water from the product through evaporation.',
                 'content' => null,
                 'price' => 132,
-                'qty' => 150,
+                'qty' => 15,
                 'discount' => 70,
                 'weight' => null,
                 'sku' => Str::random(8),

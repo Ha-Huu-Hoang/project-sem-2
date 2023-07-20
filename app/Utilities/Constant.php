@@ -14,15 +14,17 @@ class Constant
     ];
     const order_status_unfinished=0;
     const order_status_finish=1;
+    const order_status_shipping=2;
+    const order_status_shipped=3;
     const order_status_completed=4;
     const order_status_cancel=5;
 
     public static $order_status =[
       self::order_status_unfinished=>'Unfinished' ,
       self::order_status_finish=>'Finish',
+      self::order_status_shipping=>'Shipping',
+      self::order_status_shipped=>'Shipped',
         self::order_status_completed=>'Completed',
         self::order_status_cancel=>'Cancel'
     ];
-
-
 }
