@@ -31,7 +31,7 @@
                                 @enderror
                             </div>
 
-                            <a type="submit" href="./admin/category" class="btn btn-primary" style="background: #f61e1e">Cancel</a>
+                            <a href="./admin/category" class="btn btn-danger">Cancel</a>
                             <button type="submit" value="Save Change" class="btn btn-add btn-primary">Save Change</button>
 
                         </form>
