@@ -27,7 +27,7 @@
 {{--                            <input class="form-control" type="text" name="name" id="name">--}}
                         </div>
                         <div class="form-group">
-                            {{Form::label('description','Mô tả')}}}
+                            {{Form::label('description','Mô tả')}}
                             {{Form::textarea('description' ,old('description'),['class'=>'form-control','id'=>'description','rows'=>3])}}
                             @error('name')
                             <small class="text-danger">{{$message}}</small>

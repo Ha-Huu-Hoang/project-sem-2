@@ -20,6 +20,7 @@ class OrdersController extends Controller
     public function index(Request $request)
     {
         $status = $request->input('status');
+
         $list_act = [
             'delete' => 'Temporary delete'
         ];
@@ -49,13 +50,21 @@ class OrdersController extends Controller
             $count_user_trash = Order::where('status', 0)->count();
 
         } else {
-            $search = '';
-            if ($request->input('search')) {
-                $search = $request->input('search');
-            }
-            $order = Order::where(function ($query) use ($search) {
-                $query->orWhere('first_name', 'LIKE', "%{$search}%")
-                    ->orWhere('last_name', 'LIKE', "%{$search}%");
+            $search = $request->input('search');
+            $start_date = $request->input('start_date');
+            $end_date = $request->input('end_date');
+
+            $order = Order::where(function ($query) use ($search, $start_date, $end_date) {
+                $query->orWhere('order_code', 'LIKE', "%{$search}%");
+
+                // Kiểm tra và thêm điều kiện lọc theo ngày/tháng/năm
+                if ($start_date && $end_date) {
+                    $query->whereBetween('created_at', [$start_date, $end_date]);
+                } elseif ($start_date) {
+                    $query->whereDate('created_at', '>=', $start_date);
+                } elseif ($end_date) {
+                    $query->whereDate('created_at', '<=', $end_date);
+                }
             })
                 ->orderBy('status', 'asc')
                 ->paginate(10);

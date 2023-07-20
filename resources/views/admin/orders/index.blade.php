@@ -141,6 +141,30 @@
                             </div>
                         </div>
                     </div>
+{{--                    <form class="form-inline mr-auto searchform text-muted">--}}
+{{--                        <input type="date" name="date" value="{{request()->input('search')}}"  placeholder="Type something..." aria-label="Search">--}}
+{{--                        <button type="submit">Filter</button>--}}
+{{--                    </form>--}}
+                    <form class="">
+                        <label for="status">Status:</label>
+                        <select name="status" id="status">
+                            <option value="active" {{ request()->input('status') === 'active' ? 'selected' : '' }}>Active</option>
+                            <option value="trash" {{ request()->input('status') === 'trash' ? 'selected' : '' }}>Trash</option>
+                            <option value="cancel" {{ request()->input('status') === 'cancel' ? 'selected' : '' }}>Cancel</option>
+                        </select>
+
+                        <label for="search">Search by Order Code:</label>
+                        <input type="text" name="search" id="search" value="{{ request()->input('search') }}">
+
+                        <label for="start_date">Start Date:</label>
+                        <input type="date" name="start_date" id="start_date" value="{{ request()->input('start_date') }}">
+
+                        <label for="end_date">End Date:</label>
+                        <input type="date" name="end_date" id="end_date" value="{{ request()->input('end_date') }}">
+
+                        <button type="submit">Search</button>
+                        <button type="button" onclick="resetForm()">Reset</button>
+                    </form>
                     <table class="table border table-hover bg-white">
                         <thead>
                         <tr role="row">
@@ -342,4 +366,15 @@
             </div>
         </div>
     </main>
+    <script>
+        function resetForm() {
+            document.getElementById("status").selectedIndex = 0;
+            document.getElementById("search").value = "";
+            document.getElementById("start_date").value = "";
+            document.getElementById("end_date").value = "";
+            document.querySelector('form').submit();
+            // You can also submit the form after resetting to trigger the search with default values
+            // document.querySelector('form').submit();
+        }
+    </script>
 @endsection
