@@ -198,6 +198,11 @@ img.fancytree-icon {
     margin: 0;
 }
 
+span.page-link{
+    background: #fff;
+    border-color: #dee2e6;
+}
+
 /*------------------------------------------------------------------------------
  * Expander icon
  *
