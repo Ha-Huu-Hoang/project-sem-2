@@ -147,6 +147,48 @@ img.fancytree-icon {
     vertical-align: top;
     border-style: none;
 }
+
+#status,
+#search,
+#start_date,
+#end_date,
+.order-btn__search,
+.order-btn__reset{
+    color: #6c757d;
+    border: 1px solid #e9ecef;
+    border-radius: 0.25rem;
+    outline: none;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+#search,
+#start_date,
+#end_date {
+    padding: 0 5px;
+}
+
+.order-btn__search:hover,
+.order-btn__reset:hover {
+    color: #FFFFFF;
+    background: #1b68ff;
+}
+
+.order-btn__search {
+    margin-left: 30px;
+}
+
+#search {
+    caret-color: #e9ecef;
+}
+
+.search-order__history label:first-child {
+    margin-left: 0;
+}
+
+.search-order__history label{
+    margin-left: 30px;
+}
 /*------------------------------------------------------------------------------
  * Expander icon
  *

@@ -164,13 +164,8 @@
                             <table class="table table-borderless table-striped">
                                 <thead>
                                 <tr role="row">
-                                    <th>
-                                        <div class="custom-control custom-checkbox">
-                                            <input type="checkbox" class="custom-control-input" id="all">
-                                            <label class="custom-control-label" for="all"></label>
-                                        </div>
-                                    </th>
                                     <th>ID</th>
+                                    <th>Order Code</th>
                                     <th>Purchase Date</th>
                                     <th>Customer / Products</th>
                                     <th>Phone</th>
@@ -185,14 +180,9 @@
                                 @if($order->total()>0)
                                     @foreach($order as $orders)
                                         <tr>
-                                            <td class="align-center">
-                                                <div class="custom-control custom-checkbox">
-                                                    <input type="checkbox" class="custom-control-input">
-                                                    <label class="custom-control-label"></label>
-                                                </div>
-                                            </td>
+                                            <td class="align-center">{{$orders->id}}</td>
                                             <td>#{{$orders->order_code}}</td>
-                                            <td>{{$orders->created_at->format('Y-m-d H:i:s')}}</td>
+                                            <td>{{$orders->created_at->format('H:i:s d-m-Y')}}</td>
                                             <td> <div class="widget-heading">{{$orders->first_name . ' ' . $orders->last_name}}</div>
                                                 <div class="widget-subheading opacity-7">
                                                     {{$orders->orderDetails[0]->product->name}}
@@ -206,18 +196,22 @@
                                             <td> {{$orders->payment_method}}</td>
                                             <td>
                                                 @if ($orders->status == 0)
-                                                    <span class="dot dot-lg bg-warning mr-2"></span>
+                                                    <span class="dot dot-lg bg-secondary mr-2"></span>
                                                 @elseif ($orders->status == 1)
+                                                    <span class="dot dot-lg bg-primary mr-2"></span>
+                                                @elseif ($orders->status == 2)
+                                                    <span class="dot dot-lg bg-primary mr-2"></span>
+                                                @elseif ($orders->status == 3)
+                                                    <span class="dot dot-lg bg-primary mr-2"></span>
+                                                @elseif ($orders->status == 4)
                                                     <span class="dot dot-lg bg-success mr-2"></span>
+                                                @else ($orders->status == 5)
+                                                    <span class="dot dot-lg bg-danger mr-2"></span>
                                                 @endif
                                                 {{ \App\Utilities\Constant::$order_status[$orders->status] }}
                                             </td>
                                             <td>
-                                                <a href="{{route('order.show',$orders->id)}}"
-                                                   class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">
-                                                    Details
-                                                </a>
-                                                <a href="" class="btn btn-danger btn-sm rounded-0 text-white"  onclick="return confirm('Are you sure you want to delete ?')" type="button" data-toggle="tooltip" data-placement="top" title="Delete"><i class="fa fa-trash"></i></a>
+                                                <a href="{{route('order.show',$orders->id)}}" class="btn btn-hover-shine btn-outline-primary border-0 btn-sm">Details</a>
                                             </td>
                                         </tr>
                                     @endforeach
