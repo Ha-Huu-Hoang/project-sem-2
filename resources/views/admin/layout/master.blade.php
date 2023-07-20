@@ -173,7 +173,7 @@
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Decentralization</span>
             </p>
-
+            @canany(['role.view','role.edit','role.edit','role.delete'])
             <li class="navbar-nav flex-fill w-100 mb-2">
                 <a href="{{route('permission.add')}}"  class=" nav-link">
                     <i class="fe fe-credit-card fe-16"></i>
@@ -183,16 +183,19 @@
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="{{route('permission.add')}}"><span class="ml-1 item-text">Permission</span></a>
                     </li>
+                    @can('role.view')
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="{{route('role.index')}}"><span class="ml-1 item-text">More roles</span></a>
                     </li>
+                    @endcan
+                    @can('role.add')
                     <li class="nav-item">
                         <a class="nav-link pl-3" href="{{route('role.add')}}"><span class="ml-1 item-text">List of roles</span></a>
                     </li>
-
+                    @endcan
                 </ul>
             </li>
-
+            @endcanany
             <ul class="navbar-nav flex-fill w-100 mb-2">
                 <li class="nav-item">
                     <div class="btn-box w-100 mt-4 mb-1">
