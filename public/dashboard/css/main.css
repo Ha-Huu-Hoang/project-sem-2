@@ -189,6 +189,15 @@ img.fancytree-icon {
 .search-order__history label{
     margin-left: 30px;
 }
+
+.card-header input[type="checkbox"].check-all {
+    margin-right: 5px;
+}
+
+.card-header label {
+    margin: 0;
+}
+
 /*------------------------------------------------------------------------------
  * Expander icon
  *

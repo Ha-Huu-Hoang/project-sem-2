@@ -37,7 +37,7 @@
 {{--                                <input class="form-control" type="text" name="slug" id="slug">--}}
                             </div>
                             <div class="form-group">
-                                {{ Form::label('description' ,'Describe') }}
+                                {{ Form::label('description' ,'Description') }}
                                 {{ Form::text('description',old('description'),['class' => 'form-control','id'=>'description','rows'=>3]) }}
 {{--                                <label for="description">Describe</label>--}}
 {{--                                <textarea class="form-control" type="text" name="description" id="description"> </textarea>--}}
@@ -57,9 +57,9 @@
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Tên quyền</th>
+                                <th scope="col">Role name</th>
                                 <th scope="col">Slug</th>
-                               <th scope="col">Tác vu</th>
+                               <th scope="col">Task</th>
                             </tr>
                             </thead>
                             <tbody>

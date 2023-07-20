@@ -5,11 +5,11 @@
         <div id="content" class="container-fluid">
             <div class="card">
                 <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
-                    <h5 class="m-0 ">Edit vai tro</h5>
+                    <h5 class="m-0 ">Edit Roles</h5>
                     <div class="form-search form-inline">
                         <form action="#">
-                            <input type="" class="form-control form-search" placeholder="Tìm kiếm">
-                            <input type="submit" name="btn-search" value="Tìm kiếm" class="btn btn-primary">
+                            <input type="" class="form-control form-search" placeholder="Search...">
+                            <input type="submit" name="btn-search" value="Search" class="btn btn-primary">
                         </form>
                     </div>
                 </div>
@@ -18,7 +18,7 @@
                     {!! Form::open(['route'=>['role.update', $role->id],'method'=>'post']) !!}
 
                     <div class="form-group">
-                        {{Form::label('name','Thêm vai trò')}}
+                        {{Form::label('name','More roles')}}
                         {{Form::text('name',$role->name,['class'=>'form-control','id'=>'name'])}}
                         @error('name')
                         <small class="text-danger">{{$message}}</small>
@@ -27,7 +27,7 @@
                         {{--                            <input class="form-control" type="text" name="name" id="name">--}}
                     </div>
                     <div class="form-group">
-                        {{Form::label('description','Mô tả')}}}
+                        {{Form::label('description','Description')}}
                         {{Form::textarea('description' ,$role->description,['class'=>'form-control','id'=>'description','rows'=>3])}}
                         @error('name')
                         <small class="text-danger">{{$message}}</small>
@@ -35,14 +35,14 @@
                         {{--                            <label class="text-strong" for="description">Mô tả</label>--}}
                         {{--                            <textarea class="form-control" type="text" name="description" id="description"></textarea>--}}
                     </div>
-                    <strong>Vai trò này có quyền gì?</strong>
-                    <small class="form-text text-muted pb-2">Check vào module hoặc các hành động bên dưới để chọn quyền.</small>
+                    <strong>What rights does this role have?</strong>
+                    <small class="form-text text-muted pb-2">Check the module or actions below to select permissions.</small>
                     <!-- List Permission  -->
                     @foreach($permissions as $moduleName => $modulePermissions)
                         <div class="card my-4 border">
-                            <div class="card-header">
+                            <div class="card-header check-role">
                                 {{Form::checkbox(null,null,null,['class'=>'check-all','id'=>$moduleName])}}
-                                {!! html_entity_decode(Form::label($moduleName,'<strong>Module' . ucfirst($moduleName) . '</strong>')) !!}
+                                {!! html_entity_decode(Form::label($moduleName,'<strong>Module-' . ucfirst($moduleName) . '</strong>')) !!}
                                 {{--                                    <input type="checkbox" class="check-all" name="" id="{{$moduleName}}">--}}
                                 {{--                                    <label for="{{$moduleName}}" class="m-0"><strong>Module {{ucfirst($moduleName)}}</strong></label>--}}
                             </div>

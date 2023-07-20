@@ -8,11 +8,11 @@
             @endif
             <div class="card">
                 <div class="card-header font-weight-bold d-flex justify-content-between align-items-center">
-                    <h5 class="m-0 ">Danh sách vai trò</h5>
+                    <h5 class="m-0 ">ROLE LIST</h5>
                     <div class="form-search form-inline">
                         <form action="#">
-                            <input type="" class="form-control form-search" placeholder="Tìm kiếm">
-                            <input type="submit" name="btn-search" value="Tìm kiếm" class="btn btn-primary">
+                            <input type="" class="form-control form-search" placeholder="Search...">
+                            <input type="submit" name="btn-search" value="Search" class="btn btn-primary">
                         </form>
                     </div>
                 </div>
@@ -22,11 +22,11 @@
                 <div class="card-body">
                     <div class="form-action form-inline py-3">
                         <select class="form-control mr-1" id="">
-                            <option>Chọn</option>
-                            <option>Tác vụ 1</option>
-                            <option>Tác vụ 2</option>
+                            <option>--Select--</option>
+                            <option>Task 1</option>
+                            <option>Task 2</option>
                         </select>
-                        <input type="submit" name="btn-search" value="Áp dụng" class="btn btn-primary">
+                        <input type="submit" name="btn-search" value="Apply" class="btn btn-primary">
                     </div>
                     <table class="table table-striped table-checkall">
                         <thead>
@@ -35,10 +35,10 @@
                                 <input name="checkall" type="checkbox">
                             </th>
                             <th scope="col">#</th>
-                            <th scope="col">Vai trò</th>
-                            <th scope="col">Mô tả</th>
-                            <th scope="col">Ngày tạo</th>
-                            <th scope="col">Tác vụ</th>
+                            <th scope="col">Role</th>
+                            <th scope="col">Description</th>
+                            <th scope="col">Date created</th>
+                            <th scope="col">Task</th>
                         </tr>
                         </thead>
                         <tbody>
