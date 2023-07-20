@@ -106,48 +106,16 @@ class CheckoutController extends Controller
         $subtotal = str_replace(',', '', Cart::subtotal());
         $vatRate = 0.1;
         $vatAmount = $subtotal * $vatRate;
-        $shippingFee = $request->session()->get('shipping_fee', 0); // Lấy giá trị phí vận chuyển từ session
+        $shippingFee = $request->session()->get('shipping_fee', 0);
 //        dd($shippingFee);
         $total = $request->session()->get('total', $subtotal + $vatAmount + $shippingFee);
 
         $orderCode = Str::random(8);
 
-        // Create order
-        $order = Order::create([
-            "first_name" => $request->input("first_name"),
-            "last_name" => $request->input("last_name"),
-            "company_name" => $request->input("company_name"),
-            "country" => $request->input("country"),
-            "street_address" => $request->input("street_address"),
-            "town_city" => $request->input("town_city"),
-            "postcode_zip" => $request->input("postcode_zip"),
-            "phone" => $request->input("phone"),
-            "email" => $request->input("email"),
-            "total" => $total,
-            "order_code" => $orderCode,
-            "payment_method" => $request->get("payment_method"),
-            "shipping_method" => $request->get("shipping_method"),
-            "user_id" => $request->input("user_id"),
-            //  "is_paid"=>false,
-            //   "status"=>0,
-        ]);
-
-        // Create order details
-        foreach ($carts as $cart) {
-            $data = [
-                'order_id' => $order->id,
-                'product_id' => $cart->id,
-                'qty' => $cart->qty,
-                'amount' => $cart->price,
-                'total' => $cart->qty * $cart->price,
-            ];
-
-            $this->orderDetailService->create($data);
-        }
-
         // Check if the number of products is enough to buy or not
         $canProceed = true;
         $insufficientProducts = [];
+
         foreach ($carts as $cart) {
             $product = Product::find($cart->id);
             if ($product) {
@@ -160,19 +128,53 @@ class CheckoutController extends Controller
 
         if (!$canProceed) {
             $errorMessage = "The following products are not in stock: " . implode(", ", $insufficientProducts);
-             return back()->with('error', $errorMessage);
-        }
+            return back()->with('error', $errorMessage);
+        } else {
+            $order = Order::create([
+                "first_name" => $request->input("first_name"),
+                "last_name" => $request->input("last_name"),
+                "company_name" => $request->input("company_name"),
+                "country" => $request->input("country"),
+                "street_address" => $request->input("street_address"),
+                "town_city" => $request->input("town_city"),
+                "postcode_zip" => $request->input("postcode_zip"),
+                "phone" => $request->input("phone"),
+                "email" => $request->input("email"),
+                "total" => $total,
+                "order_code" => $orderCode,
+                "payment_method" => $request->get("payment_method"),
+                "shipping_method" => $request->get("shipping_method"),
+                "user_id" => $request->input("user_id"),
+                //  "is_paid"=>false,
+                //   "status"=>0,
+            ]);
 
-        foreach ($carts as $cart) {
-            $product = Product::find($cart->id);
-            if ($product) {
-                $product->qty -= $cart->qty;
-                if ($product->qty < 0) {
-                    $product->qty = 0;
+            // Create order details
+            foreach ($carts as $cart) {
+                $data = [
+                    'order_id' => $order->id,
+                    'product_id' => $cart->id,
+                    'qty' => $cart->qty,
+                    'amount' => $cart->price,
+                    'total' => $cart->qty * $cart->price,
+                ];
+
+                $this->orderDetailService->create($data);
+            }
+
+            // Update product quantities
+            foreach ($carts as $cart) {
+                $product = Product::find($cart->id);
+                if ($product) {
+                    $product->qty -= $cart->qty;
+                    if ($product->qty < 0) {
+                        $product->qty = 0;
+                    }
+                    $product->save();
                 }
-                $product->save();
             }
         }
+
 
         // Clear the cart
         Cart::destroy();
