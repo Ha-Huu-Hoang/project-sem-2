@@ -4,7 +4,7 @@
 <main role="main" class="main-content">
     <div class="container-fluid">
         <div class="row justify-content-center">
-            <div class="col-12 col-lg-10 col-xl-8">
+            <div class="col-10 col-lg-8 col-xl-6">
                 <div class="row align-items-center mb-4">
                     <div class="col">
                         <h2 class="h5 page-title"><small class="text-muted text-uppercase">Invoice</small><br />#{{$order->order_code}}</h2>
@@ -18,46 +18,51 @@
                                 <button type="submit" class="btn btn-primary" style="background: red">CANCEL</button>
                             </form>
                         @endif
-
                     </div>
                 </div>
                 <div class="card shadow">
                     <div class="card-body p-5">
-                        <div class="row mb-5">
-                            <div class="col-12 text-center mb-4">
-                                <img src="front/img/logo.png" class="navbar-brand-img  mx-auto mb-4" alt="...">
-                                <h2 class="mb-0 text-uppercase">Invoice</h2>
-                                <p class="text-muted"> Shop Runner<br /> 8 Tôn Thất Thuyết, Mỹ Đình,
-                                    Nam Từ Liêm, Hà Nội, Việt Nam. </p>
+                        <div style="">
+                            <div class="row mb-6">
+                                <div class="col-md-5 mb-2">
+                                    <img src="front/img/logo.png" class="navbar-brand-img mx-auto mb-4" alt="Shop Runner" width="150">
+                                </div>
+                                <div class="col-md-7 mb-2" style="text-align: right">
+                                    <h2 class="mb-0" style="color: #f00; font-size: 21px">Invoice</h2>
+                                    <p class="text-secondary mb-2" style="font-size: 12px">Order Code: <a href="" style="color: #f00">#{{$order->order_code}}</a></p>
+                                    <p class="text-secondary mb-2" style="font-size: 12px">Order Date: <span>{{$order->created_at}}</span></p>
+                                </div>
                             </div>
-                            <div class="col-md-7">
-                                <p class="small text-muted text-uppercase mb-2">Invoice from</p>
-                                <p class="mb-4">
-                                    <strong> Shop Runner</strong><br /> Asset Management<br />  8 Tôn Thất Thuyết, Mỹ Đình,
-                                    Nam Từ Liêm,<br/> Hà Nội, Việt Nam. <br /> High Wycombe<br /> 033 6827 498<br />
-                                </p>
-                                <p>
-                                    <span class="small text-muted text-uppercase">Invoice #</span><br />
-                                    <strong>{{$order->order_code}}</strong>
-                                </p>
+                            <div class="row mb-6">
+                                <div class="col-md-7">
+                                    <p class="small text-muted text-uppercase mb-2">Invoice from</p>
+                                    <p class="mb-4">
+                                        <strong> Shop Runner</strong><br />
+                                        8 Tôn Thất Thuyết, Mỹ Đình, <br />
+                                        Nam Từ Liêm, Hà Nội, Việt Nam.<br />
+                                        Phone: 099 999 9999.
+                                    </p>
+                                </div>
+                                <div class="col-md-5" style="text-align: right">
+                                    <p class="small text-muted text-uppercase mb-2">Invoice to</p>
+                                    <p class="mb-4">
+                                        <strong>{{$order->first_name . ' ' . $order->last_name}}</strong> <br />
+                                        Phone: {{ $order->phone }}.<br />
+                                        Company name: {{ $order->company_name }}.<br />
+                                        Street address: {{ $order->street_address }}.<br />
+                                        Town/City: {{ $order->town_city }}.<br />
+                                        Country: {{ $order->country }}.<br />
+                                        Postcode / ZIP: {{ $order->postcode_zip }}.<br />
+                                    </p>
+                                </div>
                             </div>
-                            <div class="col-md-5">
-                                <p class="small text-muted text-uppercase mb-2">Invoice to</p>
-                                <p class="mb-4">
-                                    <strong>{{$order->first_name . ' ' . $order->last_name}}</strong><br /> Street address: <br /> {{$order->street_address . ' ' . $order->town_city}}<br /> Phone:<br />{{$order->phone}}<br />
-                                </p>
-                                <p>
-                                    <small class="small text-muted text-uppercase">Order date</small><br />
-                                    <strong>{{$order->created_at->format('Y-m-d H:i:s')}}</strong>
-                                </p>
-                            </div>
-                        </div> <!-- /.row -->
+                        </div>
                         <table class="table table-borderless table-striped">
                             <thead>
                             <tr>
                                 <th scope="col">#</th>
-                                <th scope="col">Customer / Products</th>
-                                <th scope="col" class="text-right">Price</th>
+                                <th scope="col">Products</th>
+                                <th scope="col" class="text-right">SubTotal</th>
                                 <th scope="col" class="text-right">Qty</th>
                                 <th scope="col" class="text-right">Total</th>
                             </tr>
@@ -69,22 +74,15 @@
                                 <td> {{$orderDetail->product->name}}<br />
 
                                 </td>
-                                <td class="text-right">{{$orderDetail->amount}}</td>
+                                <td class="text-right">${{$orderDetail->amount}}</td>
                                 <td class="text-right">{{$orderDetail->qty}}</td>
-                                <td class="text-right">{{$orderDetail->total}}</td>
+                                <td class="text-right">${{$orderDetail->total}}</td>
                             </tr>
                             @endforeach
                             </tbody>
                         </table>
-                        <div class="row mt-5">
-                            <div class="col-2 text-center">
-                                <img src="./assets/images/qrcode.svg" class="navbar-brand-img brand-sm mx-auto my-4" alt="...">
-                            </div>
-                            <div class="col-md-5">
-                                <p class="text-muted small">
-                                    <strong>Note :</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque. Nunc posuere purus rhoncus pulvinar aliquam. </p>
-                            </div>
-                            <div class="col-md-5">
+
+                            <div class="col-md-5" style="margin-left: auto">
                                 <div class="text-right mr-2">
                                     <p class="mb-2 h6">
                                         <span class="text-muted">Subtotal : </span>
@@ -104,7 +102,17 @@
                                     </p>
                                 </div>
                             </div>
-                        </div> <!-- /.row -->
+
+                        <div class="row mt-2">
+                            <div class="col-12 text-center">
+                                <img src="./dashboard/assets/images/qrcode.svg" class="navbar-brand-img brand-sm mx-auto my-4" alt="QR Code">
+                            </div>
+                            <div class="col-12 md-5">
+                                <p style="color: red; font-size: 14px; font-weight: 600; text-align: center">
+                                    <strong>NOTE: </strong>Delivery times may vary due to location and other factors. Thank you, we hope you understand.</p>
+                            </div>
+                        </div>
+
                     </div> <!-- /.card-body -->
                 </div> <!-- /.card -->
             </div> <!-- /.col-12 -->
