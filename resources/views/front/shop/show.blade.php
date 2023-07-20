@@ -78,9 +78,7 @@
 
                                 <div class="product__details__cart__option">
                                     <div class="quantity">
-                                        <div class="pro-qty">
-                                            <input class="quantity-input-2" type="text" value="1" data-rowid="{{$product->rowId}}" data-qty="1" >
-                                        </div>
+
                                         @if($product->qty > 0)
                                             <p>{{ $product->qty }} products are available</p>
                                         @else
@@ -94,7 +92,7 @@
 
                                 @if($product->qty > 0)
 
-                                        <button type="submit" class="primary-btn btn-detail" onclick="addCart({{ $product->id }})">Add to cart</button>
+                                        <button type="submit" class="primary-btn btn-detail add-to-cart-btn" onclick="addCart({{ $product->id }})">Add to cart</button>
                                         <a href="javascript:addCart({{ $product->id }})"></a>
 
                                 @endif

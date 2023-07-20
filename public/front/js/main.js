@@ -177,9 +177,7 @@
             }
         }
         $button.parent().find('input').val(newVal);
-        // Cập nhật giỏ hàng
-        var rowId = $button.parent().find('input').data('rowid');
-        updateCart(rowId, newVal);
+
     });
 
 
@@ -246,10 +244,11 @@
 })(jQuery);
 
 function addCart(productId) {
+
     $.ajax({
         type: "GET",
         url:"cart/add",
-        data:{productId: productId},
+        data:{productId: productId,},
         success: function (response){
             $('.cart-count').text(response['count']);
             $('.price').text('$' + response['total']);
@@ -363,20 +362,7 @@ function calculateVAT(subtotal, vatRate) {
     var vatAmount = (subtotal * vatRate) / 100;
     return parseFloat(vatAmount.toFixed(2));
 }
-$('.quantity-input-2').on('change', function() {
-    var rowId = $(this).data('rowid');
-    var qty = $(this).val();
-    updateCart(rowId, qty);
-});
 
-$('.quantity-input-2').on('keydown', function(e) {
-    if (e.keyCode === 13) {
-        e.preventDefault();
-        var rowId = $(this).data('rowid');
-        var qty = $(this).val();
-        updateCart(rowId, qty);
-    }
-});
 
 $('.quantity-input').on('change', function() {
     var rowId = $(this).data('rowid');
@@ -393,11 +379,11 @@ $('.quantity-input').on('keydown', function(e) {
     }
 });
 
-function updateCart(rowId,qty){
+function updateCart(rowId){
     $.ajax({
         type: "GET",
         url:"cart/update",
-        data:{rowId: rowId ,qty: qty},
+        data:{rowId: rowId},
         success: function (response){
             // xử lý cart trong master.blade,php
             $('.cart-count').text(response['count']);
