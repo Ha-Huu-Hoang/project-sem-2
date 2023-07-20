@@ -121,13 +121,22 @@ class CheckoutController extends Controller
             if ($product) {
                 if ($cart->qty > $product->qty) {
                     $canProceed = false;
-                    $insufficientProducts[] = $product->name;
+                    $insufficientProducts[] = [
+                        'name' => $product->name,
+                        'requested_qty' => $cart->qty,
+                        'available_qty' => $product->qty,
+                    ];
                 }
             }
         }
 
         if (!$canProceed) {
-            $errorMessage = "The following products are not in stock: " . implode(", ", $insufficientProducts);
+            $errorMessage = "The following products are not in stock: ";
+            foreach ($insufficientProducts as $item) {
+                $errorMessage .= "{$item['name']} (Requested: {$item['requested_qty']}, Available: {$item['available_qty']}), ";
+            }
+            $errorMessage = rtrim($errorMessage, ', ');
+
             return back()->with('error', $errorMessage);
         } else {
             $order = Order::create([

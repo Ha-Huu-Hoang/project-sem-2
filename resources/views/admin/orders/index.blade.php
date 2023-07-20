@@ -89,7 +89,7 @@
                                     @endif
                                 </div></td>
                             <td>{{$orders->phone}}</td>
-                            <td>{{$orders->street_address . ' ' . $orders->town_city}}</td>
+                            <td>{{$orders->street_address}}</td>
                             <td>${{$orders->total}}</td>
                             <td> {{$orders->payment_method}}</td>
                             <td>
