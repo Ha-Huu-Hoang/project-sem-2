@@ -80,7 +80,7 @@
                         <tr>
                             <td class="align-center">{{$orders->id}}</td>
                             <td>#{{$orders->order_code}}</td>
-                            <td>{{$orders->created_at->format('Y-m-d H:i:s')}}</td>
+                            <td>{{$orders->created_at->format('H:i:s d-m-Y')}}</td>
                             <td> <div class="widget-heading">{{$orders->first_name . ' ' . $orders->last_name}}</div>
                                 <div class="widget-subheading opacity-7">
                                     {{$orders->orderDetails[0]->product->name}}
