@@ -26,6 +26,7 @@ class OrdersController extends Controller
         ];
         $count_user_trash = 0;
         $count_user_cancel = 0;
+        $count_user_completed =0;
         if ($status == 'trash') {
             $list_act = [
                 'restore' => 'Restore',
@@ -37,17 +38,34 @@ class OrdersController extends Controller
                 ->paginate(10);
             $count_user_trash = Order::where('status', 0)->count();
             $count_user_cancel = Order::where('status', 5)->count();
+            $count_user_completed =Order::where('status',4)->count();
+
 
         } elseif ($status == 'cancel') {
             $list_act = [
                 'restore' => 'Restore',
                 'forceDelete' => 'Permanently deleted'
             ];
-            $order = Order::where('status',5)
+            $order = Order::where('status', 5)
                 ->orderBy('status', 'asc')
                 ->paginate(10);
             $count_user_cancel = Order::where('status', 5)->count();
             $count_user_trash = Order::where('status', 0)->count();
+            $count_user_completed =Order::where('status',4)->count();
+
+
+
+        }elseif($status == 'completed') {
+            $list_act = [
+                'restore' => 'Restore',
+                'forceDelete' => 'Permanently deleted'
+            ];
+            $order = Order::where('status', 4)
+                ->orderBy('status', 'asc')
+                ->paginate(10);
+            $count_user_cancel = Order::where('status', 5)->count();
+            $count_user_trash = Order::where('status', 0)->count();
+            $count_user_completed =Order::where('status',4)->count();
 
         } else {
             $search = $request->input('search');
@@ -71,13 +89,14 @@ class OrdersController extends Controller
             // Số lượng đơn hàng có trạng thái 0 sẽ là 0
             $count_user_trash = Order::where('status', 0)->count();
             $count_user_cancel = Order::where('status', 5)->count();
+            $count_user_completed =Order::where('status',4)->count();
 
 
         }
 
         $count_user_active = Order::count();
 
-        $count = [$count_user_active, $count_user_trash,$count_user_cancel];
+        $count = [$count_user_active, $count_user_trash,$count_user_cancel,$count_user_completed];
 
         return view("admin.orders.index", compact('order', 'count', 'list_act', 'status'));
     }

@@ -118,13 +118,13 @@ Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
 
 //xử lý route category
     Route::prefix('category')->group(function (){
-        Route::get('',[\App\Http\Controllers\Admin\ProductCategoryController::class,'index']);
-        Route::get('create',[\App\Http\Controllers\Admin\ProductCategoryController::class,'create']);
-        Route::post('store',[\App\Http\Controllers\Admin\ProductCategoryController::class,'store']);
-        Route::post('action',[\App\Http\Controllers\Admin\ProductCategoryController::class,'action']);
-        Route::get('edit/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'edit'])->name('category.edit');
-        Route::post('edit/update/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'update'])->name('category.update');
-        Route::get('delete/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'delete'])->name('delete_category');
+        Route::get('',[\App\Http\Controllers\Admin\ProductCategoryController::class,'index'])->can('category.view');
+        Route::get('create',[\App\Http\Controllers\Admin\ProductCategoryController::class,'create'])->can('category.add');
+        Route::post('store',[\App\Http\Controllers\Admin\ProductCategoryController::class,'store'])->can('category.add');
+        Route::post('action',[\App\Http\Controllers\Admin\ProductCategoryController::class,'action'])->can('category.view');
+        Route::get('edit/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'edit'])->name('category.edit')->can('category.edit');
+        Route::post('edit/update/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'update'])->name('category.update')->can('category.edit');
+        Route::get('delete/{id}',[\App\Http\Controllers\Admin\ProductCategoryController::class,'delete'])->name('delete_category')->can('category.delete');
 
     });
     //xử lý product
@@ -142,13 +142,13 @@ Route::prefix('admin')->middleware('CheckAdminLogin')->group(function (){
     });
 //xử lý Brand
     Route::prefix('brand')->group(function (){
-        Route::get('',[\App\Http\Controllers\Admin\BrandController::class,'index']);
-        Route::get('create',[\App\Http\Controllers\Admin\BrandController::class,'create']);
-        Route::post('store',[\App\Http\Controllers\Admin\BrandController::class,'store']);
-        Route::post('action',[\App\Http\Controllers\Admin\BrandController::class,'action']);
-        Route::get('edit/{id}',[\App\Http\Controllers\Admin\BrandController::class,'edit'])->name('brand.edit');
-        Route::post('edit/update/{id}',[\App\Http\Controllers\Admin\BrandController::class,'update'])->name('brand.update');
-        Route::get('delete/{id}',[\App\Http\Controllers\Admin\BrandController::class,'delete'])->name('delete_brand');
+        Route::get('',[\App\Http\Controllers\Admin\BrandController::class,'index'])->can('brand.view');
+        Route::get('create',[\App\Http\Controllers\Admin\BrandController::class,'create'])->can('brand.add');
+        Route::post('store',[\App\Http\Controllers\Admin\BrandController::class,'store'])->can('brand.add');
+        Route::post('action',[\App\Http\Controllers\Admin\BrandController::class,'action'])->can('brand.view');
+        Route::get('edit/{id}',[\App\Http\Controllers\Admin\BrandController::class,'edit'])->name('brand.edit')->can('brand.edit');
+        Route::post('edit/update/{id}',[\App\Http\Controllers\Admin\BrandController::class,'update'])->name('brand.update')->can('brand.edit');
+        Route::get('delete/{id}',[\App\Http\Controllers\Admin\BrandController::class,'delete'])->name('delete_brand')->can('brand.delete');
     });
 //xử lý route user
     Route::prefix('user')->group(function (){

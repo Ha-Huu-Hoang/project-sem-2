@@ -149,7 +149,7 @@
                 </li>
             </ul>
             @endcanany
-{{--            @canany(['category.view','category.edit','category.edit','category.delete'])--}}
+            @canany(['category.view','category.edit','category.edit','category.delete'])
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Category</span>
             </p>
@@ -161,8 +161,8 @@
                     </a>
                 </li>
             </ul>
-{{--            @endcanany--}}
-{{--            @canany(['brand.view','brand.edit','brand.edit','brand.delete'])--}}
+            @endcanany
+            @canany(['brand.view','brand.edit','brand.edit','brand.delete'])
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Brand</span>
             </p>
@@ -174,6 +174,7 @@
                     </a>
                 </li>
             </ul>
+            @endcanany
 
             <p class="text-muted nav-heading mt-1 mb-1">
                 <span>Decentralization</span>
@@ -194,14 +195,14 @@
                         @can('role.view')
                             <li class="nav-item">
                                 <a class="nav-link pl-3" href="{{route('role.index')}}">
-                                    <span class="ml-1 item-text">More roles</span>
+                                    <span class="ml-1 item-text">List of roles</span>
                                 </a>
                             </li>
                         @endcan
                         @can('role.add')
                             <li class="nav-item">
                                 <a class="nav-link pl-3" href="{{route('role.add')}}">
-                                    <span class="ml-1 item-text">List of roles</span>
+                                    <span class="ml-1 item-text"> More roles</span>
                                 </a>
                             </li>
                         @endcan

@@ -52,7 +52,7 @@
                                 <span> | {{count($product->productComment)}} Reviews</span>
                             </div>
                             @if($product->discount != null)
-                                <h3>${{$product->price}} <span>{{$product->discount}}</span></h3>
+                                <h3>${{$product->price}} <span>${{$product->discount}}</span></h3>
                             @else
                                 <h3>${{$product->price}}</h3>
                             @endif

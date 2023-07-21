@@ -100,7 +100,7 @@
             <div class="row">
                 <div class="col-lg-12">
                     <ul class="filter__controls">
-                        <li class="active" data-filter="*">Best Sellers</li>
+                        <li class="active" data-filter="*">Featured</li>
                         <li data-filter=".new-arrivals">Featured Women</li>
                         <li data-filter=".hot-sales">Featured Men</li>
                     </ul>

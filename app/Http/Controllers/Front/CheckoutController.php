@@ -171,7 +171,7 @@ class CheckoutController extends Controller
                 $this->orderDetailService->create($data);
             }
 
-            // Update product quantities
+//             Update product quantities
             foreach ($carts as $cart) {
                 $product = Product::find($cart->id);
                 if ($product) {
@@ -182,6 +182,7 @@ class CheckoutController extends Controller
                     $product->save();
                 }
             }
+
         }
 
 
